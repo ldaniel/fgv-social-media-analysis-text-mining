@@ -1,0 +1,8 @@
+---
+title: "Referências"
+date: "Outubro de 2019"
+---
+
+# Referências utilizadas neste trabalho
+
+- [**Title**](https://www.site.com/) --Author

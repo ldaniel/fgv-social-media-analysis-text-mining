@@ -1,0 +1,26 @@
+---
+title: 'FGV MBA: Business Analytics & Big Data'
+---
+
+# Social-Media-Analysis-Text-Mining
+
+O objetivo deste website é apresentar a solução para o trabalho proposto no módulo de Análise de Mídias Sociais e Mineração de Texto do curso de MBA em Business Analytics e Big Data da FGV (turma Berrini).
+
+Utilize o menu acima para navegar pelo site e visualizar o relatório final.
+
+## Professores
+- Gustavo Mirapalheta (gustavo.mirapalheta@fgv.br)
+- Eduardo de Rezende Francisco (eduardo.francisco@fgv.br)
+
+## Alunos / ID (matrícula)
+
+- <a href="https://github.com/DanielFCampos"><img src="https://avatars2.githubusercontent.com/u/31582602?s=460&v=4" title="DanielFCampos" width="40" height="40"></a> [Daniel Campos](mailto:daniel.ferraz.campos@gmail.com) / A57635769
+- <a href="https://github.com/ldaniel"><img src="https://avatars2.githubusercontent.com/u/205534?s=460&v=4" title="ldaniel" width="40" height="40"></a>  [Leandro Daniel](mailto:contato@leandrodaniel.com) / A57622988
+- <a href="https://github.com/RodriGonca"><img src="https://avatars2.githubusercontent.com/u/50252438?s=460&v=4" title="RodriGonca" width="40" height="40"></a> [Rodrigo Goncalves](mailto:rodrigo.goncalves@me.com) / A57566093
+- <a href="https://github.com/ygorlima1"><img src="https://avatars2.githubusercontent.com/u/52429828?s=460&v=4" title="ygorlima1" width="40" height="40"></a>  [Ygor Lima](mailto:ygor_redesocial@hotmail.com) / A57549661
+
+## Onde encontrar o código-fonte deste projeto?
+Este projeto pode ser baixado do GitHub: https://github.com/ldaniel/Matrix-Methods-Cluster-Analysis
+
+> Valar Morghulis!
+> :)

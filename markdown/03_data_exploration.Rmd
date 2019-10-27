@@ -1,0 +1,61 @@
+---
+title: "Exploração dos Dados"
+date: "Outubro de 2019"
+
+output:
+  html_document:
+    code_folding: hide
+---
+
+```{r setup_exploration, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos =  "h")
+knitr::opts_knit$set(root.dir = "./")
+
+options(Encoding="UTF-8")
+
+# markdown libraries
+library(rmarkdown)
+library(knitr)
+
+# data exploration libraries
+library(tibble)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(lubridate)
+
+# plotting libraries
+library(ggplot2)
+library(plotly)
+library(ggthemes)
+library(ggalluvial)
+library(ggpubr)
+library(ggcorrplot)
+
+# loading required scripts
+source("../src/util/auxiliary_functions.R")
+```
+
+# Análise inicial
+
+To-do.
+
+## Carregando a base de dados processada
+
+Carregamos a base de dados alvo, previamente tratada durante os passos explicados na fase de **Data Preparation** (preparação de dados). 
+
+```{r data_load, echo=TRUE}
+target_data <- readRDS('../data/processed/target_dataset.rds')
+summary(target_data)
+```
+
+## Exploração inicial 
+
+To-do
+
+```{r exploration 1, echo=TRUE, out.width = '100%'}
+
+# to-do
+
+```

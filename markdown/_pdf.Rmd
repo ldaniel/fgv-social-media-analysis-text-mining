@@ -1,0 +1,28 @@
+---  
+title: 'FGV MBA: Business Analytics & Big Data'
+output:
+  pdf_document:
+    latex_engine: xelatex
+    highlight: tango
+    keep_tex: yes
+    number_sections: yes
+    toc: yes
+---
+
+```{r child = 'index.Rmd'}
+```
+
+```{r child = '01_about_the_data.Rmd'}
+```
+
+```{r child = '02_data_preparation.Rmd'}
+```
+
+```{r child = '03_exploration_report.Rmd'}
+```
+
+```{r child = 'conclusion.Rmd'}
+```
+
+```{r child = 'references.Rmd'}
+```

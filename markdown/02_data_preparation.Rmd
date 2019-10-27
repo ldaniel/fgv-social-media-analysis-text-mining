@@ -1,0 +1,94 @@
+---
+title: "Preparação dos Dados"
+date: "Outubro de 2019"
+---
+
+```{r setup_preparation, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos =  "h")
+knitr::opts_knit$set(root.dir = "./")
+
+options(Encoding="UTF-8")
+
+# data prep libraries
+library(tibble)
+library(dplyr)
+library(readxl)
+library(stringr)
+library(lubridate)
+
+# loading required scripts
+source("../src/util/auxiliary_functions.R")
+```
+
+# Utilizando uma abordagem dividida em passos
+
+Antes de iniciar a análise para o projeto Matrix-Methods-Cluster-Analysis, alguns importantes passos foram realizados para preparação da fonte de dados. Estes passos foram descritos nos tópicos a seguir.
+
+O processo preparação de dados, em geral, inclui etapas de extração (retirar os dados de sua localização atual), tranformação (limpar e normalizar os dados) e carga (colocar os dados em um banco de dados onde eles podem ser analisados).
+
+## Step 01: Configuração do ambiente
+
+Passo que executa configurações iniciais para execução dos passos seguintes.
+
+## Step 02: Ingestão dos dados
+
+A etapa de ingestão de dados - data ingestion - é responsável por carregar os dados da fonte de dados de origem.
+
+``` {r step_02_data_ingestion, eval = FALSE}
+source("../src/datapreparation/step_02_data_ingestion.R")
+```
+
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('../src/datapreparation/step_02_data_ingestion.R')
+```
+
+```{r step_02_data_ingestion.R, eval=FALSE}
+
+```
+
+## Step 03: Tratamento dos dados
+
+O objetivo desta etapa é analisar valores ausentes (missing values) e outras condições estranhas. Para a resolução desta atividade, não 
+
+``` {r step_03_data_cleaning, eval = FALSE}
+source("../src/datapreparation/step_03_data_cleaning.R")
+```
+
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('../src/datapreparation/step_03_data_cleaning.R')
+```
+
+```{r step_03_data_cleaning.R, eval=FALSE}
+
+```
+
+## Step 04: Preparação dos datasets
+
+Como último passo de preparação de dados, o dataset final é salvo em formato **.rds** para uso nos demais relatórios e scripts.
+
+``` {r step_05_dataset_preparation, eval = FALSE}
+source("../src/datapreparation/step_05_dataset_preparation.R")
+```
+
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('../src/datapreparation/step_05_dataset_preparation.R')
+```
+
+```{r step_05_dataset_preparation.R, eval=FALSE}
+
+```
+
+*******************************************************************************
+
+# Funções criadas
+
+Para realização deste trabalho, algumas funções foram criadas para otimizar atividades e procedimentos repetitivos. Estas funções também podem, futuramente, serem reusadas em outros projetos ou mesmo serem adicionadas uma library R.
+
+``` {r auxiliary_functions, eval = FALSE}
+source("../src/util/auxiliary_functions.R")
+```
+
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('../src/util/auxiliary_functions.R')
+```

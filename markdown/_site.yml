@@ -1,0 +1,31 @@
+name: "Social-Media-Analysis-Text-Mining"
+navbar:
+  title: "FGV MBA"
+  left:
+    - text: "Home"
+      icon: fa-home
+      href: index.html
+    - text: "Cenário Proposto"
+      icon: fa-hand-holding-usd
+      menu: 
+        - text: "Sobre os dados"
+          href: 01_about_the_data.html
+        - text: "---------"
+        - text: "Análise Inicial"
+        - text: "Preparação dos Dados"
+          href: 02_data_preparation.html
+        - text: "Exploração dos Dados"
+          href: 03_data_exploration.html
+    - text: "Relatório Final"
+      icon: fa-file-invoice-dollar
+      menu:
+        - text: "Conclusão"
+          href: conclusion.html
+        - text: "Referências"
+          href: references.html
+output:
+  html_document: 
+    theme: cosmo
+    highlight: tango
+    number_sections: yes
+    toc: yes
