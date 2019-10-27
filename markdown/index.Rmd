@@ -20,7 +20,7 @@ Utilize o menu acima para navegar pelo site e visualizar o relatório final.
 - <a href="https://github.com/ygorlima1"><img src="https://avatars2.githubusercontent.com/u/52429828?s=460&v=4" title="ygorlima1" width="40" height="40"></a>  [Ygor Lima](mailto:ygor_redesocial@hotmail.com) / A57549661
 
 ## Onde encontrar o código-fonte deste projeto?
-Este projeto pode ser baixado do GitHub: https://github.com/ldaniel/Matrix-Methods-Cluster-Analysis
+Este projeto pode ser baixado do GitHub: https://github.com/ldaniel/Social-Media-Analysis-Text-Mining
 
 > Valar Morghulis!
 > :)
