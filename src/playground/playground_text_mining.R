@@ -1,3 +1,5 @@
+# loading required libraries --------------------------------------------------
+
 # general libraries
 library(dplyr)
 library(ggplot2)
@@ -7,8 +9,12 @@ library(tm)
 library(SnowballC)
 library(wordcloud)
 
+# loading other scripts do be used here ---------------------------------------
+source("./src/util/auxiliary_functions.R")
+source("./src/datapreparation/step_01_config_environment.R")
+
 # create corpus ---------------------------------------------------------------
-docs <- Corpus(DirSource("../data/raw"))
+docs <- Corpus(DirSource("../../data/raw/"))
 inspect(docs)
 
 # inspect a particular document
@@ -102,7 +108,7 @@ freqr[head(ordr)]
 freqr[tail(ordr)]
 
 # list most frequent terms, lower bound specified as second argument
-findFreqTerms(dtmr, lowfreq = 80)
+findFreqTerms(dtmr, lowfreq = 8)
 
 # correlations
 findAssocs(dtmr, "buddha", 0.2)
@@ -112,7 +118,7 @@ findAssocs(dtmr, "system", 0.6)
 # histogram
 wf = data.frame(term = names(freqr), occurrences = freqr)
 
-p <- ggplot(subset(wf, freqr > 100), aes(term, occurrences))
+p <- ggplot(subset(wf, freqr > 8), aes(term, occurrences))
 p <- p + geom_bar(stat = "identity")
 p <- p + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 p
