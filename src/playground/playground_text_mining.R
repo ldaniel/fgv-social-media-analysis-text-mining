@@ -133,3 +133,4 @@ wordcloud(names(freqr), freq, min.freq = 70)
 
 # ... and color
 wordcloud(names(freqr), freq, min.freq = 70, colors = brewer.pal(6, "Dark2"))
+
