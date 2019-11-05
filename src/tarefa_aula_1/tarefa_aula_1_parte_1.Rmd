@@ -5,6 +5,7 @@ date: "Novembro de 2019"
 output: 
   word_document: 
     reference_docx: "word-styles-reference.docx"
+    toc: yes
 ---
 
 ```{r setup_evaluation, include=FALSE}
@@ -24,6 +25,8 @@ library(ggpubr)
 ```
 
 # Enunciado (parte 1)
+
+A folha de respostas deverá ter o nome do(s) aluno(s), o cabeçalho de cada questão e as respostas (retirem este trecho de instruções da versão final).
 
 - Explore as rotinas Exemplo Rede.R e Exemplo Rede Two Mode.R . Rode os códigos na plataforma R utilizando como base as tabelas Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx e Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx. (atenção: não são as mesmas bases trabalhadas em sala). 
 
