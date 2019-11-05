@@ -14,7 +14,7 @@ library(network)
 library(sna)
 
 # Li o arquivo com as informacoes de compras
-compras <- read.table("data/7-analise-de-midias-sociais-e-mineracao-de-texto/Exemplo Rede TwoMode.csv",
+compras <- read.table("data/raw/Exemplo Rede TwoMode.csv",
                       header = TRUE, sep = ";", dec = ",")
 
 # Adaptando o data.frame compras para que possa servir para a montagem da rede

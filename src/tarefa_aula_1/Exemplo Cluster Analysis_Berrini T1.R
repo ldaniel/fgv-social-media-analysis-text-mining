@@ -13,7 +13,7 @@ library(ggplot2)
 library(ggdendro)
 
 # Le o arquivo com as informacoes dos Sanduiches
-sanduiches <- read.table("data/7-analise-de-midias-sociais-e-mineracao-de-texto/Sanduiches.csv",
+sanduiches <- read.table("data/raw/Sanduiches.csv",
                          header = TRUE, sep = ";",
                          dec = ",")
 

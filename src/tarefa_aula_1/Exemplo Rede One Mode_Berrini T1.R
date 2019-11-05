@@ -20,7 +20,7 @@ library(rgl)
 library(visNetwork)
 
 # Trabalha a partir de uma rede aleat?ria
-rede <- read.table("data/7-analise-de-midias-sociais-e-mineracao-de-texto/Exemplo Rede.csv",
+rede <- read.table("data/raw/Exemplo Rede.csv",
                    header = TRUE,
                    sep = ";", dec = ",")
 
