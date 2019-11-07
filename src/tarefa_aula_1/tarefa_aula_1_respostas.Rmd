@@ -1,0 +1,67 @@
+---
+title: "Tarefa Aula 1 – Exploração de SNA em R"
+date: "Novembro de 2019"
+output: 
+  word_document: 
+    highlight: tango
+    toc: yes
+    reference_docx: word-styles-reference.docx
+---
+
+```{r setup_evaluation, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos =  "h")
+knitr::opts_knit$set(root.dir = "./")
+
+# loading required libraries
+library(rmarkdown)
+library(dplyr)
+library(lubridate)
+library(knitr)
+library(stringr)
+library(zoo)
+library(forecast)
+library(ggplot2)
+library(ggpubr)
+```
+
+*******************************************************************************
+
+# Alunos / ID (matrícula)
+
+\  
+
+- <a href="https://github.com/DanielFCampos"><img src="https://avatars2.githubusercontent.com/u/31582602?s=460&v=4" title="DanielFCampos" width="40" height="40"></a> [Daniel Campos](mailto:daniel.ferraz.campos@gmail.com) / A57635769
+- <a href="https://github.com/ldaniel"><img src="https://avatars2.githubusercontent.com/u/205534?s=460&v=4" title="ldaniel" width="40" height="40"></a>  [Leandro Daniel](mailto:contato@leandrodaniel.com) / A57622988
+- <a href="https://github.com/RodriGonca"><img src="https://avatars2.githubusercontent.com/u/50252438?s=460&v=4" title="RodriGonca" width="40" height="40"></a> [Rodrigo Goncalves](mailto:rodrigo.goncalves@me.com) / A57566093
+- <a href="https://github.com/ygorlima1"><img src="https://avatars2.githubusercontent.com/u/52429828?s=460&v=4" title="ygorlima1" width="40" height="40"></a>  [Ygor Lima](mailto:ygor_redesocial@hotmail.com) / A57549661
+
+*******************************************************************************
+
+# Enunciado (parte 1)
+
+\  
+
+A folha de respostas deverá ter o nome do(s) aluno(s), o cabeçalho de cada questão e as respostas.
+
+\  
+
+- Explore as rotinas Exemplo Rede.R e Exemplo Rede Two Mode.R . Rode os códigos na plataforma R utilizando como base as tabelas Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx e Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx. (atenção: não são as mesmas bases trabalhadas em sala). 
+
+- Faça pequenas modificações na tabela e veja seus resultados.
+
+- Inclua outras análises em seu código (usando as extensões sna, network ou igraph) e comente os resultados (seja criativo!).
+
+- Compile as saídas dos códigos (conteúdo das variáveis, gráficos, tabelas) em um documento Word (usando o modelo deste documento) e comente seus resultados (principalmente as medidas de centralidade), análises, potenciais implicações gerenciais, etc, conforme discutido em sala na Aula 1.
+
+*******************************************************************************
+
+# Enunciado (parte 2)
+
+\  
+
+- **Desafio:** Baseado na tabela da Rede Two Mode desta tarefa, faça uma análise de agrupamento (cluster analysis) do tipo hierárquico aglomerativo (dendrograma) das pessoas ou dos produtos adquiridos por elas, levando em consideração apenas a estrutura de relações entre elas. Comente como implementou e discuta os resultados, comparando com a rede construída. Utilize a plataforma R e o script de exemplo de uso de Cluster Analysis em R.
+
+\  
+
+*Dica: após a seleção dos grupos, desenhe a rede e represente os nós das pessoas (ou produtos) com cores de acordo com o grupo correspondente.*
