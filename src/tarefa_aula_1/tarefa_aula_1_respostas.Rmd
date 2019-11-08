@@ -13,16 +13,26 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.pos =  "h")
 knitr::opts_knit$set(root.dir = "./")
 
-# loading required libraries
+# loading markdown libraries
 library(rmarkdown)
+library(knitr)
+
+# loading basic libraries
 library(dplyr)
 library(lubridate)
-library(knitr)
 library(stringr)
-library(zoo)
-library(forecast)
+library(xlsx)
+
+# loasing plot libraries
 library(ggplot2)
 library(ggpubr)
+
+# loading libraries for SNA (Systems Network Architecture)
+library(network)
+library(sna)
+library(rgl)
+library(visNetwork)
+#library(igraph)
 ```
 
 *******************************************************************************
@@ -35,6 +45,8 @@ library(ggpubr)
 - <a href="https://github.com/ldaniel"><img src="https://avatars2.githubusercontent.com/u/205534?s=460&v=4" title="ldaniel" width="40" height="40"></a>  [Leandro Daniel](mailto:contato@leandrodaniel.com) / A57622988
 - <a href="https://github.com/RodriGonca"><img src="https://avatars2.githubusercontent.com/u/50252438?s=460&v=4" title="RodriGonca" width="40" height="40"></a> [Rodrigo Goncalves](mailto:rodrigo.goncalves@me.com) / A57566093
 - <a href="https://github.com/ygorlima1"><img src="https://avatars2.githubusercontent.com/u/52429828?s=460&v=4" title="ygorlima1" width="40" height="40"></a>  [Ygor Lima](mailto:ygor_redesocial@hotmail.com) / A57549661
+
+\  
 
 *******************************************************************************
 
@@ -53,6 +65,66 @@ A folha de respostas deverá ter o nome do(s) aluno(s), o cabeçalho de cada que
 - Inclua outras análises em seu código (usando as extensões sna, network ou igraph) e comente os resultados (seja criativo!).
 
 - Compile as saídas dos códigos (conteúdo das variáveis, gráficos, tabelas) em um documento Word (usando o modelo deste documento) e comente seus resultados (principalmente as medidas de centralidade), análises, potenciais implicações gerenciais, etc, conforme discutido em sala na Aula 1.
+
+\  
+
+## Explorando as rotinas de exemplo
+
+\  
+
+Como primeiro passo para o exercício proposto, vamos carregar os dados da planilha Excel **Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx**. Como primeiro tratamento, removeremos a primeira coluna que possui os nomes dos nós e vamos atribuir às linhas.
+
+\  
+
+```{r exploration_1, echo = TRUE, out.width = '100%'}
+
+# carregando a planilha com os dados do exercício
+rede <- read.xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                  sheetName = "Exemplo Rede")
+
+# removendo a coluna com os nomes dos nós
+grede <- rede[,2:25]
+
+# atribuindo o nome dos nós às linhas
+rownames(grede) <- rede[,1]
+
+```
+
+
+\  
+
+Podemos então, visualizar a rede.
+
+\  
+
+```{r exploration_2, echo = TRUE, out.width = '100%'}
+
+gplot(grede, 
+      gmode = "graph", 
+      displaylabels = TRUE, 
+      edge.col = "gray", 
+      usearrows = FALSE)
+
+```
+
+\  
+
+Explorando **degree**, **closeness** e **betweenness**.
+
+\  
+
+```{r exploration_3, echo = TRUE, out.width = '100%'}
+
+metricas <- cbind(label = rownames(grede),
+                  degree = degree(grede, gmode = "graph", cmode = "indegree"),
+                  closeness = closeness(grede, gmode = "graph"),
+                  betweenness = betweenness(grede, gmode = "graph"))
+
+kable(metricas)
+
+```
+
+\  
 
 *******************************************************************************
 
