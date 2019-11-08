@@ -19,7 +19,7 @@ library(rgl)
 
 library(visNetwork)
 
-# Trabalha a partir de uma rede aleat?ria
+# Trabalha a partir de uma rede aleatoria
 rede <- read.table("data/raw/Exemplo Rede.csv",
                    header = TRUE,
                    sep = ";", dec = ",")
@@ -41,7 +41,7 @@ degree(grede, gmode = "graph", cmode = "indegree")
 closeness(grede, gmode = "graph")
 betweenness(grede, gmode = "graph")
 
-# Aprimorando a representa??o da rede
+# Aprimorando a representacao da rede
 gplot(grede,gmode = "grede", displaylabels = TRUE,
       edge.col = "gray", usearrows = FALSE, 
       vertex.cex = degree(grede, gmode = "graph", cmode = "indegree") / 3)
