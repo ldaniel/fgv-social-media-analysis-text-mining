@@ -9,6 +9,7 @@ output:
 ---
 
 ```{r setup_evaluation, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(fig.pos =  "h")
 knitr::opts_knit$set(root.dir = "./")
@@ -16,6 +17,8 @@ knitr::opts_knit$set(root.dir = "./")
 # loading markdown libraries
 library(rmarkdown)
 library(knitr)
+library(flextable)
+library(officer)
 
 # loading basic libraries
 library(dplyr)
@@ -32,7 +35,10 @@ library(network)
 library(sna)
 library(rgl)
 library(visNetwork)
-#library(igraph)
+
+# setting the seed up
+set.seed(42)
+
 ```
 
 *******************************************************************************
@@ -54,10 +60,6 @@ library(visNetwork)
 
 \  
 
-A folha de respostas deverá ter o nome do(s) aluno(s), o cabeçalho de cada questão e as respostas.
-
-\  
-
 - Explore as rotinas Exemplo Rede.R e Exemplo Rede Two Mode.R . Rode os códigos na plataforma R utilizando como base as tabelas Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx e Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx. (atenção: não são as mesmas bases trabalhadas em sala). 
 
 - Faça pequenas modificações na tabela e veja seus resultados.
@@ -68,38 +70,38 @@ A folha de respostas deverá ter o nome do(s) aluno(s), o cabeçalho de cada que
 
 \  
 
-## Explorando as rotinas de exemplo
+## Explorando as rotinas de exemplo para rede one mode
 
 \  
 
-Como primeiro passo para o exercício proposto, vamos carregar os dados da planilha Excel **Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx**. Como primeiro tratamento, removeremos a primeira coluna que possui os nomes dos nós e vamos atribuir às linhas.
+Como primeiro passo para o exercício proposto, vamos carregar os dados da planilha Excel **Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx**. Incialmente, removeremos a primeira coluna que possui os nomes dos nós e vamos atribui-la às linhas.
 
 \  
 
-```{r exploration_1, echo = TRUE, out.width = '100%'}
+```{r exploration_one_mode_1, echo = TRUE, out.width = '100%'}
 
 # carregando a planilha com os dados do exercício
-rede <- read.xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx", 
-                  sheetName = "Exemplo Rede")
+rede_one_mode <- read.xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheetName = "Exemplo Rede")
 
 # removendo a coluna com os nomes dos nós
-grede <- rede[,2:25]
+grede_one_mode <- rede_one_mode[,2:25]
 
 # atribuindo o nome dos nós às linhas
-rownames(grede) <- rede[,1]
+rownames(grede_one_mode) <- rede_one_mode[,1]
 
 ```
 
 
 \  
 
-Podemos então, visualizar a rede.
+Podemos então, visualizar a rede sob a forma de um grafo.
 
 \  
 
-```{r exploration_2, echo = TRUE, out.width = '100%'}
+```{r plot_one_mode_1, echo = TRUE, out.width = '100%'}
 
-gplot(grede, 
+gplot(grede_one_mode, 
       gmode = "graph", 
       displaylabels = TRUE, 
       edge.col = "gray", 
@@ -107,22 +109,58 @@ gplot(grede,
 
 ```
 
+
+O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **igraph**.
+
 \  
 
-Explorando **degree**, **closeness** e **betweenness**.
+```{r plot_one_mode_2, echo = TRUE, out.width = '100%'}
 
-\  
+g_one_mode <- igraph::graph_from_adjacency_matrix(as.matrix(grede_one_mode))
 
-```{r exploration_3, echo = TRUE, out.width = '100%'}
-
-metricas <- cbind(label = rownames(grede),
-                  degree = degree(grede, gmode = "graph", cmode = "indegree"),
-                  closeness = closeness(grede, gmode = "graph"),
-                  betweenness = betweenness(grede, gmode = "graph"))
-
-kable(metricas)
+visIgraph(g_one_mode)
 
 ```
+
+\  
+
+A **SNA**, do inglês Systems Network Analysis (Análise de Sistemas de Redes), dispõe de um conjunto de métricas que auxiliam na compreensão da dinâmica dos relacionamentos existentes nas redes analisadas. Dentre elas, destacam-se as métricas de Centralidade (Centrality), que permitem a avaliação da importância de um nó (individuo/ação/postagem) dentro da rede. Na sequência, vamos explorar as métricas de centralidade: **degree**, **closeness** e **betweenness**.
+
+\  
+
+A **Centralidade de Grau** (Degree Centrality) representa o número de ligações que um nó possui (degree), dividido pelo número de ligações possíveis.
+
+\  
+
+Definimos como **Centralidade de Proximidade** (Closeness Centrality) a medida do comprimento médio dos caminhos mais curtos de um vértice para cada um dos outros vértices de um grafo.
+
+\  
+
+A chamada **Centralidade de Intermediação** (Betweenness Centrality) representa a quantidade de vezes que um determinado nó aparece no caminho geodésico entre dois nós da rede.
+
+\  
+
+```{r exploration_metrics_one_mode_1, echo = TRUE, out.width = '100%'}
+
+metricas_one_mode <- cbind(label = rownames(grede_one_mode),
+                           degree = degree(grede_one_mode, gmode = "graph", cmode = "indegree"),
+                           closeness = closeness(grede_one_mode, gmode = "graph"),
+                           betweenness = betweenness(grede_one_mode, gmode = "graph"))
+
+table_output <- flextable(as.data.frame(metricas_one_mode))
+table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- autofit(table_output)
+table_output
+
+```
+
+\  
+
+## Aplicando modificações na rede e analisando os resultados
+
+\  
+
+Como primeiro passo para o exercício proposto, vamos carregar os dados da planilha Excel **Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx**. Incialmente, removeremos a primeira coluna que possui os nomes dos nós e vamos atribui-la às linhas.
 
 \  
 
