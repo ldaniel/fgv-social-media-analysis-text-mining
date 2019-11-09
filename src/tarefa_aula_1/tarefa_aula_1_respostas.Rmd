@@ -341,12 +341,16 @@ To-do.
 
 ```{r exploration_agnes_1, echo = TRUE, out.width = '100%'}
 
+# determinando a distância euclidiana
 cluster_dist <- dist(rede_two_mode, method = "euclidean")
+
+# encontrando os clusters utilizando AGENS com o método WARD
 cluster_agnes_ward <- agnes(cluster_dist, 
                        diss = TRUE, 
                        metric = 'euclidian', 
                        method = 'ward')
 
+# plotando os clusters
 fviz_cluster(list(data = rede_two_mode[,-1], 
                   cluster = cutree(cluster_agnes_ward, k = 5)),  
              show.clust.cent = TRUE)
@@ -360,8 +364,10 @@ To-do.
 
 ```{r exploration_kmeans_1, echo = TRUE, out.width = '100%'}
 
-cluster_kmeans <- kmeans(rede_two_mode[,-1], 5, nstart = 100)
+# encontrando kmeans, para k = 5
+cluster_kmeans <- kmeans(rede_two_mode[,-1], centers = 5, nstart = 100)
 
+# plotando os clusters
 fviz_cluster(list(data = rede_two_mode[,-1], cluster = cluster_kmeans$cluster),
              show.clust.cent = T)
 
