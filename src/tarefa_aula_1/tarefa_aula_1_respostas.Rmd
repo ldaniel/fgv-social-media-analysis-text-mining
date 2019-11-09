@@ -26,7 +26,7 @@ library(lubridate)
 library(stringr)
 library(xlsx)
 
-# loasing plot libraries
+# loading plot libraries
 library(ggplot2)
 library(ggpubr)
 library(ggdendro)
@@ -36,6 +36,9 @@ library(network)
 library(sna)
 library(rgl)
 library(visNetwork)
+
+# loading libraries for cluster
+library(factoextra)
 
 # setting the seed up
 set.seed(42)
@@ -324,4 +327,3 @@ boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue", main = 'Box Plot 
 boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", main = 'Box Plot da Bola de Futebol')
 
 ```
-
