@@ -30,6 +30,7 @@ library(xlsx)
 library(ggplot2)
 library(ggpubr)
 library(ggdendro)
+library(gridExtra)
 
 # loading libraries for SNA (Systems Network Architecture)
 library(network)
@@ -255,7 +256,9 @@ To-do.
 
 *Dica: após a seleção dos grupos, desenhe a rede e represente os nós das pessoas (ou produtos) com cores de acordo com o grupo correspondente.*
 
-## Análise de agrupamento do tipo hierárquico aglomerativo
+\  
+
+## Analisando agrupamento do tipo hierárquico aglomerativo
 
 \  
 
@@ -319,7 +322,11 @@ grupos
 
 \  
 
-To-do.
+## Analisando as principais variáveis
+
+\  
+
+O boxplot é um tipo de diagrama construído utilizando as referências de valores mínimos e máximos, primeiro e terceiro quartil, mediana e outliers da base de dados. O boxplot tem como objetivo estudar as medidas estatística do conjunto de dados, como variabilidade, média e outliers.
 
 \  
 
@@ -332,6 +339,10 @@ boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue", main = 'Box Plot 
 boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", main = 'Box Plot da Bola de Futebol')
 
 ```
+
+\  
+
+## Visualizando os clusters
 
 \  
 
@@ -356,6 +367,7 @@ fviz_cluster(list(data = rede_two_mode[,-1],
              show.clust.cent = TRUE)
 
 ```
+
 \  
 
 To-do.
@@ -370,5 +382,35 @@ cluster_kmeans <- kmeans(rede_two_mode[,-1], centers = 5, nstart = 100)
 # plotando os clusters
 fviz_cluster(list(data = rede_two_mode[,-1], cluster = cluster_kmeans$cluster),
              show.clust.cent = T)
+
+```
+
+\  
+
+## Checando as estatísticas
+
+\  
+
+To-do.
+
+\  
+
+```{r exploration_cluster_stats_1, echo = TRUE, out.width = '100%'}
+
+# estatísticas do cluster com AGNES, com método WARD
+cluster.stats(cluster_dist, cutree(cluster_agnes_ward, k = 5))
+
+```
+
+\  
+
+To-do.
+
+\  
+
+```{r exploration_cluster_stats_2, echo = TRUE, out.width = '100%'}
+
+# estatísticas do cluster com KMEANS
+cluster.stats(cluster_dist, cluster_kmeans$cluster)
 
 ```
