@@ -33,8 +33,8 @@ grupos <- cutree(hc,k=3)
 grupos
 
 # Analisando as principais vari?veis a partir dos grupos
-boxplot(sanduiches$Sódio ~ grupos, col = "blue", main = 'Box Plot do Teor de Sodio')
-boxplot(sanduiches$Valor.Energético ~ grupos, col = "blue", main = 'Box Plot do Valor Energetico')
+boxplot(sanduiches$Sodio ~ grupos, col = "blue", main = 'Box Plot do Teor de Sodio')
+boxplot(sanduiches$Valor.Energetico ~ grupos, col = "blue", main = 'Box Plot do Valor Energetico')
 
 
 ## =================================
