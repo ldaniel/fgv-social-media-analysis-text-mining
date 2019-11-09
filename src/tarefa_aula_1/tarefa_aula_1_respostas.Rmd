@@ -29,6 +29,7 @@ library(xlsx)
 # loasing plot libraries
 library(ggplot2)
 library(ggpubr)
+library(ggdendro)
 
 # loading libraries for SNA (Systems Network Architecture)
 library(network)
@@ -94,7 +95,6 @@ grede_one_mode <- rede_one_mode[,2:25]
 rownames(grede_one_mode) <- rede_one_mode[,1]
 
 ```
-
 
 \  
 
@@ -249,3 +249,79 @@ To-do.
 \  
 
 *Dica: após a seleção dos grupos, desenhe a rede e represente os nós das pessoas (ou produtos) com cores de acordo com o grupo correspondente.*
+
+## Análise de agrupamento do tipo hierárquico aglomerativo
+
+\  
+
+Como primeiro passo para o exercício proposto, vamos carregar novamente os dados da planilha Excel **Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx**.
+
+\  
+
+```{r exploration_cluster_1, echo = TRUE, out.width = '100%'}
+
+# carregando a planilha com os dados do exercício
+rede_two_mode <- read.xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheetName = "Rede 2-mode")
+
+# atribuindo o nome dos nós às linhas
+rownames(rede_two_mode) <- rede_two_mode$NA.
+
+```
+
+\  
+
+O **dendrograma** é um diagrama de árvore que exibe os grupos formados por agrupamento de observações em cada passo e em seus níveis de similaridade. O nível de similaridade é medido ao longo do eixo vertical (alternativamente, você pode exibir o nível de distância) e as diferentes observações são listadas ao longo do eixo horizontal. 
+
+\  
+
+Utilizaremos o dendrograma para visualizar como os agrupamentos são formados em cada passo e para avaliar os níveis de similaridade (ou distância) dos agrupamentos que são formados.
+
+\  
+
+```{r exploration_dendrogram_1, echo = TRUE, out.width = '100%'}
+
+hc <- hclust(dist(rede_two_mode), "average")
+p <- ggdendrogram(hc, rotate = FALSE)
+print(p)
+ggdendrogram(hc, rotate = TRUE)
+
+hcdata <- dendro_data(hc)
+ggdendrogram(hcdata, rotate = TRUE, size = 2) + labs(title = "Dendrograma dos Produtos por Pessoas")
+
+```
+
+\  
+
+Para exibir os níveis de similaridade (ou distância), mantenha seu ponteiro sobre uma linha horizontal no dendrograma. O padrão de como a similaridade ou os valores de distância mudam de um passo para outro pode ajudar a escolher o agrupamento final dos seus dados. O passo onde os valores mudam abruptamente podem identificar um bom ponto para definir o agrupamento final. 
+
+\  
+
+A decisão sobre o agrupamento final também é chamada corte do dendrograma. O corte do dendrograma é similar ao desenho de uma linha por todo o dendrograma para especificar o agrupamento final. Você também pode comparar os dendrogramas a agrupamentos finais diferentes para determinar qual agrupamento final faz mais sentido para os dados.
+
+\  
+
+```{r exploration_dendrogram_2, echo = TRUE, out.width = '100%'}
+
+# "cortando" a árvore em 3 grupos
+grupos <- cutree(hc, k = 5)
+grupos
+
+```
+
+\  
+
+To-do.
+
+\  
+
+```{r exploration_bloxplot_1, echo = TRUE, out.width = '100%'}
+
+# analisando as principais variáveis a partir dos grupos
+boxplot(rede_two_mode$Camisa.do.Corinthians ~ grupos, col = "blue", main = 'Box Plot da Camisa do Corinthians')
+boxplot(rede_two_mode$Livro.Harry.Potter ~ grupos, col = "blue", main = 'Box Plot do Livro do Harry Potter')
+boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue", main = 'Box Plot da Lista Telefonica')
+boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", main = 'Box Plot da Bola de Futebol')
+
+```
+
