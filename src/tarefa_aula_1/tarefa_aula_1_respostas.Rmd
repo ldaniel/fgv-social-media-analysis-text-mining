@@ -39,6 +39,9 @@ library(visNetwork)
 # setting the seed up
 set.seed(42)
 
+# setting the encoding up
+options(encoding = "UTF-8")
+
 ```
 
 *******************************************************************************
@@ -140,6 +143,10 @@ A chamada **Centralidade de Intermediação** (Betweenness Centrality) represent
 
 \  
 
+A seguir, exploraremos as métricas de centralidade para a rede one mode.
+
+\  
+
 ```{r exploration_metrics_one_mode_1, echo = TRUE, out.width = '100%'}
 
 metricas_one_mode <- cbind(label = rownames(grede_one_mode),
@@ -156,11 +163,72 @@ table_output
 
 \  
 
-## Aplicando modificações na rede e analisando os resultados
+## Aplicando modificações na rede one mode e analisando os resultados
 
 \  
 
-Como primeiro passo para o exercício proposto, vamos carregar os dados da planilha Excel **Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx**. Incialmente, removeremos a primeira coluna que possui os nomes dos nós e vamos atribui-la às linhas.
+To-do
+
+\  
+
+## Explorando as rotinas de exemplo para rede two mode
+
+\  
+
+Como primeiro passo para o exercício proposto, vamos carregar os dados da planilha Excel **Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx**. Faremos um tratamento semelhante ao realizado para a rede anterior.
+
+\  
+
+```{r exploration_one_mode_1, echo = TRUE, out.width = '100%'}
+
+# carregando a planilha com os dados do exercício
+rede_two_mode <- read.xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheetName = "Rede 2-mode")
+
+# removendo a coluna com os nomes dos nós
+grede_two_mode <- rede_two_mode[,2:15]
+
+# atribuindo o nome dos nós às linhas
+rownames(grede_two_mode) <- rede_two_mode[,1]
+
+```
+
+
+\  
+
+Visualizando a rede sob a forma de um grafo.
+
+\  
+
+```{r plot_one_mode_1, echo = TRUE, out.width = '100%'}
+
+gplot(grede_two_mode, gmode = "twomode", 
+      displaylabels = TRUE,
+      edge.col = "gray", 
+      label.cex = 0.7, 
+      usearrows = FALSE)
+
+```
+
+\  
+
+A seguir, exploraremos as métricas de centralidade para a rede two mode.
+
+\  
+
+```{r exploration_metrics_one_mode_1, echo = TRUE, out.width = '100%'}
+
+metricas_two_mode <- cbind(label = rownames(grede_two_mode),
+                           degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
+                           closeness = closeness(grede_two_mode, gmode = "twomode"),
+                           betweenness = betweenness(grede_two_mode, gmode = "twomode"))
+
+table_output <- flextable(as.data.frame(metricas_two_mode))
+table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- autofit(table_output)
+table_output
+
+```
 
 \  
 
