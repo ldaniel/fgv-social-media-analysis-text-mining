@@ -32,7 +32,7 @@ library(ggpubr)
 library(ggdendro)
 library(gridExtra)
 
-# loading libraries for SNA (Systems Network Architecture)
+# loading libraries for SNA (Social Network Analysis)
 library(network)
 library(sna)
 library(rgl)
