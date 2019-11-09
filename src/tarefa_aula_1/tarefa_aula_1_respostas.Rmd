@@ -38,7 +38,9 @@ library(rgl)
 library(visNetwork)
 
 # loading libraries for cluster
+library(fpc)
 library(factoextra)
+library(cluster)
 
 # setting the seed up
 set.seed(42)
@@ -284,13 +286,16 @@ Utilizaremos o dendrograma para visualizar como os agrupamentos são formados em
 
 ```{r exploration_dendrogram_1, echo = TRUE, out.width = '100%'}
 
+# criando o cluster hierárquico (Hierarchical Clustering)
 hc <- hclust(dist(rede_two_mode), "average")
-p <- ggdendrogram(hc, rotate = FALSE)
-print(p)
-ggdendrogram(hc, rotate = TRUE)
-
 hcdata <- dendro_data(hc)
-ggdendrogram(hcdata, rotate = TRUE, size = 2) + labs(title = "Dendrograma dos Produtos por Pessoas")
+
+# plotando dendrograma (vertical)
+ggdendrogram(hcdata, rotate = TRUE, size = 2) + 
+  labs(title = "Dendrograma dos Produtos por Pessoas")
+
+# plotando dendrograma com cores, para k = 5, usando a library factoextra
+fviz_dend(hc, k = 5, cex = 0.7, color_labels_by_k = TRUE, rect = TRUE)
 
 ```
 
@@ -325,5 +330,39 @@ boxplot(rede_two_mode$Camisa.do.Corinthians ~ grupos, col = "blue", main = 'Box 
 boxplot(rede_two_mode$Livro.Harry.Potter ~ grupos, col = "blue", main = 'Box Plot do Livro do Harry Potter')
 boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue", main = 'Box Plot da Lista Telefonica')
 boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", main = 'Box Plot da Bola de Futebol')
+
+```
+
+\  
+
+To-do.
+
+\  
+
+```{r exploration_agnes_1, echo = TRUE, out.width = '100%'}
+
+cluster_dist <- dist(rede_two_mode, method = "euclidean")
+cluster_agnes_ward <- agnes(cluster_dist, 
+                       diss = TRUE, 
+                       metric = 'euclidian', 
+                       method = 'ward')
+
+fviz_cluster(list(data = rede_two_mode[,-1], 
+                  cluster = cutree(cluster_agnes_ward, k = 5)),  
+             show.clust.cent = TRUE)
+
+```
+\  
+
+To-do.
+
+\  
+
+```{r exploration_kmeans_1, echo = TRUE, out.width = '100%'}
+
+cluster_kmeans <- kmeans(rede_two_mode[,-1], 5, nstart = 100)
+
+fviz_cluster(list(data = rede_two_mode[,-1], cluster = cluster_kmeans$cluster),
+             show.clust.cent = T)
 
 ```
