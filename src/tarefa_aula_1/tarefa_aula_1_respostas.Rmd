@@ -167,7 +167,7 @@ table_output
 
 \  
 
-To-do
+To-do.
 
 \  
 
@@ -179,7 +179,7 @@ Como primeiro passo para o exercício proposto, vamos carregar os dados da plani
 
 \  
 
-```{r exploration_one_mode_1, echo = TRUE, out.width = '100%'}
+```{r exploration_two_mode_1, echo = TRUE, out.width = '100%'}
 
 # carregando a planilha com os dados do exercício
 rede_two_mode <- read.xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
@@ -193,14 +193,13 @@ rownames(grede_two_mode) <- rede_two_mode[,1]
 
 ```
 
-
 \  
 
 Visualizando a rede sob a forma de um grafo.
 
 \  
 
-```{r plot_one_mode_1, echo = TRUE, out.width = '100%'}
+```{r plot_two_mode_1, echo = TRUE, out.width = '100%'}
 
 gplot(grede_two_mode, gmode = "twomode", 
       displaylabels = TRUE,
@@ -216,10 +215,9 @@ A seguir, exploraremos as métricas de centralidade para a rede two mode.
 
 \  
 
-```{r exploration_metrics_one_mode_1, echo = TRUE, out.width = '100%'}
+```{r exploration_metrics_two_mode_1, echo = TRUE, out.width = '100%'}
 
-metricas_two_mode <- cbind(label = rownames(grede_two_mode),
-                           degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
+metricas_two_mode <- cbind(degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
                            closeness = closeness(grede_two_mode, gmode = "twomode"),
                            betweenness = betweenness(grede_two_mode, gmode = "twomode"))
 
@@ -229,6 +227,14 @@ table_output <- autofit(table_output)
 table_output
 
 ```
+
+\  
+
+## Aplicando modificações na rede two mode e analisando os resultados
+
+\  
+
+To-do.
 
 \  
 
