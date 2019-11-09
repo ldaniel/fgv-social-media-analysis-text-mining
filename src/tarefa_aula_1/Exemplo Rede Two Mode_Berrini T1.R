@@ -5,7 +5,7 @@
 
 ## Exemplo de SNA - Social Network Analysis - Rede TWO MODE
 
-# Extens?es para Analise de Redes
+# Extensoes para Analise de Redes
 #(devem ser previamente baixadas no CRAN do R)
 
 #install.packages("network")
