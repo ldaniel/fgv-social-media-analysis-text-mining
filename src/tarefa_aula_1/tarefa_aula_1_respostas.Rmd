@@ -567,7 +567,7 @@ visNetwork(nodes = nodes, edges = edges) %>%
   visGroups(groupname = '2', color = '#8f2d56') %>%
   visGroups(groupname = '3', color = '#218380') %>%
   visGroups(groupname = '4', color = '#fbb13c') %>%
-  visGroups(groupname = '4', color = '#73d2de') %>%
+  visGroups(groupname = '5', color = '#73d2de') %>%
   visGroups(groupname = '6', color = '#202020', shape = 'triangle', size = 20)
 
 ```
