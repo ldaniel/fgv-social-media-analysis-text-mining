@@ -104,6 +104,7 @@ rede_one_mode <- read_xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T
 
 # removendo a coluna com os nomes dos nós
 grede_one_mode <- rede_one_mode[,2:25]
+grede_one_mode <- sapply(grede_one_mode, as.integer)
 
 # atribuindo o nome dos nós às linhas
 rownames(grede_one_mode) <- rede_one_mode[,1]
@@ -213,7 +214,7 @@ Decidimos aplicar uma transofmação na rede one mode original onde setamos uma 
 
 \  
 
-Abaixo, a comparação da matriz de vizinhança original com a matriz de vizinhança completamente randomizada.
+Abaixo, a comparação de um recorte da matriz de vizinhança original com a matriz de vizinhança completamente randomizada.
 
 \  
 
@@ -226,14 +227,14 @@ for (i in 1:24) {
 }
 
 # rede one mode original
-table_output <- flextable(as.data.frame(grede_one_mode[1:24, 1:24] %>% as.matrix))
-table_output <- fontsize(table_output, part = "all", size = 7)
+table_output <- flextable(as.data.frame(grede_one_mode[1:5, 1:5] %>% as.matrix))
+table_output <- fontsize(table_output, part = "all", size = 9)
 table_output <- autofit(table_output)
 table_output
 
 # rede one mode modificada de forma randômica
-table_output <- flextable(as.data.frame(grede_one_mode_modificada[1:24, 1:24] %>% as.matrix))
-table_output <- fontsize(table_output, part = "all", size = 7)
+table_output <- flextable(as.data.frame(grede_one_mode_modificada[1:5, 1:5] %>% as.matrix))
+table_output <- fontsize(table_output, part = "all", size = 9)
 table_output <- autofit(table_output)
 table_output
 
@@ -266,14 +267,6 @@ gplot(grede_one_mode_modificada,
 \  
 
 A seguir, exploraremos as métricas de centralidade para a rede one mode modificada.
-
-\  
-
-Observando a métrica de **betweenness**, constatamos que, por estamos utilizando uma geração randômica de interações, não temos nenhum node se destacando com um elo importante para a rede.
-
-\  
-
-Na mesma linha, a métrica de **closeness** mostra que a medida do comprimento médio dos caminhos mais curtos de um vértice para um dos outros vértices do grafo ficam equivalentes.
 
 \  
 
@@ -317,7 +310,8 @@ rede_two_mode <- read_xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T
 names(rede_two_mode)[1] <- 'nome'
 
 # removendo a coluna com os nomes dos nós
-grede_two_mode <- rede_two_mode[,2:15]
+grede_two_mode <- rede_two_mode[, 2:16]
+grede_two_mode <- sapply(grede_two_mode, as.integer)
 
 # atribuindo o nome dos nós às linhas
 rownames(grede_two_mode) <- rede_two_mode[,1]
@@ -379,16 +373,21 @@ Assim como modificamos a rede one mode para uma rede randomica vamos aplicar a m
 
 grede_two_mode_modificada <- grede_two_mode
 
-for (i in 1:14) {
+for (i in 1:15) {
   grede_two_mode_modificada[, i] <- as.integer(sample(0:1, 19, replace = TRUE))
 }
 
 # rede one mode original (primeiras 6 linhas e colunas)
-flextable(as.data.frame(grede_two_mode[1:5, 1:5] %>% as.matrix))
-
+table_output <- flextable((as.data.frame(grede_two_mode[1:5, 1:5] %>% as.matrix)))
+table_output <- fontsize(table_output, part = "all", size = 9)
+table_output <- autofit(table_output)
+table_output
 
 # rede one mode modificada de forma randomica (primeiras 6 linhas e colunas)'
-flextable(as.data.frame(grede_two_mode_modificada[1:5, 1:5] %>% as.matrix))
+table_output <- flextable(as.data.frame(grede_two_mode_modificada[1:5, 1:5] %>% as.matrix))
+table_output <- fontsize(table_output, part = "all", size = 9)
+table_output <- autofit(table_output)
+table_output
 
 ```
 
@@ -399,8 +398,6 @@ Vizualizamos o plot da rede one mode modificada (completamente randomizada) em c
 \  
 
 ```{r plot_two_mode_modificada, echo = TRUE, out.width = '100%'}
-
-par(mfrow=c(1, 2))
 
 gplot(grede_two_mode, 
       main = 'Rede original', 
@@ -417,8 +414,6 @@ gplot(grede_two_mode_modificada,
       edge.col = "gray", 
       label.cex = 0.7, 
       usearrows = FALSE)
-
-par(mfrow=c(1, 1))
 
 ```
 
@@ -445,6 +440,22 @@ table_output <- autofit(table_output)
 table_output
 
 ```
+
+\  
+
+## Analisando os resultados
+
+\  
+
+Assim como modificamos a rede one mode para uma rede randomica vamos aplicar a mesma transformação para a rede two mode.
+
+\  
+
+Observando a métrica de **betweenness**, constatamos que, por estamos utilizando uma geração randômica de interações, não temos nenhum node se destacando com um elo importante para a rede.
+
+\  
+
+Na mesma linha, a métrica de **closeness** mostra que a medida do comprimento médio dos caminhos mais curtos de um vértice para um dos outros vértices do grafo ficam similares.
 
 \  
 
@@ -504,7 +515,11 @@ ggdendrogram(hcdata, rotate = TRUE, size = 2) +
   labs(title = "Dendrograma dos Produtos por Pessoas")
 
 # plotando dendrograma com cores, para k = 5, usando a library factoextra
-fviz_dend(hc, k = 5, cex = 0.7, color_labels_by_k = TRUE, rect = TRUE)
+fviz_dend(hc, 
+          k = 5, 
+          cex = 0.7, 
+          k_colors = c("#d81159", "#8f2d56", "#218380", "#fbb13c", "#73d2de"), 
+          rect = TRUE)
 
 ```
 
@@ -515,6 +530,10 @@ Para exibir os níveis de similaridade (ou distância), mantenha seu ponteiro so
 \  
 
 A decisão sobre o agrupamento final também é chamada corte do dendrograma. O corte do dendrograma é similar ao desenho de uma linha por todo o dendrograma para especificar o agrupamento final. Você também pode comparar os dendrogramas a agrupamentos finais diferentes para determinar qual agrupamento final faz mais sentido para os dados.
+
+\  
+
+Analisando o dendrograma é possível verificar que 5 clusters parece ser uma boa escolha para o número de clusters, pois existe uma diferença significativa na altura das quebras das observações.
 
 \  
 
@@ -536,14 +555,14 @@ nodes$group <- as.character(c(grupos, rep(6, 15)))
 edges <- pivot_longer(data = rede_two_mode, cols = -nome, names_to = 'to', values_to = 'weight')
 names(edges) <- c('from', 'to', 'weight')
 edges <- filter(edges, weight > 0)
-edges$from <- as.integer(plyr::mapvalues(edges$from, nodes$label, nodes$id, warn_missing = FALSE)) - 1
-edges$to <- as.integer(plyr::mapvalues(edges$to, nodes$label, nodes$id, warn_missing = FALSE)) - 1
+edges$from <- as.integer(plyr::mapvalues(edges$from, nodes$label, nodes$id, warn_missing = FALSE))
+edges$to <- as.integer(plyr::mapvalues(edges$to, nodes$label, nodes$id, warn_missing = FALSE))
 
 visNetwork(nodes = nodes, edges = edges) %>% 
   visOptions(highlightNearest = list(enabled = TRUE, 
                                      degree = 0.2, 
                                      algorithm = 'hierarchical')) %>% 
-  visNodes(font = list(size = 20, color = "black")) %>%
+  visNodes(font = list(size = 20, color = "black"), fixed = FALSE, physics = FALSE) %>%
   visGroups(groupname = '1', color = '#d81159') %>%
   visGroups(groupname = '2', color = '#8f2d56') %>%
   visGroups(groupname = '3', color = '#218380') %>%
@@ -559,7 +578,15 @@ visNetwork(nodes = nodes, edges = edges) %>%
 
 \  
 
-To-do.
+O método AGNES (Agglomerative Nesting) é um dos tipos mais comums de métodos de cluster hierárquico usado para agrupar objetos em clusters com base em sua similaridade.
+
+\  
+
+O algoritmo começa tratando cada observação como um cluster. Em seguida, pares de clusters são mesclados sucessivamente até que todos os clusters tenham sido mesclados em um grande cluster contendo todos os objetos.
+
+\  
+
+Também podemos visualizar a classificação das observações utilizando os dois principais componentes da técnica de redução de dimensionalidade PCA (Principal Component Analysis).
 
 \  
 
@@ -585,7 +612,45 @@ fviz_cluster(list(data = rede_two_mode[,-1],
 
 \  
 
-To-do.
+Assim como fizemos para o método AGNES podemos visualizar a classificação, para o método k-means, das observações utilizando os dois principais componentes da técnica de redução de dimensionalidade PCA (Principal Component Analysis).
+
+\  
+
+O método de classificação por K-means é um dos algoritmos de aprendizado de máquina não supervisionados mais simples e populares.
+
+\  
+
+O algoritmo começa com um primeiro grupo de centroides selecionados aleatoriamente, que são usados como pontos de partida para cada cluster e, em seguida, executa cálculos iterativos para otimizar as posições dos centroides.
+
+\  
+
+Para cada iteração o algoritmo calcula a métrica de distância selecionada entre cada observação e o centroide classificando cada observação ao cluster cujo centroide está mais próximo.
+
+\  
+
+Ele interrompe a criação e otimização de clusters quando:
+
+\  
+
+- Os centroides se estabilizaram - não há alteração em seus valores porque o agrupamento foi bem-sucedido.
+
+- O número definido de iterações foi alcançado.
+
+\  
+
+O parâmetro mais importante para o método de k-means é a quantidade de clusters que o algoritmo irá utilizar.
+
+\  
+
+Para encontrar a melhor quantidade de clusters podemos observar o comportamento de duas métricas, withinss e betweenss, que medem as distâncias intra-cluster e inter-clusters de cada observação e centroide dos clusters.
+
+\  
+
+A melhor quantidade de k é dada no ponto onde existe uma estabilização entre as métricas.
+
+\  
+
+Observamos que os métodos classificaram as observações em clusters diferentes.
 
 \  
 
@@ -610,7 +675,7 @@ fviz_cluster(list(data = rede_two_mode[,-1],
 
 \  
 
-To-do.
+Podemos analisar todas as métricas do cluster com o método **ward** utilizando a função **cluster.stats**.
 
 \  
 
@@ -623,7 +688,7 @@ cluster.stats(cluster_dist, cutree(cluster_agnes_ward, k = 5))
 
 \  
 
-To-do.
+Finalmente, vemos abaixo as métricas gerais do método de classificação **k-means** aplicado a este dataset.
 
 \  
 
