@@ -569,7 +569,9 @@ cluster_agnes_ward <- agnes(cluster_dist,
 # plotando os clusters
 fviz_cluster(list(data = rede_two_mode[,-1], 
                   cluster = cutree(cluster_agnes_ward, k = 5)),  
-             show.clust.cent = TRUE)
+             show.clust.cent = TRUE) +
+  scale_colour_manual(values = c("#d81159", "#8f2d56", "#218380", "#fbb13c", "#73d2de")) +
+  scale_fill_manual(values = c("#d81159", "#8f2d56", "#218380", "#fbb13c", "#73d2de")) 
 
 ```
 
@@ -587,7 +589,10 @@ cluster_kmeans <- kmeans(rede_two_mode[,-1], centers = 5, nstart = 100)
 # plotando os clusters
 fviz_cluster(list(data = rede_two_mode[,-1], 
                   cluster = cluster_kmeans$cluster),
-             show.clust.cent = TRUE)
+             show.clust.cent = TRUE) +
+  scale_colour_manual(values = c("#d81159", "#8f2d56", "#218380", "#fbb13c", "#73d2de")) +
+  scale_fill_manual(values = c("#d81159", "#8f2d56", "#218380", "#fbb13c", "#73d2de")) 
+
 
 ```
 
