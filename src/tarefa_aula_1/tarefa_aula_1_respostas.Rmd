@@ -1,9 +1,6 @@
 ---
 title: "Tarefa Aula 1 – Exploração de SNA em R"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   word_document:
     highlight: tango
     reference_docx: word-styles-reference.docx
