@@ -1,17 +1,17 @@
 ---
 title: "Tarefa Aula 1 – Exploração de SNA em R"
+date: "Novembro de 2019"
 output:
+  word_document: 
+    highlight: tango
+    reference_docx: word-styles-reference.docx
+    toc: yes
   html_document:
     df_print: paged
     toc: yes
     theme: cosmo
     highlight: tango
     number_sections: yes
-  word_document:
-    highlight: tango
-    reference_docx: word-styles-reference.docx
-    toc: yes
-date: "Novembro de 2019"
 ---
 
 ```{r setup_evaluation, include=FALSE}
@@ -28,6 +28,7 @@ library(officer)
 
 # loading basic libraries
 library(dplyr)
+library(tidyr)
 library(lubridate)
 library(stringr)
 library(readxl)
@@ -124,19 +125,23 @@ gplot(grede_one_mode,
 
 ```
 
+\  
 
 O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **visNetwork** com layouts alternativos e interativos.
 
-- **layout_on_grid**
+\  
 
-- **layout_in_circle**
+- **layout_on_grid**;
 
-- **layout_with_gem**
+- **layout_in_circle**;
 
-- **layout_as_tree**
+- **layout_with_gem**;
 
-Podemos inclusíve adicionar a opção para fazer o highlight dos nós relacionados ao selecionar um nó específico.
+- **layout_as_tree**.
 
+\  
+
+Podemos, inclusíve, adicionar a opção para fazer o highlight dos nós relacionados ao selecionar um nó específico.
 
 \  
 
@@ -144,13 +149,16 @@ Podemos inclusíve adicionar a opção para fazer o highlight dos nós relaciona
 
 g_one_mode <- igraph::graph_from_adjacency_matrix(as.matrix(grede_one_mode))
 
-p <-visIgraph(g_one_mode) %>%
-      visOptions(highlightNearest = list(enabled = TRUE, degree = 1, algorithm = 'hierarchical'))
+p <- visIgraph(g_one_mode) %>%
+  visOptions(highlightNearest = list(enabled = TRUE, 
+                                     degree = 1, 
+                                     algorithm = 'hierarchical')) %>% 
+  visNodes(font = list(size = 40, color = "black"))
 
-p %>% visIgraphLayout(layout = 'layout_on_grid')
+p %>% visIgraphLayout(layout = 'layout_on_grid', type = "full") 
 p %>% visIgraphLayout(layout = 'layout_in_circle')
 p %>% visIgraphLayout(layout = 'layout_with_gem')
-p %>% visIgraphLayout(layout = 'layout_as_tree')
+p %>% visIgraphLayout(layout = 'layout_as_tree', type = "full") 
 
 ```
 
@@ -184,7 +192,7 @@ metricas_one_mode <- cbind(label = rownames(grede_one_mode),
                            betweenness = round(betweenness(grede_one_mode, gmode = "graph"), 4))
 
 table_output <- flextable(as.data.frame(metricas_one_mode))
-table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- fontsize(table_output, part = "all", size = 9)
 table_output <- autofit(table_output)
 table_output
 
@@ -196,9 +204,13 @@ table_output
 
 \  
 
-Decidimos aplicar uma transofmação na rede one mode original onde setamos a matriz de vizinhança completamente randomica para avaliarmo os resultados.
+Decidimos aplicar uma transofmação na rede one mode original onde setamos uma matriz de vizinhança completamente randomica para avaliarmo os resultados.
 
-Abaixo a comparação da matriz de vizinhançã origincal com a mareiz de vizinhança completamente randomizada.
+\  
+
+Abaixo, a comparação da matriz de vizinhança original com a matriz de vizinhança completamente randomizada.
+
+\  
 
 ```{r exploration_metrics_one_mode_1_modificado, echo = TRUE, out.width = '100%'}
 
@@ -221,9 +233,9 @@ grede_one_mode_modificada[1:24, 1:24] %>% as.matrix
 
 Vizualizamos o plot da rede one mode modificada (completamente randomizada) em comparação com a rede original.
 
-```{r plot_one_mode_modificada, echo = TRUE, out.width = '100%'}
+\  
 
-par(mfrow=c(1, 2))
+```{r plot_one_mode_modificada, echo = TRUE, out.width = '100%'}
 
 gplot(grede_one_mode, 
       main = 'Rede original', 
@@ -239,26 +251,26 @@ gplot(grede_one_mode_modificada,
       edge.col = "gray", 
       usearrows = FALSE)
 
-par(mfrow=c(1, 1))
-
 ```
 
 \  
 
 A seguir, exploraremos as métricas de centralidade para a rede one mode modificada.
 
+\  
+
 ```{r exploration_metrics_one_mode_modificada, echo = TRUE, out.width = '100%'}
 
 metricas_one_mode_modificada <- cbind(label = rownames(grede_one_mode_modificada),
-                           degree = degree(grede_one_mode_modificada, 
-                                           gmode = "graph", cmode = "indegree"),
-                           closeness = round(closeness(grede_one_mode_modificada, 
-                                                 gmode = "graph"), 4),
-                           betweenness = round(betweenness(grede_one_mode_modificada, 
-                                                     gmode = "graph"), 4))
+                                      degree = degree(grede_one_mode_modificada,
+                                                      gmode = "graph", cmode = "indegree"),
+                                      closeness = round(closeness(grede_one_mode_modificada, 
+                                                                  gmode = "graph"), 4),
+                                      betweenness = round(betweenness(grede_one_mode_modificada, 
+                                                                      gmode = "graph"), 4))
 
 table_output <- flextable(as.data.frame(metricas_one_mode_modificada))
-table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- fontsize(table_output, part = "all", size = 9)
 table_output <- autofit(table_output)
 table_output
 
@@ -321,7 +333,7 @@ metricas_two_mode <- cbind(labels = append(rownames(grede_two_mode),
                            betweenness = round(betweenness(grede_two_mode, gmode = "twomode"), 4))
 
 table_output <- flextable(as.data.frame(metricas_two_mode))
-table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- fontsize(table_output, part = "all", size = 9)
 table_output <- autofit(table_output)
 table_output
 
@@ -335,6 +347,7 @@ table_output
 
 Assim como modificamos a rede one mode para uma rede randomica vamos aplicar a mesma transformação para a rede two mode.
 
+\  
 
 ```{r exploration_metrics_two_mode_1_modificado, echo = TRUE, out.width = '100%'}
 
@@ -354,10 +367,11 @@ grede_two_mode_modificada[1:5, 1:5] %>% as.matrix
 
 ```
 
-
 \ 
 
 Vizualizamos o plot da rede one mode modificada (completamente randomizada) em comparação com a rede original.
+
+\  
 
 ```{r plot_two_mode_modificada, echo = TRUE, out.width = '100%'}
 
@@ -397,7 +411,7 @@ metricas_two_mode_modificada <- cbind(labels = append(rownames(grede_two_mode_mo
                                                                       gmode = "twomode"), 4))
 
 table_output <- flextable(as.data.frame(metricas_two_mode_modificada))
-table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- fontsize(table_output, part = "all", size = 9)
 table_output <- autofit(table_output)
 table_output
 
@@ -481,9 +495,29 @@ A decisão sobre o agrupamento final também é chamada corte do dendrograma. O 
 grupos <- cutree(hc, k = 5)
 grupos
 
+# criando um dataframe para obter os nomes dos nodes
+nodes <- data.frame(id = seq(1:35),
+                    name = c(rede_two_mode$nome, names(rede_two_mode)))
+
+# identifica os grupos
+nodes$group <- sample(1:3, 35, replace = TRUE)
+
+# faz a contagem de relacionamentos entre os nodes, altera o nome das colunas e
+# seleciona apenas os nodes com alguma interação entre si
+edges <- pivot_longer(data = rede_two_mode, cols = -nome, names_to = 'to', values_to = 'weight')
+names(edges) <- c('from', 'to', 'weight')
+edges <- filter(edges, weight > 0)
+edges$from <- as.integer(plyr::mapvalues(edges$from, nodes$name, nodes$id, warn_missing = FALSE)) - 1
+edges$to <- as.integer(plyr::mapvalues(edges$to, nodes$name, nodes$id, warn_missing = FALSE)) - 1
+
+visNetwork(nodes = nodes, edges = edges) %>% 
+  visGroups(groupname = 1, color = 'red')
+
 ```
 
 \  
+
+
 
 ## Analisando as principais variáveis
 
@@ -586,3 +620,5 @@ To-do.
 cluster.stats(cluster_dist, cluster_kmeans$cluster)
 
 ```
+
+\  
