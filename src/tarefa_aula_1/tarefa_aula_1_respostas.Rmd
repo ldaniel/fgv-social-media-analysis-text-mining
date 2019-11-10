@@ -32,6 +32,7 @@ library(tidyr)
 library(lubridate)
 library(stringr)
 library(readxl)
+library(readr)
 
 # loading plot libraries
 library(ggplot2)
@@ -189,7 +190,11 @@ A seguir, exploraremos as métricas de centralidade para a rede one mode.
 metricas_one_mode <- cbind(label = rownames(grede_one_mode),
                            degree = degree(grede_one_mode, gmode = "graph", cmode = "indegree"),
                            closeness = round(closeness(grede_one_mode, gmode = "graph"), 4),
-                           betweenness = round(betweenness(grede_one_mode, gmode = "graph"), 4))
+                           betweenness = round(betweenness(grede_one_mode, gmode = "graph"), 4)) %>% 
+  as_tibble %>% type_convert(col_types = cols(.default = col_double(),
+                                              label = col_character()))
+
+metricas_one_mode <- arrange(metricas_one_mode, desc(`betweenness`))
 
 table_output <- flextable(as.data.frame(metricas_one_mode))
 table_output <- fontsize(table_output, part = "all", size = 9)
@@ -280,7 +285,11 @@ metricas_one_mode_modificada <- cbind(label = rownames(grede_one_mode_modificada
                                       closeness = round(closeness(grede_one_mode_modificada, 
                                                                   gmode = "graph"), 4),
                                       betweenness = round(betweenness(grede_one_mode_modificada, 
-                                                                      gmode = "graph"), 4))
+                                                                      gmode = "graph"), 4)) %>% 
+  as_tibble %>% type_convert(col_types = cols(.default = col_double(),
+                                              label = col_character()))
+
+metricas_one_mode_modificada <- arrange(metricas_one_mode_modificada, desc(`betweenness`))
 
 table_output <- flextable(as.data.frame(metricas_one_mode_modificada))
 table_output <- fontsize(table_output, part = "all", size = 9)
@@ -343,7 +352,11 @@ metricas_two_mode <- cbind(labels = append(rownames(grede_two_mode),
                                            names(grede_two_mode)),
                            degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
                            closeness = round(closeness(grede_two_mode, gmode = "twomode"), 4),
-                           betweenness = round(betweenness(grede_two_mode, gmode = "twomode"), 4))
+                           betweenness = round(betweenness(grede_two_mode, gmode = "twomode"), 4)) %>% 
+  as_tibble %>% type_convert(col_types = cols(.default = col_double(),
+                                              labels = col_character()))
+
+metricas_two_mode <- arrange(metricas_two_mode, desc(`betweenness`))
 
 table_output <- flextable(as.data.frame(metricas_two_mode))
 table_output <- fontsize(table_output, part = "all", size = 9)
@@ -420,7 +433,11 @@ metricas_two_mode_modificada <- cbind(labels = append(rownames(grede_two_mode_mo
                                       closeness = round(closeness(grede_two_mode_modificada,
                                                                   gmode = "twomode"), 4),
                                       betweenness = round(betweenness(grede_two_mode_modificada,
-                                                                      gmode = "twomode"), 4))
+                                                                      gmode = "twomode"), 4)) %>% 
+  as_tibble %>% type_convert(col_types = cols(.default = col_double(),
+                                              labels = col_character()))
+
+metricas_two_mode_modificada <- arrange(metricas_two_mode_modificada, desc(`betweenness`))
 
 table_output <- flextable(as.data.frame(metricas_two_mode_modificada))
 table_output <- fontsize(table_output, part = "all", size = 9)
