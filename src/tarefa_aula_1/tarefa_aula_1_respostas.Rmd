@@ -30,7 +30,7 @@ library(officer)
 library(dplyr)
 library(lubridate)
 library(stringr)
-library(xlsx)
+library(readxl)
 
 # loading plot libraries
 library(ggplot2)
@@ -97,8 +97,8 @@ Como primeiro passo para o exercício proposto, vamos carregar os dados da plani
 ```{r exploration_one_mode_1, echo = TRUE, out.width = '100%'}
 
 # carregando a planilha com os dados do exercício
-rede_one_mode <- read.xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx", 
-                           sheetName = "Exemplo Rede")
+rede_one_mode <- read_xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheet = "Exemplo Rede") %>% as.data.frame()
 
 # removendo a coluna com os nomes dos nós
 grede_one_mode <- rede_one_mode[,2:25]
@@ -125,15 +125,32 @@ gplot(grede_one_mode,
 ```
 
 
-O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **igraph**.
+O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **visNetwork** com layouts alternativos e interativos.
+
+- **layout_on_grid**
+
+- **layout_in_circle**
+
+- **layout_with_gem**
+
+- **layout_as_tree**
+
+Podemos inclusíve adicionar a opção para fazer o highlight dos nós relacionados ao selecionar um nó específico.
+
 
 \  
 
-```{r plot_one_mode_2, echo = TRUE, out.width = '100%'}
+```{r plot_one_mode_2, echo = TRUE, out.width = '100%', warning=FALSE, error=FALSE}
 
 g_one_mode <- igraph::graph_from_adjacency_matrix(as.matrix(grede_one_mode))
 
-visIgraph(g_one_mode)
+p <-visIgraph(g_one_mode) %>%
+      visOptions(highlightNearest = list(enabled = TRUE, degree = 1, algorithm = 'hierarchical'))
+
+p %>% visIgraphLayout(layout = 'layout_on_grid')
+p %>% visIgraphLayout(layout = 'layout_in_circle')
+p %>% visIgraphLayout(layout = 'layout_with_gem')
+p %>% visIgraphLayout(layout = 'layout_as_tree')
 
 ```
 
@@ -179,7 +196,42 @@ table_output
 
 \  
 
-To-do.
+Decidimos aplicar uma transofmação na rede one mode original onde setamos a matriz de vizinhança completamente randomica para avaliarmo os resultados.
+
+Abaixo a comparação da matriz de vizinhançã origincal com a mareiz de vizinhança completamente randomizada.
+
+```{r exploration_metrics_one_mode_1_modificado, echo = TRUE, out.width = '100%'}
+
+set.seed(12345)
+
+grede_one_mode_modificada <- grede_one_mode
+
+for (i in 1:24) {
+  grede_one_mode_modificada[, i] <- as.integer(sample(0:1, 24, replace = TRUE))
+}
+
+print('Rede one mode original')
+grede_one_mode[1:24, 1:24] %>% as.matrix
+
+
+print('Rede one mode modificada de forma randomica')
+grede_one_mode_modificada[1:24, 1:24] %>% as.matrix
+
+```
+
+
+vizualizamos o plot da rede one mode modificada (completamente randomizada) em comparação com a rede original.
+
+```{r plot_one_mode_modificada, echo = TRUE, out.width = '100%'}
+
+par(mfrow=c(1, 2))
+
+gplot(grede_one_mode, )
+gplot(grede_one_mode_modificada)
+
+
+```
+
 
 \  
 
@@ -191,11 +243,13 @@ Como primeiro passo para o exercício proposto, vamos carregar os dados da plani
 
 \  
 
-```{r exploration_two_mode_1, echo = TRUE, out.width = '100%'}
+```{r exploration_two_mode_1, echo = TRUE, out.width = '100%', warning = FALSE, error = FALSE}
 
 # carregando a planilha com os dados do exercício
-rede_two_mode <- read.xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
-                           sheetName = "Rede 2-mode")
+rede_two_mode <- read_xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheet = "Rede 2-mode") %>% as.data.frame
+
+names(rede_two_mode)[1] <- 'nome'
 
 # removendo a coluna com os nomes dos nós
 grede_two_mode <- rede_two_mode[,2:15]
@@ -272,11 +326,13 @@ Como primeiro passo para o exercício proposto, vamos carregar novamente os dado
 
 \  
 
-```{r exploration_cluster_1, echo = TRUE, out.width = '100%'}
+```{r exploration_cluster_1, echo = TRUE, out.width = '100%', warning = FALSE, error = FALSE}
 
 # carregando a planilha com os dados do exercício
-rede_two_mode <- read.xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
-                           sheetName = "Rede 2-mode")
+rede_two_mode <- read_xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheet = "Rede 2-mode") %>% as.data.frame
+
+names(rede_two_mode)[1] <- 'nome'
 
 # atribuindo o nome dos nós às linhas
 rownames(rede_two_mode) <- rede_two_mode$NA.
@@ -339,6 +395,7 @@ O boxplot é um tipo de diagrama construído utilizando as referências de valor
 ```{r exploration_bloxplot_1, echo = TRUE, out.width = '100%'}
 
 # analisando as principais variáveis a partir dos grupos
+<<<<<<< HEAD
 boxplot(rede_two_mode$Camisa.do.Corinthians ~ grupos, col = "blue", 
         main = 'Box Plot da Camisa do Corinthians')
 
@@ -350,6 +407,19 @@ boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue",
 
 boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", 
         main = 'Box Plot da Bola de Futebol')
+=======
+boxplot(rede_two_mode$`Camisa do Corinthians` ~ grupos, 
+        col = "blue", main = 'Box Plot da Camisa do Corinthians')
+
+boxplot(rede_two_mode$`Livro Harry Potter` ~ grupos, 
+        col = "blue", main = 'Box Plot do Livro do Harry Potter')
+
+boxplot(rede_two_mode$`Lista Telefonica` ~ grupos, 
+        col = "blue", main = 'Box Plot da Lista Telefonica')
+
+boxplot(rede_two_mode$`Bola de Futebol` ~ grupos, 
+        col = "blue", main = 'Box Plot da Bola de Futebol')
+>>>>>>> e1ffc2fd655cc0a1bfafb218289c0d93fe1de9d7
 
 ```
 
