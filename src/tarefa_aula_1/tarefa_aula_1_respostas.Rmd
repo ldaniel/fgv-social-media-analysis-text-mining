@@ -2,16 +2,16 @@
 title: "Tarefa Aula 1 – Exploração de SNA em R"
 date: "Novembro de 2019"
 output:
-  word_document: 
-    highlight: tango
-    reference_docx: word-styles-reference.docx
-    toc: yes
   html_document:
     df_print: paged
     toc: yes
     theme: cosmo
     highlight: tango
     number_sections: yes
+  word_document: 
+    highlight: tango
+    reference_docx: word-styles-reference.docx
+    toc: yes
 ---
 
 ```{r setup_evaluation, include=FALSE}
@@ -343,7 +343,7 @@ A seguir, exploraremos as métricas de centralidade para a rede two mode.
 ```{r exploration_metrics_two_mode_1, echo = TRUE, out.width = '100%'}
 
 metricas_two_mode <- cbind(labels = append(rownames(grede_two_mode),
-                                           names(grede_two_mode)),
+                                           names(rede_two_mode)[-1]),
                            degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
                            closeness = round(closeness(grede_two_mode, gmode = "twomode"), 4),
                            betweenness = round(betweenness(grede_two_mode, gmode = "twomode"), 4)) %>% 
@@ -422,7 +422,7 @@ gplot(grede_two_mode_modificada,
 ```{r exploration_metrics_two_mode_1_modificada, echo = TRUE, out.width = '100%'}
 
 metricas_two_mode_modificada <- cbind(labels = append(rownames(grede_two_mode_modificada),
-                                                      names(grede_two_mode_modificada)),
+                                                      names(rede_two_mode)[-1]),
                                       degree = degree(grede_two_mode_modificada,
                                                       gmode = "twomode", cmode = "indegree"),
                                       closeness = round(closeness(grede_two_mode_modificada,
