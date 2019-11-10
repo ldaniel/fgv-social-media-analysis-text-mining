@@ -1,6 +1,9 @@
 ---
 title: "Tarefa Aula 1 – Exploração de SNA em R"
 output:
+  html_document:
+    df_print: paged
+    toc: yes
   word_document:
     highlight: tango
     reference_docx: word-styles-reference.docx
@@ -119,15 +122,32 @@ gplot(grede_one_mode,
 ```
 
 
-O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **visNetwork**.
+O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **visNetwork** com layouts alternativos e interativos.
+
+- **layout_on_grid**
+
+- **layout_in_circle**
+
+- **layout_with_gem**
+
+- **layout_as_tree**
+
+Podemos inclusíve adicionar a opção para fazer o highlight dos nós relacionados ao selecionar um nó específico.
+
 
 \  
 
-```{r plot_one_mode_2, echo = TRUE, out.width = '100%'}
+```{r plot_one_mode_2, echo = TRUE, out.width = '100%', warning=FALSE, error=FALSE}
 
 g_one_mode <- igraph::graph_from_adjacency_matrix(as.matrix(grede_one_mode))
 
-visIgraph(g_one_mode)
+p <-visIgraph(g_one_mode) %>%
+      visOptions(highlightNearest = list(enabled = TRUE, degree = 1, algorithm = 'hierarchical'))
+
+p %>% visIgraphLayout(layout = 'layout_on_grid')
+p %>% visIgraphLayout(layout = 'layout_in_circle')
+p %>% visIgraphLayout(layout = 'layout_with_gem')
+p %>% visIgraphLayout(layout = 'layout_as_tree')
 
 ```
 
@@ -173,7 +193,42 @@ table_output
 
 \  
 
-To-do.
+Decidimos aplicar uma transofmação na rede one mode original onde setamos a matriz de vizinhança completamente randomica para avaliarmo os resultados.
+
+Abaixo a comparação da matriz de vizinhançã origincal com a mareiz de vizinhança completamente randomizada.
+
+```{r exploration_metrics_one_mode_1_modificado, echo = TRUE, out.width = '100%'}
+
+set.seed(12345)
+
+grede_one_mode_modificada <- grede_one_mode
+
+for (i in 1:24) {
+  grede_one_mode_modificada[, i] <- as.integer(sample(0:1, 24, replace = TRUE))
+}
+
+print('Rede one mode original')
+grede_one_mode[1:24, 1:24] %>% as.matrix
+
+
+print('Rede one mode modificada de forma randomica')
+grede_one_mode_modificada[1:24, 1:24] %>% as.matrix
+
+```
+
+
+vizualizamos o plot da rede one mode modificada (completamente randomizada) em comparação com a rede original.
+
+```{r plot_one_mode_modificada, echo = TRUE, out.width = '100%'}
+
+par(mfrow=c(1, 2))
+
+gplot(grede_one_mode, )
+gplot(grede_one_mode_modificada)
+
+
+```
+
 
 \  
 
