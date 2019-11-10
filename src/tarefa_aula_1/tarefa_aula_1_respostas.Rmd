@@ -1,9 +1,6 @@
 ---
 title: "Tarefa Aula 1 – Exploração de SNA em R"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   word_document:
     highlight: tango
     reference_docx: word-styles-reference.docx
@@ -181,7 +178,7 @@ metricas_one_mode <- cbind(label = rownames(grede_one_mode),
                            betweenness = round(betweenness(grede_one_mode, gmode = "graph"), 4))
 
 table_output <- flextable(as.data.frame(metricas_one_mode))
-table_output <- fontsize(table_output, part = "all", size = 16)
+table_output <- fontsize(table_output, part = "all", size = 8)
 table_output <- autofit(table_output)
 table_output
 
@@ -198,8 +195,6 @@ Decidimos aplicar uma transofmação na rede one mode original onde setamos a ma
 Abaixo a comparação da matriz de vizinhançã origincal com a mareiz de vizinhança completamente randomizada.
 
 ```{r exploration_metrics_one_mode_1_modificado, echo = TRUE, out.width = '100%'}
-
-set.seed(12345)
 
 grede_one_mode_modificada <- grede_one_mode
 
@@ -257,7 +252,7 @@ metricas_one_mode_modificada <- cbind(label = rownames(grede_one_mode_modificada
                                                      gmode = "graph"), 4))
 
 table_output <- flextable(as.data.frame(metricas_one_mode_modificada))
-table_output <- fontsize(table_output, part = "all", size = 16)
+table_output <- fontsize(table_output, part = "all", size = 8)
 table_output <- autofit(table_output)
 table_output
 
@@ -313,12 +308,14 @@ A seguir, exploraremos as métricas de centralidade para a rede two mode.
 
 ```{r exploration_metrics_two_mode_1, echo = TRUE, out.width = '100%'}
 
-metricas_two_mode <- cbind(degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
+metricas_two_mode <- cbind(labels = append(rownames(grede_two_mode),
+                                           names(grede_two_mode)),
+                           degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
                            closeness = round(closeness(grede_two_mode, gmode = "twomode"), 4),
                            betweenness = round(betweenness(grede_two_mode, gmode = "twomode"), 4))
 
 table_output <- flextable(as.data.frame(metricas_two_mode))
-table_output <- fontsize(table_output, part = "all", size = 16)
+table_output <- fontsize(table_output, part = "all", size = 8)
 table_output <- autofit(table_output)
 table_output
 
@@ -335,7 +332,6 @@ Assim como modificamos a rede one mode para uma rede randomica vamos aplicar a m
 
 ```{r exploration_metrics_two_mode_1_modificado, echo = TRUE, out.width = '100%'}
 
-set.seed(12345)
 
 grede_two_mode_modificada <- grede_two_mode
 
@@ -344,11 +340,11 @@ for (i in 1:14) {
 }
 
 print('Rede one mode original (primeiras 6 linhas e colunas')
-grede_two_mode[1:6, 1:6] %>% as.matrix
+grede_two_mode[1:5, 1:5] %>% as.matrix
 
 
 print('Rede one mode modificada de forma randomica (primeiras 6 linhas e colunas)')
-grede_two_mode_modificada[1:6, 1:6] %>% as.matrix
+grede_two_mode_modificada[1:5, 1:5] %>% as.matrix
 
 ```
 
@@ -385,15 +381,17 @@ par(mfrow=c(1, 1))
 
 ```{r exploration_metrics_two_mode_1_modificada, echo = TRUE, out.width = '100%'}
 
-metricas_two_mode_modificada <- cbind(degree = degree(grede_two_mode_modificada, 
+metricas_two_mode_modificada <- cbind(labels = append(rownames(grede_two_mode_modificada),
+                                                      names(grede_two_mode_modificada)),
+                                      degree = degree(grede_two_mode_modificada,
                                                       gmode = "twomode", cmode = "indegree"),
-                           closeness = round(closeness(grede_two_mode_modificada, 
-                                                       gmode = "twomode"), 4),
-                           betweenness = round(betweenness(grede_two_mode_modificada, 
-                                                           gmode = "twomode"), 4))
+                                      closeness = round(closeness(grede_two_mode_modificada,
+                                                                  gmode = "twomode"), 4),
+                                      betweenness = round(betweenness(grede_two_mode_modificada,
+                                                                      gmode = "twomode"), 4))
 
 table_output <- flextable(as.data.frame(metricas_two_mode_modificada))
-table_output <- fontsize(table_output, part = "all", size = 16)
+table_output <- fontsize(table_output, part = "all", size = 8)
 table_output <- autofit(table_output)
 table_output
 
