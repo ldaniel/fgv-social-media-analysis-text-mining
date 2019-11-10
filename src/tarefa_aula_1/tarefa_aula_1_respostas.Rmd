@@ -177,11 +177,11 @@ A seguir, exploraremos as métricas de centralidade para a rede one mode.
 
 metricas_one_mode <- cbind(label = rownames(grede_one_mode),
                            degree = degree(grede_one_mode, gmode = "graph", cmode = "indegree"),
-                           closeness = closeness(grede_one_mode, gmode = "graph"),
-                           betweenness = betweenness(grede_one_mode, gmode = "graph"))
+                           closeness = round(closeness(grede_one_mode, gmode = "graph"), 4),
+                           betweenness = round(betweenness(grede_one_mode, gmode = "graph"), 4))
 
 table_output <- flextable(as.data.frame(metricas_one_mode))
-table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- fontsize(table_output, part = "all", size = 16)
 table_output <- autofit(table_output)
 table_output
 
@@ -216,19 +216,52 @@ grede_one_mode_modificada[1:24, 1:24] %>% as.matrix
 
 ```
 
+\ 
 
-vizualizamos o plot da rede one mode modificada (completamente randomizada) em comparação com a rede original.
+Vizualizamos o plot da rede one mode modificada (completamente randomizada) em comparação com a rede original.
 
 ```{r plot_one_mode_modificada, echo = TRUE, out.width = '100%'}
 
 par(mfrow=c(1, 2))
 
-gplot(grede_one_mode, )
-gplot(grede_one_mode_modificada)
+gplot(grede_one_mode, 
+      main = 'Rede original', 
+      gmode = "graph", 
+      displaylabels = TRUE, 
+      edge.col = "gray", 
+      usearrows = FALSE)
 
+gplot(grede_one_mode_modificada, 
+      main = 'Rede modificada', 
+      gmode = "graph", 
+      displaylabels = TRUE, 
+      edge.col = "gray", 
+      usearrows = FALSE)
+
+par(mfrow=c(1, 1))
 
 ```
 
+\  
+
+A seguir, exploraremos as métricas de centralidade para a rede one mode modificada.
+
+```{r exploration_metrics_one_mode_modificada, echo = TRUE, out.width = '100%'}
+
+metricas_one_mode_modificada <- cbind(label = rownames(grede_one_mode_modificada),
+                           degree = degree(grede_one_mode_modificada, 
+                                           gmode = "graph", cmode = "indegree"),
+                           closeness = round(closeness(grede_one_mode_modificada, 
+                                                 gmode = "graph"), 4),
+                           betweenness = round(betweenness(grede_one_mode_modificada, 
+                                                     gmode = "graph"), 4))
+
+table_output <- flextable(as.data.frame(metricas_one_mode_modificada))
+table_output <- fontsize(table_output, part = "all", size = 16)
+table_output <- autofit(table_output)
+table_output
+
+```
 
 \  
 
@@ -281,11 +314,11 @@ A seguir, exploraremos as métricas de centralidade para a rede two mode.
 ```{r exploration_metrics_two_mode_1, echo = TRUE, out.width = '100%'}
 
 metricas_two_mode <- cbind(degree = degree(grede_two_mode, gmode = "twomode", cmode = "indegree"),
-                           closeness = closeness(grede_two_mode, gmode = "twomode"),
-                           betweenness = betweenness(grede_two_mode, gmode = "twomode"))
+                           closeness = round(closeness(grede_two_mode, gmode = "twomode"), 4),
+                           betweenness = round(betweenness(grede_two_mode, gmode = "twomode"), 4))
 
 table_output <- flextable(as.data.frame(metricas_two_mode))
-table_output <- fontsize(table_output, part = "all", size = 8)
+table_output <- fontsize(table_output, part = "all", size = 16)
 table_output <- autofit(table_output)
 table_output
 
@@ -297,7 +330,74 @@ table_output
 
 \  
 
-To-do.
+Assim como modificamos a rede one mode para uma rede randomica vamos aplicar a mesma transformação para a rede two mode.
+
+
+```{r exploration_metrics_two_mode_1_modificado, echo = TRUE, out.width = '100%'}
+
+set.seed(12345)
+
+grede_two_mode_modificada <- grede_two_mode
+
+for (i in 1:14) {
+  grede_two_mode_modificada[, i] <- as.integer(sample(0:1, 19, replace = TRUE))
+}
+
+print('Rede one mode original (primeiras 6 linhas e colunas')
+grede_two_mode[1:6, 1:6] %>% as.matrix
+
+
+print('Rede one mode modificada de forma randomica (primeiras 6 linhas e colunas)')
+grede_two_mode_modificada[1:6, 1:6] %>% as.matrix
+
+```
+
+
+\ 
+
+Vizualizamos o plot da rede one mode modificada (completamente randomizada) em comparação com a rede original.
+
+```{r plot_two_mode_modificada, echo = TRUE, out.width = '100%'}
+
+par(mfrow=c(1, 2))
+
+gplot(grede_two_mode, 
+      main = 'Rede original', 
+      gmode = "twomode", 
+      displaylabels = TRUE,
+      edge.col = "gray", 
+      label.cex = 0.7, 
+      usearrows = FALSE)
+
+gplot(grede_two_mode_modificada, 
+      main = 'Rede modificada', 
+      gmode = "twomode", 
+      displaylabels = TRUE,
+      edge.col = "gray", 
+      label.cex = 0.7, 
+      usearrows = FALSE)
+
+par(mfrow=c(1, 1))
+
+```
+
+\ 
+
+```{r exploration_metrics_two_mode_1_modificada, echo = TRUE, out.width = '100%'}
+
+metricas_two_mode_modificada <- cbind(degree = degree(grede_two_mode_modificada, 
+                                                      gmode = "twomode", cmode = "indegree"),
+                           closeness = round(closeness(grede_two_mode_modificada, 
+                                                       gmode = "twomode"), 4),
+                           betweenness = round(betweenness(grede_two_mode_modificada, 
+                                                           gmode = "twomode"), 4))
+
+table_output <- flextable(as.data.frame(metricas_two_mode_modificada))
+table_output <- fontsize(table_output, part = "all", size = 16)
+table_output <- autofit(table_output)
+table_output
+
+```
 
 \  
 
