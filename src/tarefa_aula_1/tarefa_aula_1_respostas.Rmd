@@ -24,7 +24,7 @@ library(officer)
 library(dplyr)
 library(lubridate)
 library(stringr)
-library(xlsx)
+library(readxl)
 
 # loading plot libraries
 library(ggplot2)
@@ -91,8 +91,8 @@ Como primeiro passo para o exercício proposto, vamos carregar os dados da plani
 ```{r exploration_one_mode_1, echo = TRUE, out.width = '100%'}
 
 # carregando a planilha com os dados do exercício
-rede_one_mode <- read.xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx", 
-                           sheetName = "Exemplo Rede")
+rede_one_mode <- read_xlsx("../../data/raw/Rede One Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheet = "Exemplo Rede") %>% as.data.frame()
 
 # removendo a coluna com os nomes dos nós
 grede_one_mode <- rede_one_mode[,2:25]
@@ -119,7 +119,7 @@ gplot(grede_one_mode,
 ```
 
 
-O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **igraph**.
+O **R** oferece várias packages para manipulação e geração de visualizações de redes. Abaixo, vemos um exemplo utilizando a library **visNetwork**.
 
 \  
 
@@ -185,11 +185,13 @@ Como primeiro passo para o exercício proposto, vamos carregar os dados da plani
 
 \  
 
-```{r exploration_two_mode_1, echo = TRUE, out.width = '100%'}
+```{r exploration_two_mode_1, echo = TRUE, out.width = '100%', warning = FALSE, error = FALSE}
 
 # carregando a planilha com os dados do exercício
-rede_two_mode <- read.xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
-                           sheetName = "Rede 2-mode")
+rede_two_mode <- read_xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheet = "Rede 2-mode") %>% as.data.frame
+
+names(rede_two_mode)[1] <- 'nome'
 
 # removendo a coluna com os nomes dos nós
 grede_two_mode <- rede_two_mode[,2:15]
@@ -266,11 +268,13 @@ Como primeiro passo para o exercício proposto, vamos carregar novamente os dado
 
 \  
 
-```{r exploration_cluster_1, echo = TRUE, out.width = '100%'}
+```{r exploration_cluster_1, echo = TRUE, out.width = '100%', warning = FALSE, error = FALSE}
 
 # carregando a planilha com os dados do exercício
-rede_two_mode <- read.xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
-                           sheetName = "Rede 2-mode")
+rede_two_mode <- read_xlsx("../../data/raw/Rede Two Mode_Tarefa Aula 1_Berrini T1.xlsx", 
+                           sheet = "Rede 2-mode") %>% as.data.frame
+
+names(rede_two_mode)[1] <- 'nome'
 
 # atribuindo o nome dos nós às linhas
 rownames(rede_two_mode) <- rede_two_mode$NA.
@@ -333,10 +337,17 @@ O boxplot é um tipo de diagrama construído utilizando as referências de valor
 ```{r exploration_bloxplot_1, echo = TRUE, out.width = '100%'}
 
 # analisando as principais variáveis a partir dos grupos
-boxplot(rede_two_mode$Camisa.do.Corinthians ~ grupos, col = "blue", main = 'Box Plot da Camisa do Corinthians')
-boxplot(rede_two_mode$Livro.Harry.Potter ~ grupos, col = "blue", main = 'Box Plot do Livro do Harry Potter')
-boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue", main = 'Box Plot da Lista Telefonica')
-boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", main = 'Box Plot da Bola de Futebol')
+boxplot(rede_two_mode$`Camisa do Corinthians` ~ grupos, 
+        col = "blue", main = 'Box Plot da Camisa do Corinthians')
+
+boxplot(rede_two_mode$`Livro Harry Potter` ~ grupos, 
+        col = "blue", main = 'Box Plot do Livro do Harry Potter')
+
+boxplot(rede_two_mode$`Lista Telefonica` ~ grupos, 
+        col = "blue", main = 'Box Plot da Lista Telefonica')
+
+boxplot(rede_two_mode$`Bola de Futebol` ~ grupos, 
+        col = "blue", main = 'Box Plot da Bola de Futebol')
 
 ```
 
