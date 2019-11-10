@@ -1,11 +1,17 @@
 ---
 title: "Tarefa Aula 1 – Exploração de SNA em R"
-date: "Novembro de 2019"
-output: 
-  word_document: 
-    highlight: tango
+output:
+  html_document:
+    df_print: paged
     toc: yes
+    theme: cosmo
+    highlight: tango
+    number_sections: yes
+  word_document:
+    highlight: tango
     reference_docx: word-styles-reference.docx
+    toc: yes
+date: "Novembro de 2019"
 ---
 
 ```{r setup_evaluation, include=FALSE}
@@ -333,10 +339,17 @@ O boxplot é um tipo de diagrama construído utilizando as referências de valor
 ```{r exploration_bloxplot_1, echo = TRUE, out.width = '100%'}
 
 # analisando as principais variáveis a partir dos grupos
-boxplot(rede_two_mode$Camisa.do.Corinthians ~ grupos, col = "blue", main = 'Box Plot da Camisa do Corinthians')
-boxplot(rede_two_mode$Livro.Harry.Potter ~ grupos, col = "blue", main = 'Box Plot do Livro do Harry Potter')
-boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue", main = 'Box Plot da Lista Telefonica')
-boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", main = 'Box Plot da Bola de Futebol')
+boxplot(rede_two_mode$Camisa.do.Corinthians ~ grupos, col = "blue", 
+        main = 'Box Plot da Camisa do Corinthians')
+
+boxplot(rede_two_mode$Livro.Harry.Potter ~ grupos, col = "blue", 
+        main = 'Box Plot do Livro do Harry Potter')
+
+boxplot(rede_two_mode$Lista.Telefonica ~ grupos, col = "blue", 
+        main = 'Box Plot da Lista Telefonica')
+
+boxplot(rede_two_mode$Bola.de.Futebol ~ grupos, col = "blue", 
+        main = 'Box Plot da Bola de Futebol')
 
 ```
 
@@ -380,8 +393,9 @@ To-do.
 cluster_kmeans <- kmeans(rede_two_mode[,-1], centers = 5, nstart = 100)
 
 # plotando os clusters
-fviz_cluster(list(data = rede_two_mode[,-1], cluster = cluster_kmeans$cluster),
-             show.clust.cent = T)
+fviz_cluster(list(data = rede_two_mode[,-1], 
+                  cluster = cluster_kmeans$cluster),
+             show.clust.cent = TRUE)
 
 ```
 
