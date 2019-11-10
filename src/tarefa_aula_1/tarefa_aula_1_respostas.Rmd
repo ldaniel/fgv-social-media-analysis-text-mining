@@ -2,16 +2,16 @@
 title: "Tarefa Aula 1 – Exploração de SNA em R"
 date: "Novembro de 2019"
 output:
+  word_document: 
+    highlight: tango
+    reference_docx: word-styles-reference.docx
+    toc: yes
   html_document:
     df_print: paged
     toc: yes
     theme: cosmo
     highlight: tango
     number_sections: yes
-  word_document: 
-    highlight: tango
-    reference_docx: word-styles-reference.docx
-    toc: yes
 ---
 
 ```{r setup_evaluation, include=FALSE}
