@@ -220,12 +220,17 @@ for (i in 1:24) {
   grede_one_mode_modificada[, i] <- as.integer(sample(0:1, 24, replace = TRUE))
 }
 
-print('Rede one mode original')
-grede_one_mode[1:24, 1:24] %>% as.matrix
+# rede one mode original
+table_output <- flextable(as.data.frame(grede_one_mode[1:24, 1:24] %>% as.matrix))
+table_output <- fontsize(table_output, part = "all", size = 7)
+table_output <- autofit(table_output)
+table_output
 
-
-print('Rede one mode modificada de forma randomica')
-grede_one_mode_modificada[1:24, 1:24] %>% as.matrix
+# rede one mode modificada de forma randômica
+table_output <- flextable(as.data.frame(grede_one_mode_modificada[1:24, 1:24] %>% as.matrix))
+table_output <- fontsize(table_output, part = "all", size = 7)
+table_output <- autofit(table_output)
+table_output
 
 ```
 
@@ -256,6 +261,14 @@ gplot(grede_one_mode_modificada,
 \  
 
 A seguir, exploraremos as métricas de centralidade para a rede one mode modificada.
+
+\  
+
+Observando a métrica de **betweenness**, constatamos que, por estamos utilizando uma geração randômica de interações, não temos nenhum node se destacando com um elo importante para a rede.
+
+\  
+
+Na mesma linha, a métrica de **closeness** mostra que a medida do comprimento médio dos caminhos mais curtos de um vértice para um dos outros vértices do grafo ficam equivalentes.
 
 \  
 
@@ -351,19 +364,18 @@ Assim como modificamos a rede one mode para uma rede randomica vamos aplicar a m
 
 ```{r exploration_metrics_two_mode_1_modificado, echo = TRUE, out.width = '100%'}
 
-
 grede_two_mode_modificada <- grede_two_mode
 
 for (i in 1:14) {
   grede_two_mode_modificada[, i] <- as.integer(sample(0:1, 19, replace = TRUE))
 }
 
-print('Rede one mode original (primeiras 6 linhas e colunas')
-grede_two_mode[1:5, 1:5] %>% as.matrix
+# rede one mode original (primeiras 6 linhas e colunas)
+flextable(as.data.frame(grede_two_mode[1:5, 1:5] %>% as.matrix))
 
 
-print('Rede one mode modificada de forma randomica (primeiras 6 linhas e colunas)')
-grede_two_mode_modificada[1:5, 1:5] %>% as.matrix
+# rede one mode modificada de forma randomica (primeiras 6 linhas e colunas)'
+flextable(as.data.frame(grede_two_mode_modificada[1:5, 1:5] %>% as.matrix))
 
 ```
 
@@ -521,36 +533,6 @@ visNetwork(nodes = nodes, edges = edges) %>%
   visGroups(groupname = '4', color = '#fbb13c') %>%
   visGroups(groupname = '4', color = '#73d2de') %>%
   visGroups(groupname = '6', color = '#202020', shape = 'triangle', size = 20)
-
-```
-
-\  
-
-
-
-## Analisando as principais variáveis
-
-\  
-
-O boxplot é um tipo de diagrama construído utilizando as referências de valores mínimos e máximos, primeiro e terceiro quartil, mediana e outliers da base de dados. O boxplot tem como objetivo estudar as medidas estatística do conjunto de dados, como variabilidade, média e outliers.
-
-\  
-
-```{r exploration_bloxplot_1, echo = TRUE, out.width = '100%'}
-
-# analisando as principais variáveis a partir dos grupos
-
-boxplot(rede_two_mode$`Camisa do Corinthians` ~ grupos, 
-        col = "blue", main = 'Box Plot da Camisa do Corinthians')
-
-boxplot(rede_two_mode$`Livro Harry Potter` ~ grupos, 
-        col = "blue", main = 'Box Plot do Livro do Harry Potter')
-
-boxplot(rede_two_mode$`Lista Telefonica` ~ grupos, 
-        col = "blue", main = 'Box Plot da Lista Telefonica')
-
-boxplot(rede_two_mode$`Bola de Futebol` ~ grupos, 
-        col = "blue", main = 'Box Plot da Bola de Futebol')
 
 ```
 
