@@ -500,7 +500,7 @@ nodes <- data.frame(id = seq(1:35),
                     name = c(rede_two_mode$nome, names(rede_two_mode)))
 
 # identifica os grupos
-nodes$group <- sample(1:3, 35, replace = TRUE)
+nodes$group <- sample(grupos, 35, replace = TRUE)
 
 # faz a contagem de relacionamentos entre os nodes, altera o nome das colunas e
 # seleciona apenas os nodes com alguma interação entre si
