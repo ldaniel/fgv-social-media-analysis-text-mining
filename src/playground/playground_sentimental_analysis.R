@@ -64,7 +64,7 @@ pride_prejudice
 afinn <- pride_prejudice %>% 
   inner_join(get_sentiments("afinn")) %>% 
   group_by(index = linenumber %/% 80) %>% 
-  summarise(sentiment = sum(value)) %>% 
+  summarise(sentiment = sum(score)) %>% 
   mutate(method = "AFINN")
 
 bing_and_nrc <- bind_rows(pride_prejudice %>% 
