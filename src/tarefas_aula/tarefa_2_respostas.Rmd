@@ -109,9 +109,21 @@ Proponham uma análise/projeto envolvendo SNA e Text Mining que possa ser realiz
 
 \  
 
-To-do.
+Em abril deste ano, o maior serviço de streaming de música do mundo, o Spotify, anunciou um grande marco na indústria fonográfica. A plataforma alcançou o incrível número de **100 milhões de usuários pagantes** (na chamada, contas premium). Em maio de 2018, o Spotify revelou alguns dos seus incríveis números: 
 
 \  
+
+- 170 milhões de usuários ativos mensalmente;
+
+- 75 milhões de pagantes. 
+
+\  
+
+Esse quantitativo cresceu ainda mais 1 ano depois, principalmente após o lançamento na Índia — que aconteceu no fim de fevereiro de 2019. Na ocasião, a plataforma recebeu mais de 1 milhão de usuários em apenas 1 semana. Segundo a empresa, no fim do primeiro mês já se contabilizava o dobro dessa quantidade.
+
+\  
+
+![Artistas mais ouvidos do mundo na plataforma Spotify](https://raw.githubusercontent.com/ldaniel/Social-Media-Analysis-Text-Mining/master/images/spotify_top3_artists.png)
 
 ## Problema / Oportunidade de Negócio
 
