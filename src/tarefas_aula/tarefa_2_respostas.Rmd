@@ -211,7 +211,7 @@ Existem diversas formas de se construir sistemas de recomendação, a maior part
 
 \  
 
-Pensamos em uma alternativa diferente, que pode até não ser eficiente quanto a técnicas de machine learning aplicadas no comportamento do público, mas que pode despertar a curiosidade dos fãs de música.
+Pensamos em uma alternativa diferente, que pode até não ser eficiente sob técnicas de machine learning aplicadas no comportamento do público, mas que pode despertar a curiosidade dos fãs de música.
 
 \  
 
@@ -227,37 +227,29 @@ A apresentação dos resultados desta análise pode ser um ativo de atração de
 
 \  
 
-```{r answer_2, echo = TRUE, out.width = '100%'}
-
-# to-do
-
-```
-
-\  
-
 ## Escopo: Dados, Processamento, Saída
 
 \  
 
-Para esta tarefa iremos utilizar um dataset extraído do [Kaggle](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics).
-
-\  
-
-Existe cerca de 380 mil letras de música neste dataset de uma variedade de artistas e gêneros.
+Para esta tarefa iremos utilizar um dataset extraído do [Kaggle](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics). Nele, encontram-se disponíveis cerca de 380 mil letras de músicas de uma grande variedade de artistas e gêneros.
 
 \  
 
 Retirando todas as inconsistências e aplicando os seguintes filtros no dataset:
 
+\  
+
 - Valores faltantes; 
 
 - Gêneros não definidos;
 
-- Ano anterior a 1970 (poucas observações)).
+- Ano anterior a 1970 (poucas observações).
 
 \  
 
-Ficamos com cerca de 237 mil letras de músicas que utilizaremos para analisar diversos aspectos utilizando técnicas de mineração de texto and análise de rede tais como:
+Ficamos com cerca de 237 mil letras de músicas que utilizaremos para analisar diversos aspectos utilizando técnicas de mineração de texto e análise de rede tais como:
+
+\  
 
 - Identificar as palavras e bigramas que são mais utilizadas por artista, gênero e década.
 
@@ -417,7 +409,7 @@ To-do.
 
 \  
 
-Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sessões anteriores como entregável da segunda parte desta disciplina ao professor Gustavo Mirapalheta.
+Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sessões anteriores como entregável da segunda parte desta disciplina ao Professor Gustavo Mirapalheta.
 
 \  
 
@@ -435,6 +427,4 @@ Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sess�
 
 - [**Spotify Usage and Revenue Statistics (2019)**](https://www.businessofapps.com/data/spotify-statistics/) -- Mansoor Iqbal
 
-\  
-
-- [**Kaggle - 380,000+ lyrics from MetroLyrics**](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics) -- GyanendraMishra
+- [**Kaggle - 380,000+ lyrics from MetroLyrics**](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics) -- Gyanendra Mishra
