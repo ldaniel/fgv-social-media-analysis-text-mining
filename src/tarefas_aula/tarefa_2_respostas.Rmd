@@ -109,35 +109,87 @@ Proponham uma análise/projeto envolvendo SNA e Text Mining que possa ser realiz
 
 \  
 
-Em abril deste ano, o maior serviço de streaming de música do mundo, o Spotify, anunciou um grande marco na indústria fonográfica. A plataforma alcançou o incrível número de **100 milhões de usuários pagantes** (na chamada, contas premium). Em maio de 2018, o Spotify revelou alguns dos seus incríveis números: 
+Em abril deste ano, o maior serviço de streaming de música do mundo, o Spotify, anunciou um grande marco na indústria fonográfica. A plataforma alcançou o incrível número de **100 milhões de usuários pagantes** (na chamada, contas premium). Esse quantitativo cresceu ainda, principalmente após o lançamento na Índia — que aconteceu no fim de fevereiro de 2019. Na ocasião, a plataforma recebeu mais de 1 milhão de usuários em apenas 1 semana. Segundo a empresa, no fim do primeiro mês já se contabilizava o dobro dessa quantidade.
 
 \  
 
-- 170 milhões de usuários ativos mensalmente;
-
-- 75 milhões de pagantes. 
+![Fonte: https://newsroom.spotify.com/2019-04-29/spotify-reports-first-quarter-2019-earnings/](https://raw.githubusercontent.com/ldaniel/Social-Media-Analysis-Text-Mining/master/images/spotify_growth.png)
 
 \  
 
-Esse quantitativo cresceu ainda mais 1 ano depois, principalmente após o lançamento na Índia — que aconteceu no fim de fevereiro de 2019. Na ocasião, a plataforma recebeu mais de 1 milhão de usuários em apenas 1 semana. Segundo a empresa, no fim do primeiro mês já se contabilizava o dobro dessa quantidade.
+Abaixo listamos mais alguns dos incríveis números do Spotify: 
 
 \  
 
-![Artistas mais ouvidos do mundo na plataforma Spotify](https://raw.githubusercontent.com/ldaniel/Social-Media-Analysis-Text-Mining/master/images/spotify_top3_artists.png)
+- **217 milhões de usuários** ativos no Spotify;
+
+- **100 milhões de usuários pagantes** do serviço Spotify Premium;
+
+- **50 milhôes de músicas** disponíveis na plataforma;
+
+- **3 bilhões de playlists** criadas e atualmente disponíveis na plataforma;
+
+- O Spotify responde por **30% da receita total gerada pela indústria da música gravada e 42% do mercado de streaming**;
+
+- Os usuários médios ouvem 41 artistas únicos por semana;
+
+- A média de horas gastas ouvindo Spotify por mês é de 25 horas;
+
+- 44% dos usuários ouvem o Spotify diariamente;
+
+- Existem, aproximadamente, 4040 milhões de faixas disponíveis no Spotify;
+
+- Cerca de um terço do tempo de audição do Spotify é gasto em listas de reprodução geradas pelo Spotify, e outro terço nas listas de reprodução geradas pelos usuários;
+
+- O Spotify tornou-se público em abril de 2018, com uma avaliação de US $ 26,5 bilhões até o final do primeiro dia de negociação;
+
+- O valor de mercado do Spotify em meados de maio de 2019 era de US $ 25 bilhões - relativamente inalterado por pelo menos seis meses;
+
+- O maior valor de mercado até o momento é de US $ 35 bilhões em julho de 2018.
+
+\  
+
+Fonte: [Business of Apps](https://www.businessofapps.com/data/spotify-statistics/), 10 de maio de 2019
+
+\  
+
+O gráfico abaixo mostra o crescimento da base de usuários do Spotify, desde o seu lançamento em 2017, pontuada pela introdução de novos recursos e *Features Sociais*. Uma das principais características que fazem do Spotify a plataforma de streaming mais consumida é a **curadoria** de listas de música e indicações para os usuários.
+
+\ 
+
+![Fonte: https://www.goodwatercap.com/thesis/understanding-spotify](https://raw.githubusercontent.com/ldaniel/Social-Media-Analysis-Text-Mining/master/images/spotify_growth_timeline.png)
+
+\  
 
 ## Problema / Oportunidade de Negócio
 
 \  
 
-To-do.
+Como vimos, a indústria da música e, em especial do streaming, vem crescendo de maneira consistente na medida em que novas *Features Sociais*, curadoria e técnicas de integrações da plataforma alavancam novas formas de consumo e compartilhamento entre os usuários.
 
 \  
 
-```{r answer_1, echo = TRUE, out.width = '100%'}
+No centro de toda essa efervescência, temos centenas de milhares de artistas gerando conteúdo e competindo entre si para conseguir um lugar ao sol. Acompanhar e entender o que faz um mercado com tanta competitividade de oferta eleger seus artistas prediletos é uma tarefa monumental e virtualmente impossível de ser realizada sem técnicas de *Data Science*.
 
-# to-do
+\  
 
-```
+![Top 3 artistas mais ouvidos do mundo na plataforma Spotify](https://raw.githubusercontent.com/ldaniel/Social-Media-Analysis-Text-Mining/master/images/spotify_top3_artists.png)
+
+\ 
+
+Aplicando as técnicas corretas de *Data Science* e valendo-se dos dados disponíveis sobre os artistas, entendemos que é possível gerar planos táticos e estratégicos para orientar artistas, empresários e agentes da indústria da música.
+
+\  
+
+Se pegarmos, por exemplo, a *top list* de 2019 do Spotify e fizermos uma exploração nas principais músicas e artistas consumidos em 2019, extrairemos *insights* a respeito do estilo de música e teor de letra mais consumidos.
+
+\  
+
+![Top lists de 2019 na plataforma Spotify](https://raw.githubusercontent.com/ldaniel/Social-Media-Analysis-Text-Mining/master/images/spotify_toplists_2019.png)
+
+\  
+
+Diversos cenários de análise estratégica, curadoria e planejamento de carreira podem se beneficiar com estas análises empregando técnicas de **SNA*** e **Text Mining**.
 
 \  
 
@@ -236,3 +288,9 @@ To-do.
 ```
 
 \  
+
+# Referências utilizadas neste trabalho
+
+\  
+
+- [**Spotify Usage and Revenue Statistics (2019)**](https://www.businessofapps.com/data/spotify-statistics/) --Mansoor Iqbal
