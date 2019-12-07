@@ -1,6 +1,10 @@
 ---
 title: "Tarefa Aula 3 – Exploração de SNA em R"
 output:
+  word_document:
+    highlight: tango
+    reference_docx: word-styles-reference.docx
+    toc: yes
   pdf_document:
     toc: yes
   html_document:
@@ -9,10 +13,6 @@ output:
     highlight: tango
     number_sections: yes
     theme: cosmo
-    toc: yes
-  word_document:
-    highlight: tango
-    reference_docx: word-styles-reference.docx
     toc: yes
 date: "Novembro de 2019"
 ---
@@ -201,15 +201,27 @@ Diversos cenários de análise estratégica, curadoria e planejamento de carreir
 
 Com o advento da internet e popularização de serviços de download e streaming, a música digital se tornou imensamente acessível a população, e isso aumentou em muito a variedade de gêneros, artistas e tipos de músicas para a escolha do público em geral.
 
+\  
+
 As plataformas de descoberta de novos conteúdos que tender a ir de acordo com o gosto musical do público tem se tornado um dos principais ativos de diferenciação das plataformas de distribuição de música.
-test
+
+\  
+
 Existem diversas formas de se construir sistemas de recomendação, a maior parte deles baseada no histórico de streaming dos usuários.
+
+\  
 
 Pensamos em uma alternativa diferente, que pode até não ser eficiente quanto a técnicas de machine learning aplicadas no comportamento do público, mas que pode despertar a curiosidade dos fãs de música.
 
+\  
+
 Pretendemos aplicar técnicas de mineração de texto nas letras de diversas músicas e gêneros a fim de identificar a correlação entre artistas, possivelmente revelando padrões de influência entre eles.
 
-Além da identificação de possíveis influências entre artistas e gêneros podemos segmentar as letras das músicas utilizando técnicas de análise de sentimento e topic modeling.
+\  
+
+Além da identificação de possíveis influências entre artistas e gêneros podemos segmentar as letras das músicas utilizando técnicas de **análise de sentimento** e **topic modeling**.
+
+\  
 
 A apresentação dos resultados desta análise pode ser um ativo de atração de público ao despertar a curiosidade deles em descobrir de que forma seus artistas favoritos estão correlacionados aos demais atores no cenário musical.
 
@@ -229,7 +241,11 @@ A apresentação dos resultados desta análise pode ser um ativo de atração de
 
 Para esta tarefa iremos utilizar um dataset extraído do [Kaggle](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics).
 
+\  
+
 Existe cerca de 380 mil letras de música neste dataset de uma variedade de artistas e gêneros.
+
+\  
 
 Retirando todas as inconsistências e aplicando os seguintes filtros no dataset:
 
@@ -239,19 +255,25 @@ Retirando todas as inconsistências e aplicando os seguintes filtros no dataset:
 
 - Ano anterior a 1970 (poucas observações)).
 
+\  
+
 Ficamos com cerca de 237 mil letras de músicas que utilizaremos para analisar diversos aspectos utilizando técnicas de mineração de texto and análise de rede tais como:
 
 - Identificar as palavras e bigramas que são mais utilizadas por artista, gênero e década.
 
-- Analisar a correlação das letras de diferentes artistas e montar um grafo identificando as possíveis influências entre os artistas e gêneros.
+- Analisar a correlação das letras de diferentes artistas e montar uma rede identificando as possíveis influências entre os artistas e gêneros.
 
 - Aplicar análise de sentimento nas letras de músicas e segmentação dos artistas com base nesta análise.
+
+\  
 
 Abaixo uma pequena exploração do dataset selecionado.
 
 \  
 
-Uma amostra dos dados contidos no dataset:
+**- Uma amostra dos dados contidos no dataset:**
+
+\  
 
 ```{r answer_3.0, echo = TRUE, out.width = '100%'}
 
@@ -280,7 +302,9 @@ table_output
 
 \  
 
-Quantidade de músicas e artistas por gênero musical:
+**- Quantidade de músicas e artistas por gênero musical:**
+
+\  
 
 ```{r answer_3.1, echo = TRUE, out.width = '100%'}
 
@@ -298,7 +322,9 @@ table_output
 
 \  
 
-Quantidade de músicas e artistas por década em análise:
+**- Quantidade de músicas e artistas por década em análise:**
+
+\  
 
 ```{r answer_3.2, echo = TRUE, out.width = '100%'}
 
@@ -318,7 +344,9 @@ table_output
 
 \  
 
-Número de músicas por gênero dos top 3 artistas baseado no número de músicas presente no dataset:
+**- Número de músicas por gênero dos top 3 artistas baseado no número de músicas presente no dataset:**
+
+\  
 
 ```{r answer_3.3, echo = TRUE, out.width = '100%'}
 
@@ -389,7 +417,7 @@ To-do.
 
 \  
 
-Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sessões anteriores com entregável da segunda parte desta disciplina ao professor Gustavo Mirapalheta.
+Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sessões anteriores como entregável da segunda parte desta disciplina ao professor Gustavo Mirapalheta.
 
 \  
 
@@ -405,6 +433,8 @@ Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sess�
 
 \  
 
-- [**Spotify Usage and Revenue Statistics (2019)**](https://www.businessofapps.com/data/spotify-statistics/) --Mansoor Iqbal
+- [**Spotify Usage and Revenue Statistics (2019)**](https://www.businessofapps.com/data/spotify-statistics/) -- Mansoor Iqbal
 
-- [**Kaggle - 380,000+ lyrics from MetroLyrics**](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics) --Mansoor Iqbal
+\  
+
+- [**Kaggle - 380,000+ lyrics from MetroLyrics**](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics) -- GyanendraMishra
