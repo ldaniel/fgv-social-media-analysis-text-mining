@@ -191,7 +191,7 @@ Se pegarmos, por exemplo, a *top list* de 2019 do Spotify e fizermos uma explora
 
 \  
 
-Diversos cenários de análise estratégica, curadoria e planejamento de carreira podem se beneficiar com estas análises empregando técnicas de **SNA*** e **Text Mining**.
+Diversos cenários de planos estratégicos, curadoria e planejamento de carreira podem se beneficiar com estas análises empregando técnicas de **SNA*** e **Text Mining**.
 
 \  
 
@@ -203,11 +203,7 @@ Com o advento da internet e popularização de serviços de download e streaming
 
 \  
 
-As plataformas de descoberta de novos conteúdos que tender a ir de acordo com o gosto musical do público tem se tornado um dos principais ativos de diferenciação das plataformas de distribuição de música.
-
-\  
-
-Existem diversas formas de se construir sistemas de recomendação, a maior parte deles baseada no histórico de streaming dos usuários.
+As plataformas de descoberta de novos conteúdos que tender a ir de acordo com o gosto musical do público tem se tornado um dos principais ativos de diferenciação das plataformas de distribuição de música. Existem diversas formas de se construir sistemas de recomendação, a maior parte deles baseada no histórico de streaming dos usuários.
 
 \  
 
@@ -219,7 +215,7 @@ Pretendemos aplicar técnicas de mineração de texto nas letras de diversas mú
 
 \  
 
-Além da identificação de possíveis influências entre artistas e gêneros podemos segmentar as letras das músicas utilizando técnicas de **análise de sentimento** e **topic modeling**.
+Além da identificação de possíveis influências entre artistas e gêneros podemos segmentar as letras das músicas utilizando técnicas de **Análise de Sentimento** e **Topic Modeling**.
 
 \  
 
@@ -235,7 +231,7 @@ Para esta tarefa iremos utilizar um dataset extraído do [Kaggle](https://www.ka
 
 \  
 
-Retirando todas as inconsistências e aplicando os seguintes filtros no dataset:
+Após uma primeira exploração dos dados, notamos a neccessidade de retirar todas as inconsistências e aplicar os seguintes filtros no dataset:
 
 \  
 
