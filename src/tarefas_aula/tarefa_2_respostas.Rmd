@@ -1,18 +1,18 @@
 ---
 title: "Tarefa Aula 3 – Exploração de SNA em R"
 output:
+  word_document:
+    highlight: tango
+    reference_docx: word-styles-reference.docx
+    toc: yes
+  pdf_document:
+    toc: yes
   html_document:
     code_folding: hide
     df_print: paged
     highlight: tango
     number_sections: yes
     theme: cosmo
-    toc: yes
-  pdf_document:
-    toc: yes
-  word_document:
-    highlight: tango
-    reference_docx: word-styles-reference.docx
     toc: yes
 date: "Novembro de 2019"
 ---
@@ -370,14 +370,6 @@ Neste projeto, técnicas de topic modeling, TF-IDF, análise de sentimentos e co
 
 \  
 
-```{r answer_4, echo = TRUE, out.width = '100%'}
-
-
-
-```
-
-\  
-
 ## Indicadores de Avaliação
 
 \  
@@ -386,24 +378,15 @@ Os principais indicadores a serem usados serão:
 
 \  
 
-- Betweenss: Avaliação de proximidade de nós (artistas) na análise de grafos
+- **Betweenss:** Avaliação de proximidade de nós (artistas) na análise de grafos;
 
-- Cliques: Avaliação de clusteres de nós pela proximidade gráfica (cliques)
+- **Cliques:** Avaliação de clusteres de nós pela proximidade gráfica (cliques);
 
-- Índice de sentimento: Avaliação de sentimento (usando dicionário de palavras) para entender a positividade/negatividade das mensagens das músicas
+- **Índice de sentimento:** Avaliação de sentimento (usando dicionário de palavras) para entender a positividade/negatividade das mensagens das músicas;
 
-- TF-IDF: Avaliação de palavras mais características de cada artista
+- **TF-IDF:** Avaliação de palavras mais características de cada artista;
 
-- Frequência de tópicos: Agrupamento de artistas com base em suas preferências temáticas 
-
-
-\  
-
-```{r answer_5, echo = TRUE, out.width = '100%'}
-
-
-
-```
+- **Frequência de tópicos:** Agrupamento de artistas com base em suas preferências temáticas .
 
 \  
 
@@ -415,27 +398,11 @@ Atualmente empresas dedicam setores inteiros para a análise de informações de
 
 \  
 
-```{r answer_6, echo = TRUE, out.width = '100%'}
-
-
-
-```
-
-\  
-
 ## Se possível: realizem Prova de Conceito
 
 \  
 
 Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sessões anteriores como entregável da segunda parte desta disciplina ao Professor Gustavo Mirapalheta.
-
-\  
-
-```{r answer_7, echo = TRUE, out.width = '100%'}
-
-
-
-```
 
 \  
 
