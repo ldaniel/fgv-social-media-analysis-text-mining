@@ -1,18 +1,18 @@
 ---
 title: "Tarefa Aula 3 – Exploração de SNA em R"
 output:
-  word_document:
-    highlight: tango
-    reference_docx: word-styles-reference.docx
-    toc: yes
-  pdf_document:
-    toc: yes
   html_document:
     code_folding: hide
     df_print: paged
     highlight: tango
     number_sections: yes
     theme: cosmo
+    toc: yes
+  pdf_document:
+    toc: yes
+  word_document:
+    highlight: tango
+    reference_docx: word-styles-reference.docx
     toc: yes
 date: "Novembro de 2019"
 ---
@@ -279,11 +279,12 @@ lyrics <- filter(lyrics,
 
 # seleciona uma amostra de 15 musicas com os 50 primeiros caracteres da letra.
 temp <- sample_n(lyrics, size = 15)
-temp$snippet <- paste(str_sub(temp$lyrics, 1, 50), ' ...', sep = '')
+temp$snippet <- paste(str_sub(temp$lyrics, 1, 50), '...', sep = '')
 temp <- select(temp, -lyrics)
 table_output <- flextable(as.data.frame(temp))
 table_output <- fontsize(table_output, part = "all", size = 9)
 table_output <- autofit(table_output)
+table_output <- theme_vanilla(table_output)
 table_output
 
 ```
