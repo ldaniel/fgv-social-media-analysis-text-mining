@@ -203,7 +203,7 @@ Com o advento da internet e popularização de serviços de download e streaming
 
 \  
 
-As plataformas de descoberta de novos conteúdos que tender a ir de acordo com o gosto musical do público tem se tornado um dos principais ativos de diferenciação das plataformas de distribuição de música. Existem diversas formas de se construir sistemas de recomendação, a maior parte deles baseada no histórico de streaming dos usuários.
+As plataformas de descoberta de novos conteúdos que tendem a ir de acordo com o gosto musical do público tem se tornado um dos principais ativos de diferenciação das plataformas de distribuição de música. Existem diversas formas de se construir sistemas de recomendação, a maior parte deles baseada no histórico de streaming dos usuários.
 
 \  
 
