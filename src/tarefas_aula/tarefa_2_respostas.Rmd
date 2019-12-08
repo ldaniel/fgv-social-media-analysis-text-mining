@@ -394,7 +394,8 @@ Os principais indicadores a serem usados serão:
 
 \  
 
-Atualmente empresas dedicam setores inteiros para a análise de informações desestruturadas no formato de texto falado ou escrito. Com o avanço das técnicas de speech-to-text, a avaliação de textos ainda mais relevantes. Desta forma, entender os processos e métodos de mineração de textos e NLP são estratégias fundamentais para o futuro da maior parte dos negócios!
+Hoje em dia grande parte (senão a maioria) de todos os dados capturados pelas empresas são dados não estruturados, ou seja, gravação de ligações, e-mails, troca de mensagens, etc. E a partir desses dados é possível realizar uma ampla gama de análises, por exemplo o nível de satisfação do cliente com algum produto ou serviço. As vezes uma análise de uma gravação telefônica consegue captar melhor o sentimento do cliente do que se fosse respondida uma pesquisa de satisfação. Dado esse contexto é imprescindível que grandes empresas invistam fortemente nesse tipo de tecnologia e estudos. 
+Atualmente empresas dedicam setores inteiros para a análise de informações desestruturadas no formato de texto falado ou escrito. Com o avanço das técnicas de speech-to-text, a avaliação de textos torna-se ainda mais relevante. Desta forma, entender os processos e métodos de mineração de textos e NLP são estratégias fundamentais para o futuro da maior parte dos negócios!
 
 \  
 
