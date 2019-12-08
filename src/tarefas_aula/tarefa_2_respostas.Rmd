@@ -358,13 +358,21 @@ table_output
 
 \  
 
-To-do.
+O NLP (*Natural Language Processing*) é um dos campos mais populares e promissores da inteligência artificial e machine learning. No longo prazo, é provavel que a grade maioria das empresas precisem fazer o uso de técnicas de mineração de dados e estar à frente dos **hot topics** do momento é extremamente estratégico nos preceitos empresariais.
+
+\  
+
+Existem muitos projetos e publicações desmistificando o conceito de NLP. Operacionalmente, quando lidamos com os dados de textos, a abordagem fundamental é dividir o texto em palavras únicas. Daí, a mágica fica com a estatística, que aplica técnicas de contagens e distâncias de palavras na extração de insights relevantes para os negócios. Dentre outras, conseguimos modelar temas e sentimentos ao longo de textos.
+
+\  
+
+Neste projeto, técnicas de topic modeling, TF-IDF, análise de sentimentos e contagens básicas de palavras serão aplicadas com o objetivo que poderá ser estudar causalidades de eventos, rede de relacionamentos de artistas, principais temas por categoria ou artista ou, até mesmo, encontrar correlações para avaliação de hits de sucesso.
 
 \  
 
 ```{r answer_4, echo = TRUE, out.width = '100%'}
 
-# to-do
+
 
 ```
 
@@ -374,13 +382,26 @@ To-do.
 
 \  
 
-To-do.
+Os principais indicadores a serem usados serão:
+
+\  
+
+- Betweenss: Avaliação de proximidade de nós (artistas) na análise de grafos
+
+- Cliques: Avaliação de clusteres de nós pela proximidade gráfica (cliques)
+
+- Índice de sentimento: Avaliação de sentimento (usando dicionário de palavras) para entender a positividade/negatividade das mensagens das músicas
+
+- TF-IDF: Avaliação de palavras mais características de cada artista
+
+- Frequência de tópicos: Agrupamento de artistas com base em suas preferências temáticas 
+
 
 \  
 
 ```{r answer_5, echo = TRUE, out.width = '100%'}
 
-# to-do
+
 
 ```
 
@@ -390,13 +411,13 @@ To-do.
 
 \  
 
-To-do.
+Atualmente empresas dedicam setores inteiros para a análise de informações desestruturadas no formato de texto falado ou escrito. Com o avanço das técnicas de speech-to-text, a avaliação de textos ainda mais relevantes. Desta forma, entender os processos e métodos de mineração de textos e NLP são estratégias fundamentais para o futuro da maior parte dos negócios.
 
 \  
 
 ```{r answer_6, echo = TRUE, out.width = '100%'}
 
-# to-do
+
 
 ```
 
@@ -412,7 +433,7 @@ Iremos desenvolver a prova de conceito utilizando o dataset mencionado nas sess�
 
 ```{r answer_7, echo = TRUE, out.width = '100%'}
 
-# to-do
+
 
 ```
 
