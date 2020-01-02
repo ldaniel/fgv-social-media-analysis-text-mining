@@ -18,20 +18,22 @@ options(Encoding="UTF-8")
 library(rmarkdown)
 library(knitr)
 
-# data exploration libraries
-library(tibble)
-library(dplyr)
-library(tidyr)
+# data wrangling
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr, warn.conflicts = FALSE)
+library(readr)
 library(stringr)
-library(lubridate)
-
-# plotting libraries
+library(tidytext)
 library(ggplot2)
-library(plotly)
-library(ggthemes)
-library(ggalluvial)
-library(ggpubr)
-library(ggcorrplot)
+library(forcats)
+
+# wordcloud
+library(ggwordcloud)
+library(RColorBrewer)
+
+# network
+library(visNetwork)
+library(igraph, warn.conflicts = FALSE)
 
 # loading required scripts
 source("../src/util/auxiliary_functions.R")
