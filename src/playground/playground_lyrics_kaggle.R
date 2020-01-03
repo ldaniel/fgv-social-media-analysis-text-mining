@@ -35,13 +35,13 @@ lyrics <- read_csv('../input/380000-lyrics-from-metrolyrics/lyrics.csv',
 # lyrics  <- sample_n(lyrics, size = 10000)
 # invisible(gc())
 
-print(paste('Número de observações: ', length(lyrics$index)))
+print(paste('NÃºmero de observaÃ§Ãµes: ', length(lyrics$index)))
 lyrics <- filter(lyrics, 
                  !is.na(lyrics), 
                  !(genre %in% c('Not Available', 'Other')),
                  as.integer(year) >= 1970)
 
-print(paste('Número de observações: ', length(lyrics$index)))
+print(paste('NÃºmero de observaÃ§Ãµes: ', length(lyrics$index)))
 lyrics$decade <- paste(str_sub(lyrics$year, 1, 3), '0', sep = '')
 lyrics$genre  <- trimws(lyrics$genre)
 sample_n(lyrics, 3)
@@ -89,7 +89,7 @@ lyrics_token <- unnest_tokens(lyrics,
                               drop = TRUE,
                               to_lower = TRUE)
 
-print(paste('Número de observações: ', length(lyrics_token$index)))
+print(paste('NÃºmero de observaÃ§Ãµes: ', length(lyrics_token$index)))
 custom_stop_words <- c(tm::stopwords("german"), 
                        tm::stopwords("spanish"), 
                        tm::stopwords("portuguese"), 
@@ -107,7 +107,7 @@ lyrics_token$sentiment = plyr::mapvalues(lyrics_token$word, bing$word, bing$sent
 lyrics_token$sentiment = if_else(!(lyrics_token$sentiment %in% c('positive', 'negative')), 
                                     'neutral', lyrics_token$sentiment)
 
-print(paste('Número de observações após a eleminação das stop words: ', length(lyrics_token$index)))
+print(paste('NÃºmero de observaÃ§Ãµes apÃ³s a eleminaÃ§Ã£o das stop words: ', length(lyrics_token$index)))
 
 sample_n(lyrics_token, size = 15)
 
@@ -119,7 +119,7 @@ saveRDS(count_words, 'count_words.rds')
 
 rm(bing, count_words)
 invisible(gc)
-# contagem por gênero musical
+# contagem por gÃªnero musical
 gw <- group_by(lyrics_token, genre, sentiment, word) %>%
   summarise(gw_c = n()) %>% 
   ungroup() %>% 
@@ -208,7 +208,7 @@ lyrics_token_bi <- unnest_tokens(lyrics,
                                  to_lower = TRUE,
                                  n = 2)
 
-print(paste('Número de termos: ', length(lyrics_token_bi$index)))
+print(paste('NÃºmero de termos: ', length(lyrics_token_bi$index)))
 rm(lyrics)
 invisible(gc())
 lyrics_token_bi <- separate(lyrics_token_bi, term, sep = ' ', into = c('w1', 'w2'), remove = FALSE)
@@ -218,7 +218,7 @@ invisible(gc())
 lyrics_token_bi <- filter(lyrics_token_bi, w1 != w2)
 saveRDS(lyrics_token_bi, 'lyrics_token_bi.rds')
 
-print(paste('Número de termos apos eliminação de stop words: ', length(lyrics_token_bi$index)))
+print(paste('NÃºmero de termos apos eliminaÃ§Ã£o de stop words: ', length(lyrics_token_bi$index)))
 count_words <- readRDS('count_words.rds')
 
 top_words <- count_words %>% 
@@ -262,7 +262,7 @@ net_graph <- visNetwork(nodes, edges, height = "500px", width = "100%") %>%
 
 htmlwidgets::saveWidget(net_graph, "net_graph.html")
 display_html('<iframe src="net_graph.html" width=100% height=700></iframe>')
-# contagem por gênero musical
+# contagem por gÃªnero musical
 gw <- group_by(lyrics_token_bi, genre, term) %>%
   summarise(gw_c = n()) %>% 
   ungroup() %>% 
