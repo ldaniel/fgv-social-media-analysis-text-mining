@@ -49,3 +49,4 @@ rsconnect/
 /data/processed/lyrics.RData
 /data/processed/lyrics_token.RData
 /data/processed/lyrics_token_bi.RData
+/data/processed/kaggle/
