@@ -312,7 +312,7 @@ count_words  <- filter(count_words, artist == artist_filter)
 count_words  <- count(count_words, word, sentiment, sort = TRUE)
 
 top_words <- count_words %>% 
-                filter(row_number() <= 200)
+                filter(row_number() <= 50)
 
 temp  <- filter(lyrics_token_bi, artist == artist_filter)
 
