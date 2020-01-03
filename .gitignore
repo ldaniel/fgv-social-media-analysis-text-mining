@@ -45,3 +45,7 @@ rsconnect/
 /scr/tarefa_aula_1/tarefa_aula_1_respostas.html
 /scr/tarefa_aula_1/tarefa_aula_1_files/
 /data/raw/lyrics.csv
+
+/data/processed/lyrics.RData
+/data/processed/lyrics_token.RData
+/data/processed/lyrics_token_bi.RData
