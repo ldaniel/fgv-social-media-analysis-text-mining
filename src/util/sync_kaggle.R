@@ -1,4 +1,6 @@
 
+options(encoding = "UTF-8")
+
 # sync with kaggle code.
 # the objective of this step is to sync up the owrk developed in kaggle with this git reposirtory.
 

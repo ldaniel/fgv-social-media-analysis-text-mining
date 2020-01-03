@@ -1,3 +1,4 @@
+# config
 set.seed(12345)
 options(repr.plot.width = 20, repr.plot.height = 12)
 options(encoding = 'UTF-8')
@@ -5,6 +6,8 @@ options(encoding = 'UTF-8')
 list.of.packages <- c("ggwordcloud")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
+
+
 # Data wrangling
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr, warn.conflicts = FALSE)
@@ -21,6 +24,8 @@ library(ggwordcloud)
 library(visNetwork)
 library(IRdisplay)
 library(igraph, warn.conflicts = FALSE)
+
+# data ingestion
 lyrics <- read_csv('../input/380000-lyrics-from-metrolyrics/lyrics.csv',
                    col_types = cols(
                      index = col_double(),
@@ -36,15 +41,23 @@ lyrics <- read_csv('../input/380000-lyrics-from-metrolyrics/lyrics.csv',
 # invisible(gc())
 
 print(paste('Número de observações: ', length(lyrics$index)))
+
+# data filter
 lyrics <- filter(lyrics, 
                  !is.na(lyrics), 
                  !(genre %in% c('Not Available', 'Other')),
                  as.integer(year) >= 1970)
 
 print(paste('Número de observações: ', length(lyrics$index)))
+
+# data enhance
 lyrics$decade <- paste(str_sub(lyrics$year, 1, 3), '0', sep = '')
 lyrics$genre  <- trimws(lyrics$genre)
+
+# view sample
 sample_n(lyrics, 3)
+
+# view number of observations per genre
 temp <- group_by(lyrics, genre) %>%
   summarise(songs = n(),
             artists = length(unique(artist))) %>% 
@@ -61,6 +74,8 @@ ggplot(data = temp, aes(x = fct_reorder(genre, songs), y = songs)) +
     theme(legend.position = 0,
          text = element_text(size = 20),
          axis.text.x = element_blank())
+
+# view number of observations per decade
 temp  <- group_by(lyrics, decade) %>% 
             summarise(songs = n(),
                       artists = length(unique(artist))) %>% 
@@ -77,11 +92,15 @@ ggplot(data = temp, aes(x = decade, y = songs)) +
     theme(legend.position = 0,
          text = element_text(size = 20),
          axis.text.x = element_blank())
+
+# view top artists
 count(lyrics, genre, artist, sort = TRUE) %>% 
   group_by(genre) %>% 
   arrange(desc(n)) %>% 
   filter(row_number() <= 3) %>% 
   arrange(desc(genre), desc(n))
+
+# tokens per word
 lyrics_token <- unnest_tokens(lyrics,
                               input = lyrics,
                               output = word,
@@ -90,6 +109,8 @@ lyrics_token <- unnest_tokens(lyrics,
                               to_lower = TRUE)
 
 print(paste('Número de observações: ', length(lyrics_token$index)))
+
+# eliminating stop words
 custom_stop_words <- c(tm::stopwords("german"), 
                        tm::stopwords("spanish"), 
                        tm::stopwords("portuguese"), 
@@ -101,24 +122,24 @@ lyrics_token <- filter(lyrics_token,
                        !(word %in% custom_stop_words))
 
 bing = get_sentiments('bing')
-
-lyrics_token$sentiment = plyr::mapvalues(lyrics_token$word, bing$word, bing$sentiment, warn_missing = FALSE)
-
+lyrics_token$sentiment = plyr::mapvalues(lyrics_token$word, 
+                                         bing$word, bing$sentiment, 
+                                         warn_missing = FALSE)
 lyrics_token$sentiment = if_else(!(lyrics_token$sentiment %in% c('positive', 'negative')), 
                                     'neutral', lyrics_token$sentiment)
 
-print(paste('Número de observações após a eleminação das stop words: ', length(lyrics_token$index)))
+print(paste('Número de observações após a eleminação das stop words: ', 
+            length(lyrics_token$index)))
 
 sample_n(lyrics_token, size = 15)
-
 saveRDS(lyrics_token, 'lyrics_token.rds')
 
 count_words <- count(lyrics_token, word, sentiment, sort = TRUE)
-
 saveRDS(count_words, 'count_words.rds')
 
 rm(bing, count_words)
 invisible(gc)
+
 # contagem por gênero musical
 gw <- group_by(lyrics_token, genre, sentiment, word) %>%
   summarise(gw_c = n()) %>% 
@@ -139,6 +160,8 @@ w <- group_by(lyrics_token, sentiment, word) %>%
 
 rm(lyrics_token)
 invisible(gc)
+
+# view word cloud
 temp <- group_by(w, sentiment) %>% 
     arrange(desc(w_c)) %>% 
     filter(row_number() < 101) %>% 
@@ -160,6 +183,8 @@ plt  <- ggplot(data = temp,
   theme(text = element_text(size = 20))
 
 suppressWarnings(print(plt))
+
+# view word cloud per genre
 temp <- group_by(gw, genre, sentiment) %>%  
     arrange(desc(gw_p)) %>% 
     filter(row_number() < 51) %>%
@@ -180,6 +205,8 @@ plt <- ggplot(data = temp,
   theme(text = element_text(size = 15))
 
 suppressWarnings(print(plt))
+
+# view most common words
 options(repr.plot.width = 20, repr.plot.height = 12)
 
 gw %>%
@@ -200,6 +227,8 @@ gw %>%
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
         text = element_text(size = 20))
+
+# tokens bigramas
 lyrics_token_bi <- unnest_tokens(lyrics,
                                  input = lyrics,
                                  output = term,
@@ -209,8 +238,10 @@ lyrics_token_bi <- unnest_tokens(lyrics,
                                  n = 2)
 
 print(paste('Número de termos: ', length(lyrics_token_bi$index)))
+
 rm(lyrics)
 invisible(gc())
+# clean bigrams
 lyrics_token_bi <- separate(lyrics_token_bi, term, sep = ' ', into = c('w1', 'w2'), remove = FALSE)
 lyrics_token_bi <- filter(lyrics_token_bi, !(w1 %in% custom_stop_words) & str_detect(w1, '^[a-z]'))
 lyrics_token_bi <- filter(lyrics_token_bi, !(w2 %in% custom_stop_words) & str_detect(w2, '^[a-z]'))
@@ -219,49 +250,113 @@ lyrics_token_bi <- filter(lyrics_token_bi, w1 != w2)
 saveRDS(lyrics_token_bi, 'lyrics_token_bi.rds')
 
 print(paste('Número de termos apos eliminação de stop words: ', length(lyrics_token_bi$index)))
+
+# custom function to plot network diagram
+plot_network <- function(temp, output) {
+    temp <- group_by(temp, w1, w2) %>% 
+               summarise(count = n()) %>%
+               ungroup() %>%
+               mutate(percent = count / sum(count)) %>%
+               group_by(w1) %>%
+               arrange(desc(count)) %>%
+               filter(row_number() <= 5) %>% 
+               ungroup() %>% 
+               filter(w1 %in% top_words$word)
+
+    nodes = tibble(label = unique(c(temp$w1, temp$w2)))
+    nodes = tibble::rowid_to_column(nodes, "id")
+    nodes$value = plyr::mapvalues(nodes$label, count_words$word, count_words$n, warn_missing = FALSE)
+    nodes$value = as.numeric(nodes$value)
+    nodes$value = (nodes$value - min(nodes$value)) / (max(nodes$value) - min(nodes$value))
+    nodes$value = nodes$value * 100
+    nodes$group = plyr::mapvalues(nodes$label, count_words$word, count_words$sentiment, warn_missing = FALSE)
+
+    edges  <- tibble(from = temp$w1,
+                     to = temp$w2,
+                     weight = temp$percent)
+
+    edges$from = plyr::mapvalues(edges$from, nodes$label, nodes$id, warn_missing = FALSE)
+    edges$to = plyr::mapvalues(edges$to, nodes$label, nodes$id, warn_missing = FALSE)
+
+    net_graph <- visNetwork(nodes, edges, height = "500px", width = "100%") %>% 
+                     visNodes(scaling = list(min = 10, max = 50)) %>% 
+                     visEdges(arrows = "to") %>% 
+                     visOptions(highlightNearest = TRUE, 
+                                nodesIdSelection = TRUE,
+                                selectedBy = "group") %>%
+                     visGroups(groupname = "positive", color = "green")  %>% 
+                     visGroups(groupname = "neutral") %>% 
+                     visGroups(groupname = "negative", color = "red") %>% 
+                     visLegend(width = 0.1)
+
+    return (net_graph)
+}
+
+# bigrams graph for all dataset
 count_words <- readRDS('count_words.rds')
 
 top_words <- count_words %>% 
                 filter(row_number() <= 25)
 
-temp <- group_by(lyrics_token_bi, w1, w2) %>% 
-           summarise(count = n()) %>%
-           ungroup() %>%
-           mutate(percent = count / sum(count)) %>%
-           group_by(w1) %>%
-           arrange(desc(count)) %>%
-           filter(row_number() <= 5) %>% 
-           ungroup() %>% 
-           filter(w1 %in% top_words$word)
-
-nodes = tibble(label = unique(c(temp$w1, temp$w2)))
-nodes = tibble::rowid_to_column(nodes, "id")
-nodes$value = plyr::mapvalues(nodes$label, count_words$word, count_words$n, warn_missing = FALSE)
-nodes$value = as.numeric(nodes$value)
-nodes$value = (nodes$value - min(nodes$value)) / (max(nodes$value) - min(nodes$value))
-nodes$value = nodes$value * 100
-nodes$group = plyr::mapvalues(nodes$label, count_words$word, count_words$sentiment, warn_missing = FALSE)
-
-edges  <- tibble(from = temp$w1,
-                 to = temp$w2,
-                 weight = temp$percent)
-
-edges$from = plyr::mapvalues(edges$from, nodes$label, nodes$id, warn_missing = FALSE)
-edges$to = plyr::mapvalues(edges$to, nodes$label, nodes$id, warn_missing = FALSE)
-
-net_graph <- visNetwork(nodes, edges, height = "500px", width = "100%") %>% 
-                 visNodes(scaling = list(min = 10, max = 50)) %>% 
-                 visEdges(arrows = "to") %>% 
-                 visOptions(highlightNearest = TRUE, 
-                            nodesIdSelection = TRUE,
-                            selectedBy = "group") %>%
-                 visGroups(groupname = "positive", color = "green")  %>% 
-                 visGroups(groupname = "neutral") %>% 
-                 visGroups(groupname = "negative", color = "red") %>% 
-                 visLegend(width = 0.1)
-
+net_graph <- plot_network(lyrics_token_bi)
 htmlwidgets::saveWidget(net_graph, "net_graph.html")
-display_html('<iframe src="net_graph.html" width=100% height=700></iframe>')
+
+display_html('<iframe src="net_graph.html" width=100% height=600></iframe>')
+
+# bigrams graph for one artist
+
+artist_filter = 'bob-dylan'
+
+count_words  <- readRDS('lyrics_token.rds')
+count_words  <- filter(count_words, artist == artist_filter)
+count_words  <- count(count_words, word, sentiment, sort = TRUE)
+
+top_words <- count_words %>% 
+                filter(row_number() <= 200)
+
+temp  <- filter(lyrics_token_bi, artist == artist_filter)
+
+net_graph <- plot_network(temp)
+htmlwidgets::saveWidget(net_graph, "net_graph_artist.html")
+
+display_html('<iframe src="net_graph_artist.html" width=100% height=600></iframe>')
+
+# bigrams graph for one genre
+
+genre_filter = 'Metal'
+
+count_words  <- readRDS('lyrics_token.rds')
+count_words  <- filter(count_words, genre == genre_filter)
+count_words  <- count(count_words, word, sentiment, sort = TRUE)
+
+top_words <- count_words %>% 
+                filter(row_number() <= 25)
+
+temp  <- filter(lyrics_token_bi, genre == genre_filter)
+
+net_graph <- plot_network(temp)
+htmlwidgets::saveWidget(net_graph, "net_graph_genre.html")
+
+display_html('<iframe src="net_graph_genre.html" width=100% height=600></iframe>')
+
+# bigrams graph for one genre
+
+genre_filter = 'Rock'
+
+count_words  <- readRDS('lyrics_token.rds')
+count_words  <- filter(count_words, genre == genre_filter)
+count_words  <- count(count_words, word, sentiment, sort = TRUE)
+
+top_words <- count_words %>% 
+                filter(row_number() <= 25)
+
+temp  <- filter(lyrics_token_bi, genre == genre_filter)
+
+net_graph <- plot_network(temp)
+htmlwidgets::saveWidget(net_graph, "net_graph_genre_2.html")
+
+display_html('<iframe src="net_graph_genre_2.html" width=100% height=600></iframe>')
+
 # contagem por gênero musical
 gw <- group_by(lyrics_token_bi, genre, term) %>%
   summarise(gw_c = n()) %>% 
@@ -279,6 +374,8 @@ w <- group_by(lyrics_token_bi, term) %>%
   ungroup() %>%
   mutate(w_p = w_c / sum(w_c)) %>%
   arrange(desc(w_c))
+
+# wordcloud commom bigrams
 temp <- arrange(w, desc(w_c)) %>% 
     filter(row_number() < 101) %>% 
     mutate(angle = 90 * sample(c(0, 1), n(), replace = TRUE, prob = c(70, 30)))
@@ -293,6 +390,8 @@ plt <- ggplot(data = temp,
   theme_minimal()
 
 suppressWarnings(print(plt))
+
+# word cloud commom bigrams per genre
 temp <- group_by(gw, genre) %>%  
     arrange(desc(gw_p)) %>% 
     filter(row_number() < 26) %>%
@@ -312,6 +411,8 @@ plt <- ggplot(data = temp,
   facet_wrap(vars(genre), nrow = 5)
 
 suppressWarnings(print(plt))
+
+# most commom bigrams per genre
 options(repr.plot.width = 20, repr.plot.height = 12)
 
 gw %>%
@@ -331,3 +432,4 @@ gw %>%
   theme(legend.position = 0,
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank())
+
