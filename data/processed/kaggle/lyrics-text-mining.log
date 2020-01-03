@@ -1,0 +1,197 @@
+[{
+  "data": "[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n",
+  "stream_name": "stderr",
+  "time": 3.0219253590039443
+},{
+  "data": "Warning message:\n'set_access_cred' is deprecated.\nUse 'bq_auth(token = ...)' instead.\nSee help(\"Deprecated\") and help(\"bigrquery-deprecated\"). \n",
+  "stream_name": "stderr",
+  "time": 5.405938698997488
+},{
+  "data": "[NbConvertApp] Executing notebook with kernel: ir\n",
+  "stream_name": "stderr",
+  "time": 6.148287101008464
+},{
+  "data": "trying URL 'http://cran.rstudio.com/src/contrib/ggwordcloud_0.5.0.tar.gz'\n",
+  "stream_name": "stderr",
+  "time": 39.25375822201022
+},{
+  "data": "Content type 'application/x-gzip' length 902025 bytes (880 KB)\n=",
+  "stream_name": "stderr",
+  "time": 39.362144432001514
+},{
+  "data": "==",
+  "stream_name": "stderr",
+  "time": 39.36582423999789
+},{
+  "data": "=",
+  "stream_name": "stderr",
+  "time": 39.36761043500155
+},{
+  "data": "=",
+  "stream_name": "stderr",
+  "time": 39.36939530800737
+},{
+  "data": "===",
+  "stream_name": "stderr",
+  "time": 39.37151667200669
+},{
+  "data": "====",
+  "stream_name": "stderr",
+  "time": 39.37371697000344
+},{
+  "data": "=======",
+  "stream_name": "stderr",
+  "time": 39.37547284900211
+},{
+  "data": "============",
+  "stream_name": "stderr",
+  "time": 39.37860600500426
+},{
+  "data": "==============",
+  "stream_name": "stderr",
+  "time": 39.38092023599893
+},{
+  "data": "=====\ndownloaded 880 KB\n\n",
+  "stream_name": "stderr",
+  "time": 39.386872376999236
+},{
+  "data": "Warning message:\n'set_access_cred' is deprecated.\nUse 'bq_auth(token = ...)' instead.\nSee help(\"Deprecated\") and help(\"bigrquery-deprecated\"). \n",
+  "stream_name": "stderr",
+  "time": 40.20216192200314
+},{
+  "data": "* installing *source* package \u2018ggwordcloud\u2019 ...\n",
+  "stream_name": "stderr",
+  "time": 40.42695787700359
+},{
+  "data": "** package \u2018ggwordcloud\u2019 successfully unpacked and MD5 sums checked\n",
+  "stream_name": "stderr",
+  "time": 40.43238848200417
+},{
+  "data": "** using staged installation\n",
+  "stream_name": "stderr",
+  "time": 40.43470165799954
+},{
+  "data": "** libs\n",
+  "stream_name": "stderr",
+  "time": 40.46119868999813
+},{
+  "data": "g++ -std=gnu++11 -I\"/usr/local/lib/R/include\" -DNDEBUG  -I\"/usr/local/lib/R/site-library/Rcpp/include\" -I/usr/local/include  -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c RcppExports.cpp -o RcppExports.o\n",
+  "stream_name": "stdout",
+  "time": 40.48099615900719
+},{
+  "data": "g++ -std=gnu++11 -I\"/usr/local/lib/R/include\" -DNDEBUG  -I\"/usr/local/lib/R/site-library/Rcpp/include\" -I/usr/local/include  -fpic  -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c wordcloud_boxes.cpp -o wordcloud_boxes.o\n",
+  "stream_name": "stdout",
+  "time": 45.896223043004284
+},{
+  "data": "g++ -std=gnu++11 -shared -L/usr/local/lib/R/lib -L/usr/local/lib -o ggwordcloud.so RcppExports.o wordcloud_boxes.o -L/usr/local/lib/R/lib -lR\n",
+  "stream_name": "stdout",
+  "time": 51.761107935002656
+},{
+  "data": "installing to /usr/local/lib/R/site-library/00LOCK-ggwordcloud/00new/ggwordcloud/libs\n",
+  "stream_name": "stderr",
+  "time": 51.90954562800471
+},{
+  "data": "** R\n",
+  "stream_name": "stderr",
+  "time": 51.91502507500991
+},{
+  "data": "** data\n",
+  "stream_name": "stderr",
+  "time": 51.926909086003434
+},{
+  "data": "*** moving datasets to lazyload DB\n",
+  "stream_name": "stderr",
+  "time": 51.929470376999234
+},{
+  "data": "** inst\n",
+  "stream_name": "stderr",
+  "time": 51.95730678499967
+},{
+  "data": "** byte-compile and prepare package for lazy loading\n",
+  "stream_name": "stderr",
+  "time": 51.96117429100559
+},{
+  "data": "Warning message:\n'set_access_cred' is deprecated.\nUse 'bq_auth(token = ...)' instead.\nSee help(\"Deprecated\") and help(\"bigrquery-deprecated\"). \n",
+  "stream_name": "stdout",
+  "time": 53.82573637799942
+},{
+  "data": "** help\n",
+  "stream_name": "stderr",
+  "time": 53.82729001600819
+},{
+  "data": "*** installing help indices\n",
+  "stream_name": "stderr",
+  "time": 53.85982442399836
+},{
+  "data": "*** copying figures\n",
+  "stream_name": "stderr",
+  "time": 53.89250623800035
+},{
+  "data": "** building package indices\n",
+  "stream_name": "stderr",
+  "time": 53.89508907600248
+},{
+  "data": "** installing vignettes\n",
+  "stream_name": "stderr",
+  "time": 53.91793170500023
+},{
+  "data": "** testing if installed package can be loaded from temporary location\n",
+  "stream_name": "stderr",
+  "time": 53.92569298100716
+},{
+  "data": "Warning message:\n'set_access_cred' is deprecated.\nUse 'bq_auth(token = ...)' instead.\nSee help(\"Deprecated\") and help(\"bigrquery-deprecated\"). \n",
+  "stream_name": "stdout",
+  "time": 55.08479817400803
+},{
+  "data": "** checking absolute paths in shared objects and dynamic libraries\n",
+  "stream_name": "stderr",
+  "time": 55.11887034100073
+},{
+  "data": "** testing if installed package can be loaded from final location\n",
+  "stream_name": "stderr",
+  "time": 55.171259852999356
+},{
+  "data": "Warning message:\n'set_access_cred' is deprecated.\nUse 'bq_auth(token = ...)' instead.\nSee help(\"Deprecated\") and help(\"bigrquery-deprecated\"). \n",
+  "stream_name": "stdout",
+  "time": 56.32341727800667
+},{
+  "data": "** testing if installed package keeps a record of temporary installation path\n",
+  "stream_name": "stderr",
+  "time": 56.3249848580017
+},{
+  "data": "* DONE (ggwordcloud)\n",
+  "stream_name": "stderr",
+  "time": 56.327820792997954
+},{
+  "data": "\nThe downloaded source packages are in\n\t\u2018/tmp/RtmpLxGgoP/downloaded_packages\u2019\n",
+  "stream_name": "stderr",
+  "time": 56.34369702900585
+},{
+  "data": "Warning message:\nIn .Internal(quit(save, status, runLast)) :\n  system call failed: Cannot allocate memory\n",
+  "stream_name": "stderr",
+  "time": 910.7496522400033
+},{
+  "data": "[NbConvertApp] Writing 4612152 bytes to __notebook__.ipynb\n",
+  "stream_name": "stderr",
+  "time": 911.9178736559988
+},{
+  "data": "[NbConvertApp] Converting notebook __notebook__.ipynb to html\n",
+  "stream_name": "stderr",
+  "time": 913.1778245390014
+},{
+  "data": "[NbConvertApp] Support files will be in __results___files/\n[NbConvertApp] Making directory __results___files\n",
+  "stream_name": "stderr",
+  "time": 914.2256839960028
+},{
+  "data": "[NbConvertApp] Making directory __results___files\n",
+  "stream_name": "stderr",
+  "time": 914.229007219008
+},{
+  "data": "[NbConvertApp] Making directory __results___files\n[NbConvertApp] Making directory __results___files\n[NbConvertApp] Making directory __results___files\n[NbConvertApp] Making directory __results___files\n",
+  "stream_name": "stderr",
+  "time": 914.2317055980093
+},{
+  "data": "[NbConvertApp] Making directory __results___files\n[NbConvertApp] Making directory __results___files\n[NbConvertApp] Writing 376310 bytes to __results__.html\n",
+  "stream_name": "stderr",
+  "time": 914.2347189520078
+}]
