@@ -9,11 +9,14 @@ library(forcats)
 
 # wordclod
 library(wordcloud2)
+library(ggwordcloud)
 
 # network
 library(visNetwork)
 library(igraph, warn.conflicts = FALSE)
 
+# initial configuration
+set.seed(42)
 
 # read data and apply some filter ----
 
