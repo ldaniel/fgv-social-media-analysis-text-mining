@@ -15,4 +15,7 @@ writeLines(rawr::kaggle(k_url), 'src/playground/playground_lyrics_kaggle.R')
 
 system(paste('kaggle kernels pull ', k_addess, ' -p "',  getwd(), '/src/playground/"', sep = ''))
 
+# download kaggle notebook outputs
+system(paste('kaggle kernels output ', k_addess, ' -p "', getwd() , '/data/processed/kaggle/"', sep = ''))
+
 rm(k_addess, k_url)
