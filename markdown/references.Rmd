@@ -1,8 +1,10 @@
 ---
 title: "Referências"
-date: "Outubro de 2019"
+date: "Janeiro de 2020"
 ---
 
 # Referências utilizadas neste trabalho
 
-- [**Title**](https://www.site.com/) --Author
+- [**Spotify Usage and Revenue Statistics (2019)**](https://www.businessofapps.com/data/spotify-statistics/) -- Mansoor Iqbal
+
+- [**Kaggle - 380,000+ lyrics from MetroLyrics**](https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics) -- Gyanendra Mishra

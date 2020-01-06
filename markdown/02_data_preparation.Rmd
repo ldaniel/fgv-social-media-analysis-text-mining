@@ -1,6 +1,6 @@
 ---
 title: "Preparação dos Dados"
-date: "Outubro de 2019"
+date: "Janeiro de 2020"
 ---
 
 ```{r setup_preparation, include=FALSE}

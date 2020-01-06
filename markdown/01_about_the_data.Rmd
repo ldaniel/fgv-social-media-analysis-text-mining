@@ -2,6 +2,51 @@
 title: "Sobre os dados"
 ---
 
+```{r setup_evaluation, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos =  "h")
+knitr::opts_knit$set(root.dir = "./")
+
+# loading markdown libraries
+library(rmarkdown)
+library(knitr)
+library(flextable)
+library(officer)
+
+# loading basic libraries
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(stringr)
+library(readxl)
+library(readr)
+
+# loading plot libraries
+library(ggplot2)
+library(ggpubr)
+library(ggdendro)
+library(gridExtra)
+
+# loading libraries for SNA (Social Network Analysis)
+library(network)
+library(sna)
+library(rgl)
+library(visNetwork)
+
+# loading libraries for cluster
+library(fpc)
+library(factoextra)
+library(cluster)
+
+# setting the seed up
+set.seed(42)
+
+# setting the encoding up
+options(encoding = "UTF-8")
+
+```
+
 # Definindo o cenário
 
 Em abril deste ano, o maior serviço de streaming de música do mundo, o Spotify, anunciou um grande marco na indústria fonográfica. A plataforma alcançou o incrível número de **100 milhões de usuários pagantes** (na chamada, contas premium). Esse quantitativo cresceu ainda, principalmente após o lançamento na Índia — que aconteceu no fim de fevereiro de 2019. Na ocasião, a plataforma recebeu mais de 1 milhão de usuários em apenas 1 semana. Segundo a empresa, no fim do primeiro mês já se contabilizava o dobro dessa quantidade.
@@ -98,7 +143,7 @@ Abaixo uma pequena exploração do dataset selecionado.
 
 ```{r answer_3.0, echo = TRUE, out.width = '100%'}
 
-lyrics <- read_csv('../../data/raw/lyrics.csv',
+lyrics <- read_csv('../data/raw/lyrics.csv',
                    col_types = cols(.default = col_character(),
                                     index = col_integer(),
                                     year = col_integer()))
@@ -198,4 +243,5 @@ Os principais indicadores a serem usados serão:
 ## Adoção no ambiente empresarial (recorrência, implicação gerencial, etc)
 
 Hoje em dia grande parte (senão a maioria) de todos os dados capturados pelas empresas são dados não estruturados, ou seja, gravação de ligações, e-mails, troca de mensagens, etc. E a partir desses dados é possível realizar uma ampla gama de análises, por exemplo o nível de satisfação do cliente com algum produto ou serviço. As vezes uma análise de uma gravação telefônica consegue captar melhor o sentimento do cliente do que se fosse respondida uma pesquisa de satisfação. Dado esse contexto é imprescindível que grandes empresas invistam fortemente nesse tipo de tecnologia e estudos. 
+
 Atualmente empresas dedicam setores inteiros para a análise de informações desestruturadas no formato de texto falado ou escrito. Com o avanço das técnicas de speech-to-text, a avaliação de textos torna-se ainda mais relevante. Desta forma, entender os processos e métodos de mineração de textos e NLP são estratégias fundamentais para o futuro da maior parte dos negócios!

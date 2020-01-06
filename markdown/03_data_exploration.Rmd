@@ -1,6 +1,6 @@
 ---
 title: "Exploração dos Dados"
-date: "Outubro de 2019"
+date: "Janeiro de 2020"
 
 output:
   html_document:
