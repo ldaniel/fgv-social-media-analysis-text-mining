@@ -1,4 +1,4 @@
-## ---- step_05_dataset_preparation.R
+## ---- step_06_dataset_preparation.R
 
 # dataset preparation ---------------------------------------------------------
 

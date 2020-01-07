@@ -1,4 +1,4 @@
-## ---- step_02_data_ingestion.R
+## ---- step_02_data_download.R
 
 # performing data loading -----------------------------------------------------
 dataDirectory <- "../data/raw/"
