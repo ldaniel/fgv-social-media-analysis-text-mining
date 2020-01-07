@@ -15,4 +15,16 @@ ClearRStudioEnvironment <- function() {
     dev.off()
 }
 
+WriteLog <- function(TaskName, TotalTime, AdditionalInfo) {
+  
+  log  <- paste('[', Sys.time(), '] ',
+                'Task: ', TaskName, ' | ', 
+                'Total time : ', TotalTime, ' | ',
+                'Memory used: ', pryr::mem_used(), ' bytes | ',
+                AdditionalInfo,
+                sep = "")
+  
+  write(log, file = "log.txt", append = TRUE)
+}
+
 ## ---- end-of-ClearRStudioEnvironment
