@@ -8,14 +8,12 @@
 start_time = Sys.time()
 
 # saving the final dataset to evaluate
-saveRDS(lyrics, './data/processed/lyrics.rds')
+rdsFileName <- './data/processed/lyrics.rds'
+saveRDS(lyrics, rdsFileName)
 
 end_time = Sys.time()
 
-log  <- paste('[', Sys.time(), '] ',
-              'Task: step_06_data_preparation.R | ', 
-              'Total time : ', end_time - start_time, ' | ',
-              'Memory used: ', pryr::mem_used(), ' bytes',
-              sep = "") 
-
-write(log, file = "log.txt", append = TRUE)
+# call logging function
+WriteLog(TaskName = "step_06_data_preparation.R", 
+         TotalTime = end_time - start_time, 
+         AdditionalInfo = rdsFileName)
