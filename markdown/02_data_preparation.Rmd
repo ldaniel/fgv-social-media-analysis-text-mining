@@ -31,51 +31,83 @@ O processo preparação de dados, em geral, inclui etapas de extração (retirar
 
 Passo que executa configurações iniciais para execução dos passos seguintes.
 
-## Step 02: Ingestão dos dados
+## Step 02: Download dos dados
+
+To-do: citar que a base veio do Kaggle.
+
+``` {r step_02_data_download, eval = FALSE}
+source("../src/datapreparation/step_02_data_download.R")
+```
+
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('../src/datapreparation/step_02_data_download.R')
+```
+
+```{r step_02_data_download.R, eval=FALSE}
+
+```
+
+## Step 03: Ingestão dos dados
 
 A etapa de ingestão de dados - data ingestion - é responsável por carregar os dados da fonte de dados de origem.
 
-``` {r step_02_data_ingestion, eval = FALSE}
-source("../src/datapreparation/step_02_data_ingestion.R")
+``` {r step_03_data_ingestion, eval = FALSE}
+source("../src/datapreparation/step_03_data_ingestion.R")
 ```
 
 ```{r cache=FALSE, echo=FALSE}
-knitr::read_chunk('../src/datapreparation/step_02_data_ingestion.R')
+knitr::read_chunk('../src/datapreparation/step_03_data_ingestion.R')
 ```
 
-```{r step_02_data_ingestion.R, eval=FALSE}
+```{r step_03_data_ingestion.R, eval=FALSE}
 
 ```
 
-## Step 03: Tratamento dos dados
+## Step 04: Tratamento dos dados
 
-O objetivo desta etapa é analisar valores ausentes (missing values) e outras condições estranhas. Para a resolução desta atividade, não 
+O objetivo desta etapa é analisar valores ausentes (missing values) e outras condições estranhas.
 
-``` {r step_03_data_cleaning, eval = FALSE}
-source("../src/datapreparation/step_03_data_cleaning.R")
+``` {r step_04_data_cleaning, eval = FALSE}
+source("../src/datapreparation/step_04_data_cleaning.R")
 ```
 
 ```{r cache=FALSE, echo=FALSE}
-knitr::read_chunk('../src/datapreparation/step_03_data_cleaning.R')
+knitr::read_chunk('../src/datapreparation/step_04_data_cleaning.R')
 ```
 
-```{r step_03_data_cleaning.R, eval=FALSE}
+```{r step_04_data_cleaning.R, eval=FALSE}
 
 ```
 
-## Step 04: Preparação dos datasets
+## Step 05: Aprimoramento dos dados
+
+O objetivo desta etapa é aprimorar os dados adicionando novas informações que agreguem nas explorações dos mesmos.
+
+``` {r step_05_data_enhancement, eval = FALSE}
+source("../src/datapreparation/step_05_data_enhancement.R")
+```
+
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('../src/datapreparation/step_05_data_enhancement.R')
+```
+
+```{r step_05_data_enhancement.R, eval=FALSE}
+
+```
+
+## Step 06: Preparação dos datasets
 
 Como último passo de preparação de dados, o dataset final é salvo em formato **.rds** para uso nos demais relatórios e scripts.
 
-``` {r step_05_dataset_preparation, eval = FALSE}
-source("../src/datapreparation/step_05_dataset_preparation.R")
+``` {r step_06_dataset_preparation, eval = FALSE}
+source("../src/datapreparation/step_06_dataset_preparation.R")
 ```
 
 ```{r cache=FALSE, echo=FALSE}
-knitr::read_chunk('../src/datapreparation/step_05_dataset_preparation.R')
+knitr::read_chunk('../src/datapreparation/step_06_dataset_preparation.R')
 ```
 
-```{r step_05_dataset_preparation.R, eval=FALSE}
+```{r step_06_dataset_preparation.R, eval=FALSE}
 
 ```
 
