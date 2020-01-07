@@ -4,7 +4,7 @@
 
 # remarks:
 #   read_csv is from the readr package;
-#   read_csv is faster than read.csv for big files.
+#   read_csv is faster than read.csv for big files. 
 
 start_time = Sys.time()
 
