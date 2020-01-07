@@ -1,6 +1,11 @@
 ## ---- step_03_data_ingestion.R
 
 # performing data loading -----------------------------------------------------
+
+# remarks:
+#   read_csv is from the readr package;
+#   read_csv is faster than read.csv for big files.
+
 start_time = Sys.time()
 
 dataDirectory <- "./data/raw/"
