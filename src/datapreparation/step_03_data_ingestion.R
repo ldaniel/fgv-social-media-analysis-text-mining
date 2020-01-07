@@ -19,14 +19,10 @@ lyrics <- read_csv(paste(dataDirectory, "lyrics.csv", sep = ""),
                      lyrics = col_character()),
                    locale = locale(encoding = 'UTF-8'))
 
-total_lyrics_loaded <- length(lyrics$index)
+total_lyrics_loaded <- paste('Total records: ', length(lyrics$index), sep = "")
 end_time = Sys.time()
 
-log  <- paste('[', Sys.time(), '] ',
-              'Task: step_03_data_ingestion.R | ', 
-              'Total time : ', end_time - start_time, ' | ',
-              'Total records: ', total_lyrics_loaded, ' | ',
-              'Memory used: ', pryr::mem_used(), ' bytes',
-              sep = "")
-
-write(log, file = "log.txt", append = TRUE)
+# call logging function
+WriteLog(TaskName = "step_03_data_ingestion.R", 
+         TotalTime = end_time - start_time, 
+         AdditionalInfo = total_lyrics_loaded)
