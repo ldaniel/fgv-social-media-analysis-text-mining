@@ -8,7 +8,7 @@
 start_time = Sys.time()
 
 # saving the final dataset to evaluate
-saveRDS(lyrics, '../data/processed/lyrics.rds')
+saveRDS(lyrics, './data/processed/lyrics.rds')
 
 end_time = Sys.time()
 
