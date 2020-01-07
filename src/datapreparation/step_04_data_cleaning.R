@@ -13,14 +13,10 @@ lyrics <- filter(lyrics,
 # lyrics  <- sample_n(lyrics, size = 150000)
 # invisible(gc())
 
-total_lyrics_loaded <- length(lyrics$index)
+total_lyrics_loaded <- paste('Total records: ', length(lyrics$index), sep = "")
 end_time = Sys.time()
 
-log  <- paste('[', Sys.time(), '] ',
-              'Task: step_04_data_clearing.R | ', 
-              'Total time : ', end_time - start_time, ' | ',
-              'Total records: ', total_lyrics_loaded, ' | ',
-              'Memory used: ', pryr::mem_used(), ' bytes',
-              sep = "") 
-
-write(log, file = "log.txt", append = TRUE)
+# call logging function
+WriteLog(TaskName = "step_04_data_clearing.R", 
+         TotalTime = end_time - start_time, 
+         AdditionalInfo = total_lyrics_loaded)
