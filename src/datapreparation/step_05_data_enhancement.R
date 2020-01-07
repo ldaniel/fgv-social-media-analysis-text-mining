@@ -15,6 +15,6 @@ log  <- paste('[', Sys.time(), '] ',
               'Total time : ', end_time - start_time, ' | ',
               'Total records: ', total_lyrics_loaded, ' | ',
               'Memory used: ', pryr::mem_used(), ' bytes',
-              sep = "")
+              sep = "") 
 
 write(log, file = "log.txt", append = TRUE)
