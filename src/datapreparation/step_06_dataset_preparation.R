@@ -16,6 +16,6 @@ log  <- paste('[', Sys.time(), '] ',
               'Task: step_06_data_preparation.R | ', 
               'Total time : ', end_time - start_time, ' | ',
               'Memory used: ', pryr::mem_used(), ' bytes',
-              sep = "")
+              sep = "") 
 
 write(log, file = "log.txt", append = TRUE)
