@@ -52,6 +52,9 @@ rsconnect/
 /data/processed/lyrics.rds
 /data/processed/lyrics_token.rds
 /data/processed/lyrics_token_bi.rds
+/data/processed/lyrics.RData
+/data/processed/lyrics_token.RData
+/data/processed/lyrics_token_bi.RData
 /data/processed/kaggle/
 
 # log files
