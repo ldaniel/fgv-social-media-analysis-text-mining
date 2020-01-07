@@ -1,4 +1,4 @@
-# config
+# configuration tasks ----
 start  <- Sys.time()
 
 set.seed(123456)
@@ -15,6 +15,8 @@ pryr::mem_used()
 
 log  <- paste(end - start, ' - ', 'config', ' - memory: ', pryr::mem_used())
 write(log, file = "log.txt", append = TRUE)
+
+# loading required libraries ----
 
 # Data wrangling
 library(dplyr, warn.conflicts = FALSE)
@@ -36,7 +38,7 @@ library(igraph, warn.conflicts = FALSE)
 # topic modeling
 library(topicmodels)
 
-# data ingestion
+# data ingestion ----
 start = Sys.time()
 
 lyrics <- read_csv('../input/380000-lyrics-from-metrolyrics/lyrics.csv',
@@ -58,7 +60,7 @@ pryr::mem_used()
 log  <- paste(end - start, ' - ', 'import lyrics', ' - memory: ', pryr::mem_used())
 write(log, file = "log.txt", append = TRUE)
 
-# data filter
+# data clearing ----
 lyrics <- filter(lyrics, 
                  !is.na(lyrics), 
                  !(genre %in% c('Not Available', 'Other')),
@@ -70,7 +72,7 @@ lyrics <- filter(lyrics,
 
 print(paste('Número de observações: ', length(lyrics$index)))
 
-# data enhance
+# data enhancements ----
 start  <- Sys.time()
 
 lyrics$decade <- paste(str_sub(lyrics$year, 1, 3), '0', sep = '')
@@ -88,7 +90,9 @@ write(log, file = "log.txt", append = TRUE)
 # view sample
 sample_n(lyrics, 3)
 
-# view number of observations per genre
+# initial exploration ----
+
+# view number of observations per genre 
 temp <- group_by(lyrics, genre) %>%
   summarise(songs = n(),
             artists = length(unique(artist))) %>% 
