@@ -1,9 +1,23 @@
 # loading required libraries --------------------------------------------------
 
-# libraries for data prep
+# data preparation
+library(dplyr, warn.conflicts = FALSE)
+library(tidyr, warn.conflicts = FALSE)
 library(readr)
-library(dplyr)
 library(stringr)
+library(tidytext)
+library(forcats)
+
+# wordcloud
+library(ggwordcloud)
+
+# network
+library(visNetwork)
+library(IRdisplay)
+library(igraph, warn.conflicts = FALSE)
+
+# topic modeling
+library(topicmodels)
 
 # load auxiliary functions ----------------------------------------------------
 source("./src/util/auxiliary_functions.R")
