@@ -41,7 +41,7 @@ library(topicmodels)
 # data ingestion ----
 start = Sys.time()
 
-lyrics <- read_csv('../dada/raw/lyrics.csv',
+lyrics <- read_csv('./data/raw/lyrics.csv',
                    col_types = cols(
                      index = col_integer(),
                      song = col_character(),
@@ -78,7 +78,7 @@ start  <- Sys.time()
 lyrics$decade <- paste(str_sub(lyrics$year, 1, 3), '0', sep = '')
 lyrics$genre  <- trimws(lyrics$genre)
 
-saveRDS(lyrics, 'lyrics.rds')
+saveRDS(lyrics, './data/processed/lyrics.rds')
 
 end  <- Sys.time()
 end - start
@@ -157,7 +157,7 @@ write(log, file = "log.txt", append = TRUE)
 rm(lyrics)
 invisible(gc())
 
-# eliminating stop words
+# eliminating stop words ----
 start  <- Sys.time()
 
 custom_stop_words <- c(tm::stopwords("german"), tm::stopwords("spanish"), 
@@ -186,8 +186,8 @@ sample_n(lyrics_token, size = 15)
 count_words <- count(lyrics_token, word, sentiment, sort = TRUE)
 
 # saving datasets for later use.
-saveRDS(lyrics_token, 'lyrics_token.rds')
-saveRDS(count_words, 'count_words.rds')
+saveRDS(lyrics_token, './data/processed/lyrics_token.rds')
+saveRDS(count_words, './data/processed/count_words.rds')
 
 mem  <- pryr::mem_used()
 rm(bing, count_words)
@@ -333,7 +333,7 @@ mem
 # tokens bigramas
 start  <- Sys.time()
 
-lyrics <- readRDS('lyrics.rds')
+lyrics <- readRDS('./data/processed/lyrics.rds')
 
 lyrics_token_bi <- unnest_tokens(lyrics,
                                  input = lyrics,
@@ -372,7 +372,7 @@ lyrics_token_bi <- filter(lyrics_token_bi, w1 != w2)
 lyrics_token_bi <- filter(lyrics_token_bi, nchar(w1) >= 3)
 lyrics_token_bi <- filter(lyrics_token_bi, nchar(w2) >= 3)
 
-saveRDS(lyrics_token_bi, 'lyrics_token_bi.rds')
+saveRDS(lyrics_token_bi, './data/processed/lyrics_token_bi.rds')
 
 print(paste('Número de termos apos eliminação de stop words: ', 
             length(lyrics_token_bi$index)))
@@ -393,8 +393,8 @@ plot_network <- function(top_words = 25,
                          artist_filter = NULL, 
                          genre_filter = NULL) {
     # load required data
-    count_words  <- readRDS('lyrics_token.rds')
-    data         <- readRDS('lyrics_token_bi.rds')
+    count_words  <- readRDS('./data/processed/lyrics_token.rds')
+    data         <- readRDS('./data/processed/lyrics_token_bi.rds')
     
     # apply filters
 
@@ -525,7 +525,7 @@ write(log, file = "log.txt", append = TRUE)
 # contagem por gênero musical
 start  <- Sys.time()
 
-lyrics_token_bi <- readRDS('lyrics_token_bi.rds')
+lyrics_token_bi <- readRDS('./data/processed/lyrics_token_bi.rds')
 
 gw <- group_by(lyrics_token_bi, genre, term) %>%
   summarise(gw_c = n()) %>% 
@@ -650,7 +650,7 @@ mem
 # load lyrics dataset back to memory.
 start  <- Sys.time()
 
-lyrics <- readRDS('lyrics.rds')
+lyrics <- readRDS('./data/processed/lyrics.rds')
 
 # tokennize dataset but do not treat for stopwords.
 lyrics_token <- unnest_tokens(lyrics,
@@ -769,7 +769,7 @@ invisible(gc)
 # filter tokens for LDA
 start  <- Sys.time()
 
-lyrics_token <- readRDS('lyrics_token.rds')
+lyrics_token <- readRDS('./data/processed/lyrics_token.rds')
 distinct_words <- distinct(lyrics_token, index, word)
 
 song_count <- length(unique(distinct_words$index))
@@ -825,7 +825,7 @@ dtm <- cast_dtm(data = count(lyrics_token, index, word, sort = TRUE),
                 index, word, n)
 dtm
 
-saveRDS(dtm, 'dtm.rds')
+saveRDS(dtm, './data/processed/dtm.rds')
 
 mem  <- pryr::mem_used()
 rm(lyrics_token)
@@ -845,7 +845,7 @@ tpm <- LDA(dtm, k = 10, control = list(seed = 123456))
 tpm
 summary(tpm)
 
-saveRDS(tpm, 'tpm.rds')
+saveRDS(tpm, './data/processed/tpm.rds')
 
 mem  <- pryr::mem_used()
 rm(dtm)
@@ -894,7 +894,7 @@ start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 8)
 
-lyrics <- readRDS('lyrics.rds')
+lyrics <- readRDS('./data/processed/lyrics.rds')
 songs_topics <- tidy(tpm, matrix = "gamma")
 
 lyrics$index <- as.character(lyrics$index)
@@ -924,7 +924,7 @@ start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 8)
 
-lyrics <- readRDS('lyrics.rds')
+lyrics <- readRDS('./data/processed/lyrics.rds')
 songs_topics <- tidy(tpm, matrix = "gamma")
 
 lyrics$index <- as.character(lyrics$index)
