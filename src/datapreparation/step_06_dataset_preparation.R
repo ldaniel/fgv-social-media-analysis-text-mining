@@ -8,7 +8,7 @@
 start_time = Sys.time()
 
 # saving the final dataset to evaluate
-rdsFileName <- './data/processed/lyrics.rds'
+rdsFileName <- paste(directoryPath, "/data/processed/lyrics.rds", sep = "")
 saveRDS(lyrics, rdsFileName)
 
 end_time = Sys.time()
