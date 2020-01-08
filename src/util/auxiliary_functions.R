@@ -1,6 +1,6 @@
 ## ---- auxiliary_functions.R
 
-# functions -----------------------------------------------------------
+# functions -------------------------------------------------------------------
 ClearRStudioEnvironment <- function() {
   
   # clear environment and memory
@@ -15,11 +15,15 @@ ClearRStudioEnvironment <- function() {
     dev.off()
 }
 
-WriteLog <- function(TaskName, TotalTime, AdditionalInfo) {
+WriteLog <- function(TaskName, StartTime, EndTime, AdditionalInfo) {
+
+  TotalTime <- difftime(EndTime, StartTime, tz, 
+                        units = c("auto", "secs", "mins", "hours",
+                                  "days", "weeks"))
   
   log  <- paste('[', Sys.time(), '] ',
                 'Task: ', TaskName, ' | ', 
-                'Total time : ', TotalTime, ' | ',
+                'Time elapsed: ', TotalTime, ' | ',
                 'Memory used: ', pryr::mem_used(), ' bytes | ',
                 AdditionalInfo,
                 sep = "")
@@ -27,4 +31,4 @@ WriteLog <- function(TaskName, TotalTime, AdditionalInfo) {
   write(log, file = "log.txt", append = TRUE)
 }
 
-## ---- end-of-ClearRStudioEnvironment
+## ---- end-of-auxiliary_functions.R
