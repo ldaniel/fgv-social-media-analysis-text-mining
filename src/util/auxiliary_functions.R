@@ -1,4 +1,4 @@
-## ---- ClearRStudioEnvironment
+## ---- auxiliary_functions.R
 
 # functions -----------------------------------------------------------
 ClearRStudioEnvironment <- function() {

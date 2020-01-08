@@ -1,3 +1,5 @@
+## ---- step_01_config_environment.R
+
 # clearing everything before starting -----------------------------------------
 ClearRStudioEnvironment()
 
