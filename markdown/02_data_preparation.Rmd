@@ -9,16 +9,6 @@ knitr::opts_chunk$set(fig.pos =  "h")
 knitr::opts_knit$set(root.dir = "./")
 
 options(Encoding="UTF-8")
-
-# data prep libraries
-library(tibble)
-library(dplyr)
-library(readxl)
-library(stringr)
-library(lubridate)
-
-# loading required scripts
-source("../src/util/auxiliary_functions.R")
 ```
 
 # Utilizando uma abordagem dividida em passos
@@ -31,13 +21,17 @@ O processo preparação de dados, em geral, inclui etapas de extração (retirar
 
 Passo que executa configurações iniciais para execução dos passos seguintes.
 
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('../src/datapreparation/step_01_config_environment.R')
+```
+
+```{r step_01_config_environment.R, eval=FALSE}
+
+```
+
 ## Step 02: Download dos dados
 
 To-do: citar que a base veio do Kaggle.
-
-``` {r step_02_data_download, eval = FALSE}
-source("../src/datapreparation/step_02_data_download.R")
-```
 
 ```{r cache=FALSE, echo=FALSE}
 knitr::read_chunk('../src/datapreparation/step_02_data_download.R')
@@ -51,10 +45,6 @@ knitr::read_chunk('../src/datapreparation/step_02_data_download.R')
 
 A etapa de ingestão de dados - data ingestion - é responsável por carregar os dados da fonte de dados de origem.
 
-``` {r step_03_data_ingestion, eval = FALSE}
-source("../src/datapreparation/step_03_data_ingestion.R")
-```
-
 ```{r cache=FALSE, echo=FALSE}
 knitr::read_chunk('../src/datapreparation/step_03_data_ingestion.R')
 ```
@@ -66,10 +56,6 @@ knitr::read_chunk('../src/datapreparation/step_03_data_ingestion.R')
 ## Step 04: Tratamento dos dados
 
 O objetivo desta etapa é analisar valores ausentes (missing values) e outras condições estranhas.
-
-``` {r step_04_data_cleaning, eval = FALSE}
-source("../src/datapreparation/step_04_data_cleaning.R")
-```
 
 ```{r cache=FALSE, echo=FALSE}
 knitr::read_chunk('../src/datapreparation/step_04_data_cleaning.R')
@@ -83,10 +69,6 @@ knitr::read_chunk('../src/datapreparation/step_04_data_cleaning.R')
 
 O objetivo desta etapa é aprimorar os dados adicionando novas informações que agreguem nas explorações dos mesmos.
 
-``` {r step_05_data_enhancement, eval = FALSE}
-source("../src/datapreparation/step_05_data_enhancement.R")
-```
-
 ```{r cache=FALSE, echo=FALSE}
 knitr::read_chunk('../src/datapreparation/step_05_data_enhancement.R')
 ```
@@ -98,10 +80,6 @@ knitr::read_chunk('../src/datapreparation/step_05_data_enhancement.R')
 ## Step 06: Preparação dos datasets
 
 Como último passo de preparação de dados, o dataset final é salvo em formato **.rds** para uso nos demais relatórios e scripts.
-
-``` {r step_06_dataset_preparation, eval = FALSE}
-source("../src/datapreparation/step_06_dataset_preparation.R")
-```
 
 ```{r cache=FALSE, echo=FALSE}
 knitr::read_chunk('../src/datapreparation/step_06_dataset_preparation.R')
@@ -115,12 +93,12 @@ knitr::read_chunk('../src/datapreparation/step_06_dataset_preparation.R')
 
 # Funções criadas
 
-Para realização deste trabalho, algumas funções foram criadas para otimizar atividades e procedimentos repetitivos. Estas funções também podem, futuramente, serem reusadas em outros projetos ou mesmo serem adicionadas uma library R.
-
-``` {r auxiliary_functions, eval = FALSE}
-source("../src/util/auxiliary_functions.R")
-```
+Para realização deste trabalho, algumas funções foram criadas para otimizar atividades e procedimentos repetitivos. Estas funções também podem, futuramente, serem reusadas em outros projetos ou mesmo serem adicionadas a uma library R.
 
 ```{r cache=FALSE, echo=FALSE}
 knitr::read_chunk('../src/util/auxiliary_functions.R')
+```
+
+```{r auxiliary_functions.R, eval=FALSE}
+
 ```
