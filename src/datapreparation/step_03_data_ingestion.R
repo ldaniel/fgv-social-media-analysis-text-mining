@@ -8,7 +8,7 @@
 
 start_time = Sys.time()
 
-dataDirectory <- "./data/raw/"
+dataDirectory <- paste(directoryPath, "/data/raw/", sep = "")
 lyrics <- read_csv(paste(dataDirectory, "lyrics.csv", sep = ""),
                    col_types = cols(
                      index = col_integer(),
