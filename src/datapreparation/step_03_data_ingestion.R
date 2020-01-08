@@ -25,7 +25,8 @@ end_time = Sys.time()
 
 # call logging function
 WriteLog(TaskName = "step_03_data_ingestion.R", 
-         TotalTime = end_time - start_time, 
+         StartTime = start_time,
+         EndTime = end_time, 
          AdditionalInfo = total_lyrics_loaded)
 
 # applying tokenization in the lirycs ----
@@ -43,5 +44,6 @@ end_time = Sys.time()
 
 # call logging function
 WriteLog(TaskName = "step_03_data_ingestion.R", 
-         TotalTime = end_time - start_time, 
+         StartTime = start_time,
+         EndTime = end_time, 
          AdditionalInfo = total_words)

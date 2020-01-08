@@ -18,5 +18,6 @@ end_time = Sys.time()
 
 # call logging function
 WriteLog(TaskName = "step_04_data_clearing.R", 
-         TotalTime = end_time - start_time, 
+         StartTime = start_time,
+         EndTime = end_time, 
          AdditionalInfo = total_lyrics_loaded)

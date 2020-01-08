@@ -15,5 +15,6 @@ end_time = Sys.time()
 
 # call logging function
 WriteLog(TaskName = "step_06_data_preparation.R", 
-         TotalTime = end_time - start_time, 
+         StartTime = start_time,
+         EndTime = end_time, 
          AdditionalInfo = rdsFileName)
