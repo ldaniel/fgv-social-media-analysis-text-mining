@@ -330,7 +330,7 @@ end <- Sys.time()
 end - start
 mem
 
-# tokens bigramas
+# tokens bigramas ----
 start  <- Sys.time()
 
 lyrics <- readRDS('./data/processed/lyrics.rds')
