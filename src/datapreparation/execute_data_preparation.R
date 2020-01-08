@@ -7,6 +7,7 @@ library(readr)
 library(stringr)
 library(tidytext)
 library(forcats)
+library(tictoc)
 
 # wordcloud
 library(ggwordcloud)
