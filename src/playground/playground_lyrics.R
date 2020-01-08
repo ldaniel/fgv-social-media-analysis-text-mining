@@ -41,7 +41,7 @@ library(topicmodels)
 # data ingestion ----
 start = Sys.time()
 
-lyrics <- read_csv('../input/380000-lyrics-from-metrolyrics/lyrics.csv',
+lyrics <- read_csv('../dada/raw/lyrics.csv',
                    col_types = cols(
                      index = col_integer(),
                      song = col_character(),
@@ -135,7 +135,7 @@ count(lyrics, genre, artist, sort = TRUE) %>%
   filter(row_number() <= 3) %>% 
   arrange(desc(genre), desc(n))
 
-# tokens per word
+# tokens per word ----
 start  <- Sys.time()
 
 lyrics_token <- unnest_tokens(lyrics,
