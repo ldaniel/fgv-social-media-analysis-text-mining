@@ -16,6 +16,11 @@ navbar:
           href: 02_data_preparation.html
         - text: "Exploração dos Dados"
           href: 03_data_exploration.html
+    - text: "Desenvolvimento"
+      icon: fa-file-text-o
+      menu: 
+        - text: "Tokenização"
+          href: 04_tokenization.html
     - text: "Relatório Final"
       icon: fa-file-invoice-dollar
       menu:
