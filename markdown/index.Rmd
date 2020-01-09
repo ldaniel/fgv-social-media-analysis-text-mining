@@ -54,8 +54,21 @@ input <- c("# 1. Data Preparation",
               "## 1.6 Dataset Preparation", 
            "# 2. Data Analysis",
               "## 2.1 Config Environment", 
-              "## 2.2 Tokenization")
-mm(from = input, type = "text", root = "Solution")
+              "## 2.2 Tokenization",
+           "# Class assignments",
+              "## Tarefa 1 (Respostas)", 
+              "## Tarefa 2 (Respostas)",
+              "## Exemplo Cluster Analysis",
+              "## Exemplo Rede One Mode", 
+              "## Exemplo Rede Two Mode", 
+           "# Playground",
+           "# Util",
+              "## Auxiliary functions", 
+              "## Generate markdown website",
+              "## Sync Kaggle")
+mm(from = input, 
+   type = "text", 
+   root = "src ( scripts folder)")
 
 ```
 
