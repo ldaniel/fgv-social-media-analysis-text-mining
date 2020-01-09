@@ -2,6 +2,24 @@
 title: 'FGV MBA: Business Analytics & Big Data'
 ---
 
+```{r setup_evaluation, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos =  "h")
+knitr::opts_knit$set(root.dir = "./")
+
+# loading markdown libraries
+library(rmarkdown)
+library(knitr)
+
+# loading mind map library
+library(mindr)
+
+# setting the encoding up
+options(encoding = "UTF-8")
+
+```
+
 # Social-Media-Analysis-Text-Mining
 
 O objetivo deste website é apresentar a solução para o trabalho proposto no módulo de Análise de Mídias Sociais e Mineração de Texto do curso de MBA em Business Analytics e Big Data da FGV (turma Berrini).
@@ -21,6 +39,26 @@ Utilize o menu acima para navegar pelo site e visualizar o relatório final.
 
 ## Onde encontrar o código-fonte deste projeto?
 Este projeto pode ser baixado do GitHub: https://github.com/ldaniel/Social-Media-Analysis-Text-Mining
+
+## Estrutura da solução
+O mapa abaixo mostra a estrutura da solução com a sua divisão de scripts.
+
+```{r solution_mindmap, echo = FALSE, out.width = '100%'}
+
+input <- c("# 1. Data Preparation", 
+              "## 1.1 Config Environment", 
+              "## 1.2 Data Download",
+              "## 1.3 Data Ingestion",
+              "## 1.4 Data Cleaning",
+              "## 1.5 Data Enhancement",
+              "## 1.6 Dataset Preparation", 
+           "# 2. Data Analysis",
+              "## 2.1 Config Environment", 
+              "## 2.2 Tokenization")
+mm(from = input, type = "text", root = "Solution")
+
+```
+
 
 > Valar Morghulis!
 > :)
