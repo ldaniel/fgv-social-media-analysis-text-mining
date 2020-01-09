@@ -68,8 +68,7 @@ input <- c("# 1. Data Preparation",
               "## Sync Kaggle")
 mm(from = input, 
    type = "text", 
-   root = "src ( scripts folder)")
-
+   root = "src (scripts folder)")
 ```
 
 
