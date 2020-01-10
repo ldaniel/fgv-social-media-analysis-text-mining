@@ -23,13 +23,6 @@ library(topicmodels)
 # load auxiliary functions ----------------------------------------------------
 source("./src/util/auxiliary_functions.R")
 
-# sync kaggle kernel ----------------------------------------------------------
-#source("./src/util/sync_kaggle.R")
-
 # executing data preparation steps --------------------------------------------
-source("./src/01_data_preparation/step_01_config_environment.R")
-#source("./src/01_data_preparation/step_02_data_download.R")
-source("./src/01_data_preparation/step_03_data_ingestion.R")
-source("./src/01_data_preparation/step_04_data_cleaning.R")
-source("./src/01_data_preparation/step_05_data_enhancement.R")
-source("./src/01_data_preparation/step_06_dataset_preparation.R")
+source("./src/02_data_analysis/step_01_config_environment.R")
+source("./src/02_data_analysis/step_02_data_tokenization.R")
