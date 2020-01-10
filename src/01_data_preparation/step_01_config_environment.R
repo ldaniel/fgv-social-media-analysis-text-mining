@@ -11,7 +11,7 @@ info.sysname   <- Sys.info()[["sysname"]]
 info.machine   <- Sys.info()[["machine"]]
 info.encoding  <- getOption("encoding")
 directoryPath  <- dirname(rstudioapi::getSourceEditorContext()$path)
-directoryPath  <- stringr::str_replace(directoryPath, "/src/datapreparation", "")
+directoryPath  <- stringr::str_replace(directoryPath, "/src/01_data_preparation", "")
 
 setwd(directoryPath)
 getwd()
