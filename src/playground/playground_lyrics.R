@@ -30,9 +30,9 @@ WriteLog <- function(TaskName, StartTime, EndTime, AdditionalInfo) {
   #print(log)
 }
 
-## ---- end-of-config
-
 WriteLog('config', start, end, mem)
+
+## ---- end-of-config----
 
 ## ---- load_libraries----
 
@@ -67,7 +67,7 @@ mem = pryr::mem_used()
 
 WriteLog('load library', start, end, mem)
 
-## ---- end-of-load_libraries
+## ---- end-of-load_libraries----
 
 ## ---- data_ingestion----
 
@@ -90,7 +90,7 @@ mem   = pryr::mem_used()
 
 WriteLog('import lyrics', start, end, mem)
 
-## ---- end-of-data_ingestion
+## ---- end-of-data_ingestion----
 
 ## ---- data_filter----
 
@@ -112,7 +112,7 @@ mem = pryr::mem_used()
 
 WriteLog('filter missing values', start, end, mem)
 
-## ---- en-of-data_filter
+## ---- en-of-data_filter----
 
 ## ---- data_enhance----
 
@@ -128,7 +128,7 @@ mem = pryr::mem_used()
 
 WriteLog('data enhance', start, end, mem)
 
-## ---- end-of-data_enhance
+## ---- end-of-data_enhance----
 
 ## ---- view_sample----
 
@@ -143,7 +143,7 @@ mem = pryr::mem_used()
 
 WriteLog('view sample', start, end, mem)
 
-## ---- end-of-view_sample
+## ---- end-of-view_sample----
 
 ## ---- number_of_observations_per_genre----
 
@@ -171,7 +171,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot obs per genre', start, end, mem)
 
-## ---- end-of-number_of_observations_per_genre
+## ---- end-of-number_of_observations_per_genre----
 
 ## ---- number_of_observations_per_decade----
 
@@ -199,7 +199,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot obs per decade', start, end, mem)
 
-## ---- end-of-number_of_observations_per_decade
+## ---- end-of-number_of_observations_per_decade----
 
 ## ---- top_artists----
 
@@ -216,7 +216,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot top artists', start, end, mem)
 
-## ---- end-of-top_artists
+## ---- end-of-top_artists----
 
 ## ---- get_tokens----
 
@@ -236,7 +236,7 @@ mem = pryr::mem_used()
 
 WriteLog('get tokens', start, end, mem)
 
-## ---- end-of-get_tokens
+## ---- end-of-get_tokens----
 
 rm(lyrics)
 invisible(gc())
@@ -282,7 +282,7 @@ end = Sys.time()
 
 WriteLog('save token lyrics', start, end, mem)
 
-## ---- end-of-eliminating_stopwords
+## ---- end-of-eliminating_stopwords----
 
 ## ---- count_tokens----
 
@@ -313,7 +313,7 @@ end = Sys.time()
 
 WriteLog('count tokens', start, end, mem)
 
-## ---- end-of-count_tokens
+## ---- end-of-count_tokens----
 
 ## ---- view_wordcloud_token----
 
@@ -349,7 +349,7 @@ end = Sys.time()
 
 WriteLog('token lyrics wordcloud', start, end, mem)
 
-## ---- end-of-view_wordcloud_token
+## ---- end-of-view_wordcloud_token----
 
 ## ---- wordcloud_per_genre_token----
 
@@ -381,7 +381,7 @@ mem = pryr::mem_used()
 
 WriteLog('token lyrics wordcloud per genre', start, end, mem)
 
-## ---- end-of-wordcloud_per_genre_token
+## ---- end-of-wordcloud_per_genre_token----
 
 ## ---- top_10_words_token----
 
@@ -416,7 +416,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot top words', start, end, mem)
 
-## ---- end-of-top_10_words_token
+## ---- end-of-top_10_words_token----
 
 ## ---- get_tokens_bigrams----
 
@@ -439,7 +439,7 @@ mem = pryr::mem_used()
 
 WriteLog('get tokens bigrams', start, end, mem)
 
-## ---- end-of-get_tokens_bigrams
+## ---- end-of-get_tokens_bigrams----
 
 rm(lyrics, plt, temp)
 invisible(gc())
@@ -479,7 +479,7 @@ end = Sys.time()
 
 WriteLog('save tokens lyrics bigrams', start, end, mem)
 
-## ---- end-of-clean_bigrams
+## ---- end-of-clean_bigrams----
 
 ## ---- plot_network----
 
@@ -566,7 +566,7 @@ plot_network <- function(top_words = 25,
   return (net_graph)
 }
 
-## ---- end-of-plot_network
+## ---- end-of-plot_network----
 
 ## ---- plot_network_all----
 
@@ -583,7 +583,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot net 1', start, end, mem)
 
-## ---- end-of-plot_network_all
+## ---- end-of-plot_network_all----
 
 ## ---- plot_network_artist----
 
@@ -600,7 +600,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot net 2', start, end, mem)
 
-## ---- end-of-plot_network_artist
+## ---- end-of-plot_network_artist----
 
 ## ---- plot_network_genre_1----
 
@@ -617,7 +617,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot net 3', start, end, mem)
 
-## ---- end-of-plot_network_genre_1
+## ---- end-of-plot_network_genre_1----
 
 ## ---- plot_network_genre_2----
 
@@ -634,7 +634,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot net 4', start, end, mem)
 
-## ---- end-of-plot_network_genre_2
+## ---- end-of-plot_network_genre_2----
 
 ## ---- top_bigrams_token----
 
@@ -669,7 +669,7 @@ mem = pryr::mem_used()
 
 WriteLog('calculate tokens lyrics bigram count', start, end, mem)
 
-## ---- end-of-top_bigrams_token
+## ---- end-of-top_bigrams_token----
 
 ## ---- view_wordcloud_token_bigrams----
 
@@ -700,7 +700,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot tokens lyrics bigrams', start, end, mem)
 
-## ---- end-of-view_wordcloud_token_bigrams
+## ---- end-of-view_wordcloud_token_bigrams----
 
 ## ---- view_wordcloud_token_bigrams_per_genre----
 
@@ -732,7 +732,7 @@ mem = pryr::mem_used()
 
 WriteLog('plot tokens lyrics bigrams per genre', start, end, mem)
 
-## ---- end-of-view_wordcloud_token_bigrams_per_genre
+## ---- end-of-view_wordcloud_token_bigrams_per_genre----
 
 ## ---- top_5_words_token_bigrams----
 
@@ -768,7 +768,7 @@ end = Sys.time()
 
 WriteLog('plot top words bigrams', start, end, mem)
 
-## ---- end-of-top_5_words_token_bigrams
+## ---- end-of-top_5_words_token_bigrams----
 
 ## ---- calculate_term_frequency----
 
@@ -811,7 +811,7 @@ mem = pryr::mem_used()
 
 WriteLog('calculate tf', start, end, mem)
 
-## ---- end-of-calculate_term_frequency
+## ---- end-of-calculate_term_frequency----
 
 ## ---- histogram_term_frequency----
 
@@ -828,7 +828,7 @@ end <- Sys.time()
 
 WriteLog('plot histogram of tf', start, end, pryr::mem_used())
 
-## ---- end-of-histogram_term_frequency
+## ---- end-of-histogram_term_frequency----
 
 ## ---- term_frequency_vs_rank----
 
@@ -847,7 +847,7 @@ end  <- Sys.time()
 
 WriteLog('plot term frequency vs rank', start, end, pryr::mem_used())
 
-## ---- end-of-term_frequency_vs_rank
+## ---- end-of-term_frequency_vs_rank----
 
 ## ---- calculate_idf----
 
@@ -870,7 +870,7 @@ mem = pryr::mem_used()
 
 WriteLog('calculate idf', start, end, mem)
 
-## ---- end-of-calculate_idf
+## ---- end-of-calculate_idf----
 
 ## ---- top_words_per_genre_tdidf----
 
@@ -897,7 +897,7 @@ end  <- Sys.time()
 
 WriteLog('print tf idf', start, end, pryr::mem_used())
 
-## ---- end-of-calculate_idf
+## ---- end-of-calculate_idf----
 
 rm(lyrics_token)
 invisible(gc)
@@ -938,7 +938,7 @@ end = Sys.time()
 
 WriteLog('filter tokens LDA', start, end, mem)
 
-## ---- end-of-filter_tokens_LDA
+## ---- end-of-filter_tokens_LDA----
 
 ## ---- sampling_tokens_LDA----
 
@@ -959,7 +959,7 @@ end = Sys.time()
 
 WriteLog('sampling tokens LDA', start, end, mem)
 
-## ---- end-of-sampling_tokens_LDA
+## ---- end-of-sampling_tokens_LDA----
 
 ## ---- create_dtm----
 
@@ -981,7 +981,7 @@ end = Sys.time()
 
 WriteLog('calculate dtm', start, end, mem)
 
-## ---- end-of-create_dtm
+## ---- end-of-create_dtm----
 
 ## ---- LDA_10_topics----
 
@@ -1001,7 +1001,7 @@ end = Sys.time()
 
 WriteLog('calculate tpm 10', start, end, mem)
 
-## ---- end-of-LDA_10_topics
+## ---- end-of-LDA_10_topics----
 
 ## ---- top_words_per_topic_LDA_10----
 
@@ -1036,7 +1036,7 @@ end <- Sys.time()
 
 WriteLog('plot top words lda 10', start, end, mem)
 
-## ---- end-of-top_words_per_topic_LDA_10
+## ---- end-of-top_words_per_topic_LDA_10----
 
 ## ---- classification_per_genre_LDA_10----
 
@@ -1070,7 +1070,7 @@ end  <- Sys.time()
 
 WriteLog('plot classification per genre lda 10', start, end, mem)
 
-## ---- end-of-classification_per_genre_LDA_10
+## ---- end-of-classification_per_genre_LDA_10----
 
 ## ---- classification_per_genre_LDA_10_avg_gamma----
 
@@ -1103,7 +1103,7 @@ end  <- Sys.time()
 
 WriteLog('plot classification per gere lda 10 avg gamma', start, end, mem)
 
-## ---- end-of-classification_per_genre_LDA_10_avg_gamma
+## ---- end-of-classification_per_genre_LDA_10_avg_gamma----
 
 ## ---- LDA_5_topics----
 
@@ -1125,7 +1125,7 @@ end = Sys.time()
 
 WriteLog('calculate tpm 5', start, end, mem)
 
-## ---- end-of-LDA_5_topics
+## ---- end-of-LDA_5_topics----
 
 ## ---- top_words_per_topic_LDA_5----
 
@@ -1160,7 +1160,7 @@ end <- Sys.time()
 
 WriteLog('plot top words lda 5', start, end, mem)
 
-## ---- end-of-top_words_per_topic_LDA_5
+## ---- end-of-top_words_per_topic_LDA_5----
 
 ## ---- classification_per_genre_LDA_5----
 
@@ -1192,7 +1192,7 @@ end  <- Sys.time()
 
 WriteLog('plot classification per genre lda 5', start, end, mem)
 
-## ---- end-of-classification_per_genre_LDA_5
+## ---- end-of-classification_per_genre_LDA_5----
 
 ## ---- classification_per_genre_LDA_5_avg_gamma----
 
@@ -1223,7 +1223,7 @@ end  <- Sys.time()
 
 WriteLog('plot classification per genre lda 5 avg gamma', start, end, mem)
 
-## ---- end-of-classification_per_genre_LDA_5_avg_gamma
+## ---- end-of-classification_per_genre_LDA_5_avg_gamma----
 
 ## ---- classification_non_english----
 
@@ -1246,5 +1246,5 @@ mem = pryr::mem_used()
 
 WriteLog('finish', start, end, mem)
 
-## ---- end-of-classification_non_english
+## ---- end-of-classification_non_english----
 
