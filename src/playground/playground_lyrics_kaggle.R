@@ -1,4 +1,5 @@
-# config
+## ---- config
+
 start  <- Sys.time()
 
 set.seed(123456)
@@ -10,13 +11,35 @@ new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"
 if(length(new.packages)) install.packages(new.packages)
 
 end  <- Sys.time()
-end - start
-pryr::mem_used()
+mem  <- pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'config', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog <- function(TaskName, StartTime, EndTime, AdditionalInfo) {
 
-# Data wrangling
+  TotalTime <- difftime(EndTime, StartTime, tz, 
+                        units = c("auto", "secs", "mins", "hours",
+                                  "days", "weeks"))
+  
+  log  <- paste('[', Sys.time(), '] ',
+                'Task: ', TaskName, ' | ', 
+                'Time elapsed: ', format(round(TotalTime, 3), format = '%H:%M:%S'), ' | ',
+                'Memory used: ', round(pryr::mem_used() / 1000 / 1000, 0), ' MB | ',
+                'Top Memory used: ', round(AdditionalInfo / 1000 / 1000, 0), ' MB | ',
+                sep = "")
+
+  write(log, file = "log.txt", append = TRUE)
+  #print(log)
+}
+
+## ---- end-of-config
+
+WriteLog('config', start, end, mem)
+
+## ---- load_libraries
+
+start = Sys.time()
+
+#data_wrangling
+
 library(dplyr, warn.conflicts = FALSE)
 library(tidyr, warn.conflicts = FALSE)
 library(readr)
@@ -25,52 +48,74 @@ library(tidytext)
 library(ggplot2)
 library(forcats)
 
-# wordcloud
+#wordcloud
+
 library(ggwordcloud)
 
-# network
+#network_visuallization
+
 library(visNetwork)
 library(IRdisplay)
 library(igraph, warn.conflicts = FALSE)
 
-# topic modeling
+#topic_modeling
+
 library(topicmodels)
 
-# data ingestion
+end = Sys.time()
+mem = pryr::mem_used()
+
+WriteLog('load library', start, end, mem)
+
+## ---- end-of-load_libraries
+
+## ---- data_ingestion
+
 start = Sys.time()
 
 lyrics <- read_csv('../input/380000-lyrics-from-metrolyrics/lyrics.csv',
                    col_types = cols(
-                     index = col_integer(),
-                     song = col_character(),
-                     year = col_integer(),
-                     artist = col_factor(),
-                     genre = col_factor(),
-                     lyrics = col_character()),
-                  locale = locale(encoding = 'UTF-8'))
+                       index = col_integer(),
+                       song = col_character(),
+                       year = col_integer(),
+                       artist = col_factor(),
+                       genre = col_factor(),
+                       lyrics = col_character()),
+                   locale = locale(encoding = 'UTF-8'))
 
 print(paste('Número de observações: ', length(lyrics$index)))
 
 end   = Sys.time()
-end - start
-pryr::mem_used()
+mem   = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'import lyrics', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('import lyrics', start, end, mem)
 
-# data filter
+## ---- end-of-data_ingestion
+
+## ---- data_filter
+
+start = Sys.time()
+
 lyrics <- filter(lyrics, 
                  !is.na(lyrics), 
                  !(genre %in% c('Not Available', 'Other')),
                  as.integer(year) >= 1970)
 
 # uncomment for fast prototyping
-# lyrics  <- sample_n(lyrics, size = 150000)
+# lyrics  <- sample_n(lyrics, size = 1000)
 # invisible(gc())
 
 print(paste('Número de observações: ', length(lyrics$index)))
 
-# data enhance
+end = Sys.time()
+mem = pryr::mem_used()
+
+WriteLog('filter missing values', start, end, mem)
+
+## ---- en-of-data_filter
+
+## ---- data_enhance
+
 start  <- Sys.time()
 
 lyrics$decade <- paste(str_sub(lyrics$year, 1, 3), '0', sep = '')
@@ -79,16 +124,31 @@ lyrics$genre  <- trimws(lyrics$genre)
 saveRDS(lyrics, 'lyrics.rds')
 
 end  <- Sys.time()
-end - start
-pryr::mem_used()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'save lyrics', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('data enhance', start, end, mem)
 
-# view sample
-sample_n(lyrics, 3)
+## ---- end-of-data_enhance
 
-# view number of observations per genre
+## ---- view_sample
+
+start = Sys.time()
+
+sample_n(lyrics, 25) %>% 
+    mutate(lyrics_preview = str_sub(lyrics, 1, 140)) %>% 
+    select(-lyrics)
+
+end = Sys.time()
+mem = pryr::mem_used()
+
+WriteLog('view sample', start, end, mem)
+
+## ---- end-of-view_sample
+
+## ---- number_of_observations_per_genre
+
+start = Sys.time()
+
 temp <- group_by(lyrics, genre) %>%
   summarise(songs = n(),
             artists = length(unique(artist))) %>% 
@@ -106,7 +166,17 @@ ggplot(data = temp, aes(x = fct_reorder(genre, songs), y = songs)) +
          text = element_text(size = 20),
          axis.text.x = element_blank())
 
-# view number of observations per decade
+end = Sys.time()
+mem = pryr::mem_used()
+
+WriteLog('plot obs per genre', start, end, mem)
+
+## ---- end-of-number_of_observations_per_genre
+
+## ---- number_of_observations_per_decade
+
+start = Sys.time()
+
 temp  <- group_by(lyrics, decade) %>% 
             summarise(songs = n(),
                       artists = length(unique(artist))) %>% 
@@ -124,14 +194,32 @@ ggplot(data = temp, aes(x = decade, y = songs)) +
          text = element_text(size = 20),
          axis.text.x = element_blank())
 
-# view top artists
+end = Sys.time()
+mem = pryr::mem_used()
+
+WriteLog('plot obs per decade', start, end, mem)
+
+## ---- end-of-number_of_observations_per_decade
+
+## ---- top_artists
+
+start = Sys.time()
+
 count(lyrics, genre, artist, sort = TRUE) %>% 
   group_by(genre) %>% 
   arrange(desc(n)) %>% 
   filter(row_number() <= 3) %>% 
   arrange(desc(genre), desc(n))
 
-# tokens per word
+end = Sys.time()
+mem = pryr::mem_used()
+
+WriteLog('plot top artists', start, end, mem)
+
+## ---- end-of-top_artists
+
+## ---- get_tokens
+
 start  <- Sys.time()
 
 lyrics_token <- unnest_tokens(lyrics,
@@ -144,16 +232,17 @@ lyrics_token <- unnest_tokens(lyrics,
 print(paste('Número de observações: ', length(lyrics_token$index)))
 
 end  <- Sys.time()
-end - start
-pryr::mem_used()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'token lyrics', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('get tokens', start, end, mem)
+
+## ---- end-of-get_tokens
 
 rm(lyrics)
 invisible(gc())
 
-# eliminating stop words
+## ---- eliminating_stopwords
+
 start  <- Sys.time()
 
 custom_stop_words <- c(tm::stopwords("german"), tm::stopwords("spanish"), 
@@ -189,14 +278,14 @@ mem  <- pryr::mem_used()
 rm(bing, count_words)
 invisible(gc)
 
-end <- Sys.time()
-end - start
-mem
+end = Sys.time()
 
-log  <- paste(end - start, ' - ', 'save token lyrics', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('save token lyrics', start, end, mem)
 
-# contagem por gênero musical
+## ---- end-of-eliminating_stopwords
+
+## ---- count_tokens
+
 start  <- Sys.time()
 
 gw <- group_by(lyrics_token, genre, sentiment, word) %>%
@@ -220,14 +309,14 @@ mem  <- pryr::mem_used()
 rm(lyrics_token)
 invisible(gc)
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
 
-log  <- paste(end - start, ' - ', 'calculate token lyrics counts', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('count tokens', start, end, mem)
 
-# view word cloud
+## ---- end-of-count_tokens
+
+## ---- view_wordcloud_token
+
 start  <- Sys.time()
 
 temp <- group_by(w, sentiment) %>% 
@@ -256,14 +345,14 @@ mem  <- pryr::mem_used()
 rm(w)
 invisible(gc)
 
-end <- Sys.time()
-end - start
-mem
+end = Sys.time()
 
-log  <- paste(end - start, ' - ', 'token lyrics wordcloud', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('token lyrics wordcloud', start, end, mem)
 
-# view word cloud per genre
+## ---- end-of-view_wordcloud_token
+
+## ---- wordcloud_per_genre_token
+
 start <- Sys.time()
 
 temp <- group_by(gw, genre, sentiment) %>%  
@@ -287,15 +376,16 @@ plt <- ggplot(data = temp,
 
 suppressWarnings(print(plt))
 
-end  <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'token lyrics wordcloud per genre', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('token lyrics wordcloud per genre', start, end, mem)
 
-# view most common words
-start <- Sys.time()
+## ---- end-of-wordcloud_per_genre_token
+
+## ---- top_10_words_token
+
+start = Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 12)
 
@@ -318,15 +408,18 @@ gw %>%
         axis.ticks.x = element_blank(),
         text = element_text(size = 20))
 
-mem  <- pryr::mem_used()
 rm(gw)
 invisible(gc)
 
-end <- Sys.time()
-end - start
-mem
+end = Sys.time()
+mem = pryr::mem_used()
 
-# tokens bigramas
+WriteLog('plot top words', start, end, mem)
+
+## ---- end-of-top_10_words_token
+
+## ---- get_tokens_bigrams
+
 start  <- Sys.time()
 
 lyrics <- readRDS('lyrics.rds')
@@ -339,52 +432,57 @@ lyrics_token_bi <- unnest_tokens(lyrics,
                                  to_lower = TRUE,
                                  n = 2)
 
-print(paste('Número de termos: ', length(lyrics_token_bi$index)))
+print(paste('Número de termos: ', nrow(lyrics_token_bi)))
 
-end  <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'calculate token lyrics bigramas', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('get tokens bigrams', start, end, mem)
 
-rm(lyrics)
+## ---- end-of-get_tokens_bigrams
+
+rm(lyrics, plt, temp)
 invisible(gc())
 
-# clean bigrams
+## ---- clean_bigrams
+
 start  <- Sys.time()
 
 lyrics_token_bi <- separate(lyrics_token_bi, term, 
-                            sep = ' ', 
+                            sep = ' ',
                             into = c('w1', 'w2'), 
                             remove = FALSE)
-lyrics_token_bi <- filter(lyrics_token_bi, 
-                          !(w1 %in% custom_stop_words) & str_detect(w1, '^[a-z]'))
-lyrics_token_bi <- filter(lyrics_token_bi, 
-                          !(w2 %in% custom_stop_words) & str_detect(w2, '^[a-z]'))
-invisible(gc())
+
 lyrics_token_bi <- filter(lyrics_token_bi, w1 != w2)
 
-lyrics_token_bi <- filter(lyrics_token_bi, nchar(w1) >= 3)
-lyrics_token_bi <- filter(lyrics_token_bi, nchar(w2) >= 3)
+lyrics_token_bi <- filter(lyrics_token_bi, nchar(w1) >= 3, nchar(w2) >= 3)
+
+invisible(gc())
+
+lyrics_token_bi <- filter(lyrics_token_bi, 
+                          !(w1 %in% custom_stop_words) & str_detect(w1, '^[a-z]'))
+
+lyrics_token_bi <- filter(lyrics_token_bi, 
+                          !(w2 %in% custom_stop_words) & str_detect(w2, '^[a-z]'))
 
 saveRDS(lyrics_token_bi, 'lyrics_token_bi.rds')
 
 print(paste('Número de termos apos eliminação de stop words: ', 
-            length(lyrics_token_bi$index)))
+            nrow(lyrics_token_bi)))
 
 mem  <- pryr::mem_used()
+
 rm(lyrics_token_bi)
 invisible(gc)
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
 
-log  <- paste(end - start, ' - ', 'save token lyrics bigrams', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('save tokens lyrics bigrams', start, end, mem)
 
-# custom function to plot network diagram
+## ---- end-of-clean_bigrams
+
+## ---- plot_network
+
 plot_network <- function(top_words = 25, 
                          artist_filter = NULL, 
                          genre_filter = NULL) {
@@ -396,14 +494,20 @@ plot_network <- function(top_words = 25,
 
     if (!is.null(artist_filter)) {count_words  <- filter(count_words, 
                                                          artist %in% artist_filter)}
+    
     if (!is.null(genre_filter)) {count_words   <- filter(count_words, 
                                                          genre %in% genre_filter)}
+    
     count_words  <- count(count_words, word, sentiment, sort = TRUE)
+    
     top_words <- filter(count_words, row_number() <= top_words)
+    
     if (!is.null(artist_filter)) {data  <- filter(data, 
                                                   artist %in% artist_filter)}
+    
     if (!is.null(genre_filter)) {data  <- filter(data, 
                                                  genre %in% genre_filter)}
+    
     data <- group_by(data, w1, w2) %>% 
                summarise(count = n()) %>%
                ungroup() %>%
@@ -416,13 +520,19 @@ plot_network <- function(top_words = 25,
 
     # set nodes
     nodes = tibble(label = unique(c(data$w1, data$w2)))
+    
     nodes = tibble::rowid_to_column(nodes, "id")
+    
     nodes$value = plyr::mapvalues(nodes$label, count_words$word, 
                                   count_words$n, warn_missing = FALSE)
+    
     nodes$value = as.numeric(nodes$value)
+    
     nodes$value = (nodes$value - min(nodes$value)) / 
                                     (max(nodes$value) - min(nodes$value))
+    
     nodes$value = nodes$value * 100
+    
     nodes$group = plyr::mapvalues(nodes$label, count_words$word, 
                                   count_words$sentiment, warn_missing = FALSE)
 
@@ -430,8 +540,10 @@ plot_network <- function(top_words = 25,
     edges  <- tibble(from   = data$w1,
                      to     = data$w2,
                      weight = data$percent)
+    
     edges$from = plyr::mapvalues(edges$from, nodes$label, 
                                  nodes$id, warn_missing = FALSE)
+    
     edges$to = plyr::mapvalues(edges$to, nodes$label, 
                                nodes$id, warn_missing = FALSE)
 
@@ -454,7 +566,9 @@ plot_network <- function(top_words = 25,
     return (net_graph)
 }
 
-# bigrams graph for all dataset
+## ---- end-of-plot_network
+## ---- plot_network_all
+
 start  <- Sys.time()
 
 net_graph <- plot_network(top_words = 25)
@@ -463,14 +577,15 @@ htmlwidgets::saveWidget(net_graph, "net_graph.html")
 
 display_html('<iframe src="net_graph.html" width=100% height=600></iframe>')
 
-end <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'plot net 1', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('plot net 1', start, end, mem)
 
-# bigrams graph for one artist
+## ---- end-of-plot_network_all
+
+## ---- plot_network_artist
+
 start  <- Sys.time()
 
 net_graph <- plot_network(top_words = 50, artist_filter = 'bob-dylan')
@@ -479,14 +594,15 @@ htmlwidgets::saveWidget(net_graph, "net_graph_artist.html")
 
 display_html('<iframe src="net_graph_artist.html" width=100% height=600></iframe>')
 
-end <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'plot net 2', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('plot net 2', start, end, mem)
 
-# bigrams graph for one genre
+## ---- end-of-plot_network_artist
+
+## ---- plot_network_genre_1
+
 start  <- Sys.time()
 
 net_graph <- plot_network(top_words = 25, genre_filter = 'Metal')
@@ -495,14 +611,15 @@ htmlwidgets::saveWidget(net_graph, "net_graph_genre.html")
 
 display_html('<iframe src="net_graph_genre.html" width=100% height=600></iframe>')
 
-end  <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'plot net 3', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('plot net 3', start, end, mem)
 
-# bigrams graph for one 
+## ---- end-of-plot_network_genre_1
+
+## ---- plot_network_genre_2
+
 start  <- Sys.time()
 
 net_graph <- plot_network(top_words = 25, genre_filter = 'Rock')
@@ -511,14 +628,15 @@ htmlwidgets::saveWidget(net_graph, "net_graph_genre.html")
 
 display_html('<iframe src="net_graph_genre.html" width=100% height=600></iframe>')
 
-end  <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'plot net 4', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('plot net 4', start, end, mem)
 
-# contagem por gênero musical
+## ---- end-of-plot_network_genre_2
+
+## ---- top_bigrams_token
+
 start  <- Sys.time()
 
 lyrics_token_bi <- readRDS('lyrics_token_bi.rds')
@@ -541,17 +659,19 @@ w <- group_by(lyrics_token_bi, term) %>%
   arrange(desc(w_c))
 
 mem  <- pryr::mem_used()
+
 rm(lyrics_token_bi)
 invisible(gc)
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'calculate tokens lyrics bigrams count', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('calculate tokens lyrics bigram count', start, end, mem)
 
-# wordcloud commom bigrams
+## ---- end-of-top_bigrams_token
+
+## ---- view_wordcloud_token_bigrams
+
 start  <- Sys.time()
 
 temp <- arrange(w, desc(w_c)) %>% 
@@ -568,19 +688,21 @@ plt <- ggplot(data = temp,
   theme_minimal()
 
 mem  <- pryr::mem_used()
+
 rm(w)
 invisible(gc)
 
 suppressWarnings(print(plt))
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'plot tokens lyrics bigrams', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('plot tokens lyrics bigrams', start, end, mem)
 
-# word cloud commom bigrams per genre
+## ---- end-of-view_wordcloud_token_bigrams
+
+## ---- view_wordcloud_token_bigrams_per_genre
+
 start  <- Sys.time()
 
 temp <- group_by(gw, genre) %>%  
@@ -604,14 +726,15 @@ plt <- ggplot(data = temp,
 
 suppressWarnings(print(plt))
 
-end  <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'plot tokens lyrics bigrams per genre', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('plot tokens lyrics bigrams per genre', start, end, mem)
 
-# most commom bigrams per genre
+## ---- end-of-view_wordcloud_token_bigrams_per_genre
+
+## ---- top_5_words_token_bigrams
+
 start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 12)
@@ -636,14 +759,18 @@ gw %>%
         text = element_text(size = 20))
 
 mem  <- pryr::mem_used()
+
 rm(gw)
 invisible(gc)
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
 
-# load lyrics dataset back to memory.
+WriteLog('plot top words bigrams', start, end, mem)
+
+## ---- end-of-top_5_words_token_bigrams
+
+## ---- calculate_term_frequency
+
 start  <- Sys.time()
 
 lyrics <- readRDS('lyrics.rds')
@@ -674,31 +801,36 @@ lyrics_token <- lyrics_token[, c('genre','word')] %>%
     arrange(genre, rank_tf)
 
 mem  <- pryr::mem_used()
+
 rm(lyrics)
 invisible(gc)
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'calculate tf-idf 1', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('calculate tf', start, end, mem)
 
-# histogram of term frequency
+## ---- end-of-calculate_term_frequency
+
+## ---- histogram_term_frequency
+
 start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 24)
 
 ggplot(lyrics_token, aes(x = n / total, fill = genre)) +
-  geom_histogram(show.legend = FALSE, bins = 100) + 
+  geom_histogram(show.legend = FALSE, bins = 60) + 
   facet_wrap( ~ genre, ncol = 2, scales = 'free') +
   theme(text = element_text(size = 20))
 
 end <- Sys.time()
-end - start
-pryr::mem_used()
 
-# term frequency vs rank
+WriteLog('plot histogram of tf', start, end, pryr::mem_used())
+
+## ---- end-of-histogram_term_frequency
+
+## ---- term_frequency_vs_rank
+
 start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 12)
@@ -706,14 +838,18 @@ options(repr.plot.width = 20, repr.plot.height = 12)
 ggplot(lyrics_token, aes(x = rank_tf, y = tf, color = genre)) +
   geom_line(alpha = 0.8, size = 1.1, show.legend = FALSE) +
   scale_x_log10() + scale_y_log10() +
-  xlab("Rank - Term frequency") + ylab("Term frequency") +
+  xlab("Rank - Term frequency") + ylab("Term frequency") + 
+  labs(title = 'Term frequency vs Rank - Log Scale') +
   theme(text = element_text(size = 20))
 
 end  <- Sys.time()
-end - start
-pryr::mem_used()
 
-# augment the term frequency data frame with inverse document frequency data.
+WriteLog('plot term frequency vs rank', start, end, pryr::mem_used())
+
+## ---- end-of-term_frequency_vs_rank
+
+## ---- calculate_idf
+
 start  <- Sys.time()
 
 lyrics_token <- bind_tf_idf(tbl = lyrics_token,  
@@ -728,14 +864,15 @@ lyrics_token <- bind_tf_idf(tbl = lyrics_token,
 
 filter(lyrics_token, rank_tf_idf  <= 3)
 
-end <- Sys.time()
-end - start
-pryr::mem_used()
+end = Sys.time()
+mem = pryr::mem_used()
 
-log  <- paste(end - start, ' - ', 'calculate tf-idf 2', ' - memory: ', pryr::mem_used())
-write(log, file = "log.txt", append = TRUE)
+WriteLog('calculate idf', start, end, mem)
 
-# top words by genre using TF-IDF
+## ---- end-of-calculate_idf
+
+## ---- top_words_per_genre_tdidf
+
 start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 24)
@@ -756,13 +893,16 @@ options(repr.plot.width = 20, repr.plot.height = 24)
               axis.text.x = element_blank())
 
 end  <- Sys.time()
-end - start
-pryr::mem_used()
+
+WriteLog('print tf idf', start, end, pryr::mem_used())
+
+## ---- end-of-calculate_idf
 
 rm(lyrics_token)
 invisible(gc)
 
-# filter tokens for LDA
+## ---- filter_tokens_LDA
+
 start  <- Sys.time()
 
 lyrics_token <- readRDS('lyrics_token.rds')
@@ -783,19 +923,23 @@ print(paste('Número de termos que aparecem em apenas uma música: ',
 lyrics_token <- filter(lyrics_token, !(word %in% reject_words))
 
 print(paste('Número de tokens: ', 
-            length(lyrics_token$word)))
+            nrow(lyrics_token)))
 
 print(paste('Número de termos restante: ', 
             length(unique(lyrics_token$word))))
 
 mem  <- pryr::mem_used()
+
 rm(reject_words, distinct_words, song_count)
+invisible(gc)
 
 end = Sys.time()
-end - start 
-mem
 
-# sampling dataset for LDA
+WriteLog('filter tokens LDA', start, end, mem)
+
+## ---- end-of-filter_tokens_LDA
+
+## ---- sampling_tokens_LDA
 
 start  <- Sys.time()
 
@@ -811,29 +955,35 @@ mem  <- pryr::mem_used()
 rm(songs_sample)
 
 end = Sys.time()
-end - start 
-mem
 
-# create DTM
+WriteLog('sampling tokens LDA', start, end, mem)
+
+## ---- end-of-sampling_tokens_LDA
+
+## ---- create_dtm
+
 start  <- Sys.time()
 
 dtm <- cast_dtm(data = count(lyrics_token, index, word, sort = TRUE),
-                index, word, n)
+                weighting = tm::weightTf,
+                document = index, 
+                term = word, 
+                value = n)
+
 dtm
 
 saveRDS(dtm, 'dtm.rds')
 
 mem  <- pryr::mem_used()
-rm(lyrics_token)
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
 
-log  <- paste(end - start, ' - ', 'create dtm', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('calculate dtm', start, end, mem)
 
-# calculating model with 10 topics
+## ---- end-of-create_dtm
+
+## ---- LDA_10_topics
+
 start  <- Sys.time()
 
 tpm <- LDA(dtm, k = 10, control = list(seed = 123456))
@@ -841,20 +991,19 @@ tpm <- LDA(dtm, k = 10, control = list(seed = 123456))
 tpm
 summary(tpm)
 
-saveRDS(tpm, 'tpm.rds')
+saveRDS(tpm, 'tpm_10.rds')
 
 mem  <- pryr::mem_used()
-rm(dtm)
 invisible(gc)
 
-end  <- Sys.time()
-end - start
-mem
+end = Sys.time()
 
-log  <- paste(end - start, ' - ', 'create tpm', ' - memory: ', mem)
-write(log, file = "log.txt", append = TRUE)
+WriteLog('calculate tpm 10', start, end, mem)
 
-# visualizing top words per topic
+## ---- end-of-LDA_10_topics
+
+## ---- top_words_per_topic_LDA_10
+
 start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 12)
@@ -878,14 +1027,18 @@ term_top_terms %>%
         axis.ticks = element_blank())
 
 mem  <- pryr::mem_used()
+
 rm(term_topics)
 invisible(gc)
 
 end <- Sys.time()
-end - start
-mem
 
-# visualizing topic classification per genre
+WriteLog('plot top words lda 10', start, end, mem)
+
+## ---- end-of-top_words_per_topic_LDA_10
+
+## ---- classification_per_genre_LDA_10
+
 start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 8)
@@ -908,14 +1061,18 @@ inner_join(lyrics, songs_topics, by = c('index' = 'document')) %>%
                   axis.ticks.y = element_blank())
 
 mem  <- pryr::mem_used()
+
 rm(lyrics, songs_topics)
 invisible(gc)
 
 end  <- Sys.time()
-end - start
-mem
 
-# visualizing topic classification per genre
+WriteLog('plot classification per genre lda 10', start, end, mem)
+
+## ---- end-of-classification_per_genre_LDA_10
+
+## ---- classification_per_genre_LDA_10_avg_gamma
+
 start  <- Sys.time()
 
 options(repr.plot.width = 20, repr.plot.height = 8)
@@ -940,10 +1097,153 @@ inner_join(lyrics, songs_topics, by = c('index' = 'document')) %>%
                   panel.grid = element_blank())
 
 mem  <- pryr::mem_used()
-rm(lyrics, songs_topics)
+
+end  <- Sys.time()
+
+WriteLog('plot classification per gere lda 10 avg gamma', start, end, mem)
+
+## ---- end-of-classification_per_genre_LDA_10_avg_gamma
+
+## ---- LDA_5_topics
+
+start  <- Sys.time()
+
+tpm <- LDA(dtm, k = 5, control = list(seed = 123456))
+
+tpm
+summary(tpm)
+
+saveRDS(tpm, 'tpm_5.rds')
+
+mem  <- pryr::mem_used()
+
+rm(dtm)
+invisible(gc)
+
+end = Sys.time()
+
+WriteLog('calculate tpm 5', start, end, mem)
+
+## ---- end-of-LDA_5_topics
+
+## ---- top_words_per_topic_LDA_5
+
+start  <- Sys.time()
+
+options(repr.plot.width = 20, repr.plot.height = 12)
+
+term_topics <- tidy(tpm, matrix = "beta")
+
+term_top_terms <- term_topics %>%
+  group_by(topic) %>%
+  top_n(20, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+term_top_terms %>%
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free", nrow = 1) +
+  coord_flip() +
+  theme(text = element_text(size = 20), 
+        axis.text.x = element_blank(), 
+        axis.ticks = element_blank())
+
+mem  <- pryr::mem_used()
+
+rm(term_topics)
+invisible(gc)
+
+end <- Sys.time()
+
+WriteLog('plot top words lda 5', start, end, mem)
+
+## ---- end-of-top_words_per_topic_LDA_5
+
+## ---- classification_per_genre_LDA_5
+
+start  <- Sys.time()
+
+options(repr.plot.width = 20, repr.plot.height = 8)
+
+lyrics <- readRDS('lyrics.rds')
+songs_topics <- tidy(tpm, matrix = "gamma")
+
+lyrics$index <- as.character(lyrics$index)
+
+inner_join(lyrics, songs_topics, by = c('index' = 'document')) %>% 
+    select(index, song, year, artist, genre, decade, topic, gamma) %>% 
+        ggplot(aes(x = factor(topic), y = gamma, fill = genre)) +
+            geom_boxplot(show.legend = FALSE, outlier.size = 0.1) +
+            facet_wrap(~ genre, nrow = 2) +
+            ylim(0, 1) +
+            xlab('Topic') + ylab('gamma') +
+            labs(title = 'Topic classification per Genre') +
+            theme(text = element_text(size = 20), 
+                  axis.text.y = element_blank(), 
+                  axis.ticks.y = element_blank())
+
+mem  <- pryr::mem_used()
 invisible(gc)
 
 end  <- Sys.time()
-end - start
-mem
+
+WriteLog('plot classification per genre lda 5', start, end, mem)
+
+## ---- end-of-classification_per_genre_LDA_5
+
+## ---- classification_per_genre_LDA_5_avg_gamma
+
+start  <- Sys.time()
+
+options(repr.plot.width = 20, repr.plot.height = 10)
+
+lyrics$index <- as.character(lyrics$index)
+
+inner_join(lyrics, songs_topics, by = c('index' = 'document')) %>% 
+    select(index, song, year, artist, genre, decade, topic, gamma) %>% 
+    group_by(genre, topic) %>% 
+    summarize(mean_gamma = mean(gamma, na.rm = TRUE)) %>% 
+    arrange(topic) %>%
+        ggplot(aes(x = factor(topic), y = genre, fill = mean_gamma)) +
+            geom_bin2d(stat = 'identity', show.legend = FALSE) +
+            geom_text(aes(label = round(mean_gamma, 4)), color = 'white', size = 6) +
+            scale_fill_gradient(low = "#E53935", high = "#196F3D") +
+            theme_minimal() + ylab('Genre') + xlab('Topic') + 
+            labs(title = 'Average Gamma by Genre vs Topic') +
+            theme(text = element_text(size = 20), 
+                  panel.grid = element_blank())
+
+mem  <- pryr::mem_used()
+invisible(gc)
+
+end  <- Sys.time()
+
+WriteLog('plot classification per genre lda 5 avg gamma', start, end, mem)
+
+## ---- end-of-classification_per_genre_LDA_5_avg_gamma
+
+## ---- classification_non_english
+
+start = Sys.time()
+
+group_by(songs_topics, document) %>% 
+    arrange(desc(gamma)) %>% 
+    filter(row_number() == 1) %>% 
+    ungroup() %>% 
+    filter(topic == 2) %>% 
+    inner_join(lyrics, by = c('document' = 'index')) %>% 
+    select(artist, song, genre, decade, gamma, lyrics) %>% 
+    mutate(lyrics_preview = str_sub(lyrics, 1, 140)) %>% 
+    select(-lyrics) %>% 
+    arrange(desc(gamma)) %>% 
+    head(25)
+
+end = Sys.time()
+mem = pryr::mem_used()
+
+WriteLog('finish', start, end, mem)
+
+## ---- end-of-classification_non_english
 
