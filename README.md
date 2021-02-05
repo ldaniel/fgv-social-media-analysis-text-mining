@@ -6,7 +6,7 @@ In this project, we developed a set of works to go further in Social Media Analy
 
 This website intends to present the work analysis for the *"Análise de Mídias Sociais e Mineração de Texto"* class assignment.
 
-See the final website report at: [https://ldaniel.github.io/Social-Media-Analysis-Text-Mining](https://ldaniel.github.io/Social-Media-Analysis-Text-Mining).
+See the final website report at: [https://ldaniel.github.io/fgv-social-media-analysis-text-mining](https://ldaniel.github.io/fgv-social-media-analysis-text-mining).
 
 ## Professors
 - Gustavo Mirapalheta
